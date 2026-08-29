@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# Serve real files/directories directly (css, js, images...)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L,QSA]
+
+# Block direct access to .env, .git, etc.
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Extra safety net in case the FilesMatch above isn't honored by the host
+<Files ".env">
+    Require all denied
+</Files>
