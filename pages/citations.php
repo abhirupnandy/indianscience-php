@@ -349,20 +349,19 @@ $tags = ["Citations", "Research Output", "Research Impact", "India"];
 
                             <ul class="space-y-1">
                                 <?php foreach (
-                                    $sections
-                                    as $index => $section
+                                    $sections as $index => $section
                                 ): ?>
                                     <li>
                                         <a
                                             href="#<?= e(
-                                                        strtolower(
-                                                            preg_replace(
-                                                                "/[^a-z0-9]+/i",
-                                                                "-",
-                                                                $section
-                                                            )
-                                                        )
-                                                    ) ?>"
+                                                strtolower(
+                                                    preg_replace(
+                                                        "/[^a-z0-9]+/i",
+                                                        "-",
+                                                        $section,
+                                                    ),
+                                                ),
+                                            ) ?>"
                                             class="block rounded-lg px-3 py-2
                                                    text-sm leading-5
                                                    text-gray-600 transition

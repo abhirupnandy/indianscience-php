@@ -53,6 +53,10 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script src="https://cdn.datatables.net/2.3.3/js/dataTables.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
 </head>
 
 <body class="bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100">
@@ -61,4 +65,4 @@
         <?php partial('nav'); ?>
     </header>
 
-    <main class="w-full p-4 sm:p-6 lg:p-8">
+    <main class="mx-auto w-full  px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8">

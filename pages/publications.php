@@ -1,5 +1,5 @@
 <?php
-$pageTitle    = 'Related Publications';
+$pageTitle = 'Related Publications';
 $publications = $pdo->query("SELECT * FROM publications ORDER BY published_at DESC")->fetchAll();
 ?>
 <div class="container">

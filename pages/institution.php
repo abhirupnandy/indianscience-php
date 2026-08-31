@@ -7,7 +7,7 @@ if (!$institution) {
 }
 
 $statsStmt = $pdo->prepare(
-    "SELECT * FROM institution_stats WHERE institution_id = :id ORDER BY id DESC LIMIT 1"
+    "SELECT * FROM institution_stats WHERE institution_id = :id ORDER BY id DESC LIMIT 1",
 );
 $statsStmt->execute([':id' => $institution['id']]);
 $s = $statsStmt->fetch() ?: null;

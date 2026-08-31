@@ -9,7 +9,7 @@ if (!$post) {
     abort_404(); // exits
 }
 
-$pageTitle       = $post['title'];
+$pageTitle = $post['title'];
 $pageDescription = $post['excerpt'] ?? '';
 ?>
 <article class="container blog-post">

@@ -28,11 +28,11 @@ $routes = [
     '' => 'home.php',
 
     // Institutions
-    'institutions'      => 'institutions.php',
+    'institutions' => 'institutions.php',
     'institution/{slug}' => 'institution.php',
 
     // Blog
-    'blog'        => 'blog.php',
+    'blog' => 'blog.php',
     'blog/{slug}' => 'blog-post.php',
 
     // Publications
@@ -40,19 +40,19 @@ $routes = [
 
     // Reports
     'reports/research-output' => 'research-output.php',
-    'reports/citations'      => 'citations.php',
-    'reports/collaboration'  => 'collaboration.php',
-    'reports/gender'         => 'gender.php',
-    'reports/open-access'    => 'open-access.php',
-    'reports/social-media'   => 'social-media.php',
-    'reports/grants'         => 'grants.php',
-    'reports/sdg-research'   => 'sdg-research.php',
+    'reports/citations' => 'citations.php',
+    'reports/collaboration' => 'collaboration.php',
+    'reports/gender' => 'gender.php',
+    'reports/open-access' => 'open-access.php',
+    'reports/social-media' => 'social-media.php',
+    'reports/grants' => 'grants.php',
+    'reports/sdg-research' => 'sdg-research.php',
 
     // Static pages
-    'about'       => 'about.php',
-    'team'        => 'team.php',
+    'about' => 'about.php',
+    'team' => 'team.php',
     'methodology' => 'methodology.php',
-    'terms'       => 'terms.php',
+    'terms' => 'terms.php',
 ];
 
 
@@ -63,9 +63,9 @@ $routes = [
 $path = trim(
     (string) parse_url(
         $_SERVER['REQUEST_URI'] ?? '/',
-        PHP_URL_PATH
+        PHP_URL_PATH,
     ),
-    '/'
+    '/',
 );
 
 
@@ -73,7 +73,7 @@ $path = trim(
 // MATCH ROUTE
 // ================================================================
 
-$page   = null;
+$page = null;
 $params = [];
 
 foreach ($routes as $pattern => $file) {
@@ -91,7 +91,7 @@ foreach ($routes as $pattern => $file) {
     $regexPattern = preg_replace(
         '/\{(\w+)\}/',
         '(?P<$1>[A-Za-z0-9\-]+)',
-        $pattern
+        $pattern,
     );
 
     $regex = '#^' . $regexPattern . '$#';
@@ -110,7 +110,7 @@ foreach ($routes as $pattern => $file) {
         $params = array_filter(
             $matches,
             'is_string',
-            ARRAY_FILTER_USE_KEY
+            ARRAY_FILTER_USE_KEY,
         );
 
         break;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * includes/functions.php — small reusable helpers available on every page.
  */

@@ -1,14 +1,14 @@
 <?php
 $pageTitle = 'Blog';
 
-$page    = max(1, (int) ($_GET['page'] ?? 1));
+$page = max(1, (int) ($_GET['page'] ?? 1));
 $perPage = 10;
-$offset  = ($page - 1) * $perPage;
+$offset = ($page - 1) * $perPage;
 
 $total = (int) $pdo->query("SELECT COUNT(*) FROM posts WHERE is_published = 1")->fetchColumn();
 
 $stmt = $pdo->prepare(
-    "SELECT * FROM posts WHERE is_published = 1 ORDER BY published_at DESC LIMIT :limit OFFSET :offset"
+    "SELECT * FROM posts WHERE is_published = 1 ORDER BY published_at DESC LIMIT :limit OFFSET :offset",
 );
 $stmt->bindValue(':limit', $perPage, PDO::PARAM_INT);
 $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);

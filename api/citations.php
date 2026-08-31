@@ -13,64 +13,64 @@ header('Content-Type: application/json; charset=utf-8');
 
 $citations = [
     [
-        'year'         => 2010,
-        'volume'       => 1149114,
+        'year' => 2010,
+        'volume' => 1149114,
         'global_share' => 2.43,
-        'rank'         => 14,
+        'rank' => 14,
     ],
     [
-        'year'         => 2011,
-        'volume'       => 1213800,
+        'year' => 2011,
+        'volume' => 1213800,
         'global_share' => 2.60,
-        'rank'         => 14,
+        'rank' => 14,
     ],
     [
-        'year'         => 2012,
-        'volume'       => 1291442,
+        'year' => 2012,
+        'volume' => 1291442,
         'global_share' => 2.89,
-        'rank'         => 14,
+        'rank' => 14,
     ],
     [
-        'year'         => 2013,
-        'volume'       => 1328138,
+        'year' => 2013,
+        'volume' => 1328138,
         'global_share' => 3.05,
-        'rank'         => 12,
+        'rank' => 12,
     ],
     [
-        'year'         => 2014,
-        'volume'       => 1411830,
+        'year' => 2014,
+        'volume' => 1411830,
         'global_share' => 3.44,
-        'rank'         => 12,
+        'rank' => 12,
     ],
     [
-        'year'         => 2015,
-        'volume'       => 1332899,
+        'year' => 2015,
+        'volume' => 1332899,
         'global_share' => 3.52,
-        'rank'         => 12,
+        'rank' => 12,
     ],
     [
-        'year'         => 2016,
-        'volume'       => 1286448,
+        'year' => 2016,
+        'volume' => 1286448,
         'global_share' => 3.83,
-        'rank'         => 12,
+        'rank' => 12,
     ],
     [
-        'year'         => 2017,
-        'volume'       => 1162771,
+        'year' => 2017,
+        'volume' => 1162771,
         'global_share' => 4.04,
-        'rank'         => 11,
+        'rank' => 11,
     ],
     [
-        'year'         => 2018,
-        'volume'       => 958622,
+        'year' => 2018,
+        'volume' => 958622,
         'global_share' => 4.26,
-        'rank'         => 9,
+        'rank' => 9,
     ],
     [
-        'year'         => 2019,
-        'volume'       => 670416,
+        'year' => 2019,
+        'volume' => 670416,
         'global_share' => 4.48,
-        'rank'         => 9,
+        'rank' => 9,
     ],
 ];
 
@@ -83,7 +83,7 @@ $draw = (int) ($_POST['draw'] ?? 0);
 
 $start = max(
     0,
-    (int) ($_POST['start'] ?? 0)
+    (int) ($_POST['start'] ?? 0),
 );
 
 $length = (int) ($_POST['length'] ?? 10);
@@ -98,7 +98,7 @@ if ($length < 1) {
 // ================================================================
 
 $search = trim(
-    (string) ($_POST['search']['value'] ?? '')
+    (string) ($_POST['search']['value'] ?? ''),
 );
 
 $filtered = $citations;
@@ -114,24 +114,24 @@ if ($search !== '') {
             return
                 str_contains(
                     strtolower((string) $row['year']),
-                    $searchLower
+                    $searchLower,
                 )
                 ||
                 str_contains(
                     strtolower((string) $row['volume']),
-                    $searchLower
+                    $searchLower,
                 )
                 ||
                 str_contains(
                     strtolower((string) $row['global_share']),
-                    $searchLower
+                    $searchLower,
                 )
                 ||
                 str_contains(
                     strtolower((string) $row['rank']),
-                    $searchLower
+                    $searchLower,
                 );
-        }
+        },
     );
 
     // Re-index array after filtering
@@ -150,13 +150,13 @@ $orderColumn = (int) (
 $orderDirection = strtolower(
     (string) (
         $_POST['order'][0]['dir'] ?? 'asc'
-    )
+    ),
 );
 
 $orderDirection = in_array(
     $orderDirection,
     ['asc', 'desc'],
-    true
+    true,
 )
     ? $orderDirection
     : 'asc';
@@ -181,7 +181,7 @@ usort(
         return $orderDirection === 'desc'
             ? -$comparison
             : $comparison;
-    }
+    },
 );
 
 
@@ -196,7 +196,7 @@ $recordsFiltered = count($filtered);
 $data = array_slice(
     $filtered,
     $start,
-    $length
+    $length,
 );
 
 
@@ -205,8 +205,8 @@ $data = array_slice(
 // ================================================================
 
 echo json_encode([
-    'draw'            => $draw,
-    'recordsTotal'    => $recordsTotal,
+    'draw' => $draw,
+    'recordsTotal' => $recordsTotal,
     'recordsFiltered' => $recordsFiltered,
-    'data'            => $data,
+    'data' => $data,
 ]);

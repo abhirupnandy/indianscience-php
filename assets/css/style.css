@@ -1,0 +1,35 @@
+:root {
+    --site-max-width: 1280px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+}
+
+main {
+    width: 100%;
+}
+
+.container,
+main > .container {
+    width: min(100%, var(--site-max-width));
+    margin-inline: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+section > .container,
+section .container {
+    width: min(100%, var(--site-max-width));
+    margin-inline: auto;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
