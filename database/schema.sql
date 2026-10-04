@@ -115,3 +115,21 @@ CREATE TABLE site_counters (
     counter_value   INT NOT NULL,
     label           VARCHAR(100) NOT NULL
 ) ENGINE=InnoDB;
+-- ---------------------------------------------------------------
+-- Visitors
+-- ---------------------------------------------------------------
+CREATE TABLE visitors (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    browser_id CHAR(32) NOT NULL,
+    ip_address VARCHAR(45) DEFAULT NULL,
+    first_visit DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_visit DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    visit_count INT UNSIGNED NOT NULL DEFAULT 1,
+
+    PRIMARY KEY (id),
+    UNIQUE KEY browser_id (browser_id),
+    KEY idx_ip_address (ip_address),
+    KEY idx_last_visit (last_visit)
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_unicode_ci;
