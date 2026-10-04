@@ -290,31 +290,25 @@ $tags = ['International Collaborations', 'Research Output', 'Research Impact', '
 
 
                 <section
-                        id="relative-citation-ratio-rcr-of-india-in-different-subject-areas"
+                        id="india-s-major-collaborating-partner-countries"
                         class="mt-12 scroll-mt-24">
                     <h2
                             class="text-2xl font-bold tracking-tight
                                text-gray-900
                                dark:text-white">
-                        Relative Citation Ratio (RCR) of India in different subject areas
+                        India's major collaborating partner countries
                     </h2>
 
                     <p class="mt-4">
-                        The Relative Citation Ratio (RCR) indicates relative citation performance of a publication when
-                        comparing it's citation rate to that of other publications in it's area of research. A value of
-                        more than 1 shows a citation rate above average. India's research output during 2010 to 2019,
-                        when divided into 22 major subject areas is as shown below. It can be observed that subject
-                        areas - Environmental Science, Agriculture & Veterinary Sciences, Engineering, Earth Sciences
-                        and Biological Sciences etc. have citation rate higher than the world average, whereas subject
-                        areas - Law & Legal Studies, Philosophy & Religious Studies, Education, Built Environment &
-                        Design and Psychology & Cognitive Sciences etc. has a citation rate lower than the world
-                        average.
-
+                        India's major collaborating partner countries during 2010 to 2019 includes - United States of
+                        America (33.09%), United Kingdom (12.42%), Germany (9.19%), China (8.87%), South Korea (7.72%)
+                        and Australia (7.06%). The figure below shows a list of top 25 collaborating partner countries
+                        along with the number of collaborated papers during 2010 to 2019.
                     </p>
                 </section>
                 <div class="mt-6 w-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
                     <img
-                            src="<?= url('assets/img/pages/cit_2.jpg') ?>"
+                            src="<?= url('assets/img/pages/collab_3.jpg') ?>"
                             alt="Citation statistics"
                             class="h-auto w-full object-cover"
                             loading="lazy">
@@ -322,51 +316,96 @@ $tags = ['International Collaborations', 'Research Output', 'Research Impact', '
 
 
                 <section
-                        id="india-s-contribution-to-highly-cited-papers"
+                        id="subject-area-wise-distribution-of-domestic-and-internationally-collaborated-papers"
                         class="mt-12 scroll-mt-24">
                     <h2
                             class="text-2xl font-bold tracking-tight
                                text-gray-900
                                dark:text-white">
-                        India's contribution to highly cited papers
+                        Subject area-wise distribution of domestic and Internationally Collaborated papers
                     </h2>
 
                     <p class="mt-4">
-                        Highly cited papers of a country are often measured by the number of publications that it
-                        contributes in the top 1% or top 10% most cited papers of the world. In case of India, it is
-                        observed that India's contribution to top 1% highly cited papers has grown from 1.85% in 2010 to
-                        4.3% in 2019. Similarly, India's contribution in top 10% highly cited papers of the world has
-                        grown from 2.28% in 2010 to 4.52% in 2019. The figure below shows the year-wise percentage
-                        contribution of India to the top 1% and top 10% highly cited papers of the world.
+                        The international collaboration patterns in Indian research output vary across different subject
+                        areas. It ranges from a low of 15.88% in Language, Communication and Culture to 32.55% in Earth
+                        Sciences. Subject areas with relatively higher international collaboration percentage are
+                        Physical Sciences (31.67%), Economics (29.44%), Built-Environment and Design (28.72%),
+                        Environmental Sciences (28.69%). The domestic multi-institution collaborated output varies
+                        across different subject areas. For example, Earth Sciences has 24.87% research output as
+                        multi-institution collaboration, whereas History and Archeology has only 6.68% of its
+                        research output involving domestic multi-institutional collaboration. The figure below
+                        presents the subject area-wise distribution of domestic and internationally collaborated
+                        research output of India.
 
                     </p>
 
                     <div class="mt-6 w-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
                         <img
-                                src="<?= url('assets/img/pages/cit_3.jpg') ?>"
+                                src="<?= url('assets/img/pages/collab_4.jpg') ?>"
                                 alt="Citation statistics"
                                 class="h-auto w-full object-cover"
                                 loading="lazy">
-                    </div>
+                        <div class='p-4 text-gray-500 text-sm'>
+                            <p class='font-semibold mb-2'>Subject Codes</p>
 
-                    <p class="mt-4">
-                        When compared with contribution to top 1% highly cited papers of other major countries, it is
-                        observed that China has gained significantly with an increase from 7.78% share in 2010 to 33.2%
-                        share in 2019. United States on the other hand shows a decline from 50.1% share in 2010 to
-                        36.96% share in 2019. Other countries to gain are Japan, India, Italy, Australia, Spain, etc.
-                        The countries to lose in their share of top 1% highly cited papers are Germany, France, Canada,
-                        etc. The figure below shows the share of top 1% highly cited papers of the major countries
-                        during 2010 and 2019.
+                            <ul class='grid grid-cols-2 gap-x-8 gap-y-1 list-disc list-inside'>
+                                <li><strong>01</strong> - Mathematical Science</li>
+                                <li><strong>02</strong> - Physical Sciences</li>
+                                <li><strong>03</strong> - Chemical Sciences</li>
+                                <li><strong>04</strong> - Earth Sciences</li>
+                                <li><strong>05</strong> - Environmental Sciences</li>
+                                <li><strong>06</strong> - Biological Sciences</li>
+                                <li><strong>07</strong> - Agricultural and Veterinary Sciences</li>
+                                <li><strong>08</strong> - Information and Computing Sciences</li>
+                                <li><strong>09</strong> - Engineering</li>
+                                <li><strong>10</strong> - Technology</li>
+                                <li><strong>11</strong> - Medical and Health Sciences</li>
+                                <li><strong>12</strong> - Built Environment and Design</li>
+                                <li><strong>13</strong> - Education</li>
+                                <li><strong>14</strong> - Economics</li>
+                                <li><strong>15</strong> - Commerce, Management, Tourism and Services</li>
+                                <li><strong>16</strong> - Studies in Human Society</li>
+                                <li><strong>17</strong> - Psychology and Cognitive Sciences</li>
+                                <li><strong>18</strong> - Law and Legal Studies</li>
+                                <li><strong>19</strong> - Studies in Creative Arts and Writing</li>
+                                <li><strong>20</strong> - Language, Communication and Culture</li>
+                                <li><strong>21</strong> - History and Archaeology</li>
+                                <li><strong>22</strong> - Philosophy and Religious Studies</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section
+                        id='citation-impact-of-internationally-collaborated-papers'
+                        class='mt-12 scroll-mt-24'>
+                    <h2
+                            class='text-2xl font-bold tracking-tight
+                               text-gray-900
+                               dark:text-white'>
+                        Citation impact of Internationally Collaborated Papers
+                    </h2>
+
+                    <p class='mt-4'>
+                        The International Collaboration seems to have an advantage in terms of citation impact as
+                        compared to domestic papers. For example, the average citations per paper (ACPP) for domestic
+                        papers is 7.95, whereas the average citation per paper for Internationally Collaborated papers
+                        is 18.65. Similarly, the cited percentage of domestic papers is 76.75% whereas for
+                        internationally collaborated papers, it is 89%. Further, International Collaboration with
+                        different countries shows different impact, as shown in the figure below. For example,
+                        collaboration with Switzerland leads to a cited percentage of more than 93%, with an ACPP of 35.
+                        On the other hand, collaboration with Japan has a cited percentage of 88%, with an ACPP value
+                        of 24.5.
+
                     </p>
 
-                    <div class="mt-6 w-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
+                    <div class='mt-6 w-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800'>
                         <img
-                                src="<?= url('assets/img/pages/cit_4.jpg') ?>"
-                                alt="Citation statistics"
-                                class="h-auto w-full object-cover"
-                                loading="lazy">
+                                src="<?= url('assets/img/pages/collab_5.jpg') ?>"
+                                alt='Citation statistics'
+                                class='h-auto w-full object-cover'
+                                loading='lazy'>
                     </div>
-
                 </section>
 
             </article>
@@ -478,8 +517,8 @@ $tags = ['International Collaborations', 'Research Output', 'Research Impact', '
 
     </section>
 
+<?php include __DIR__ . '/../partials/data-source-note.php'; ?>
 </div>
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
 

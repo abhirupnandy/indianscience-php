@@ -523,6 +523,7 @@ $tags = ["Research Output", "Research Impact", "India", "Dimensions", "Subjects"
         </div>
 
     </section>
+    <?php include __DIR__ . '/../partials/data-source-note.php'; ?>
 
 </div>
 

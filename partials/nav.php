@@ -68,33 +68,36 @@ function socialIcon(string $icon): string
 
             <!-- Brand -->
             <a href="<?= url('') ?>"
-                class="flex items-center gap-3"
-                aria-label="Indian Science Reports - Home">
+               class='group flex items-center gap-3'
+               aria-label='Indian Science Reports - Home'>
 
-                <span class="flex h-11 w-11 items-center justify-center
-                             rounded-xl bg-gradient-to-br
-                             from-[#FF9933] via-[#1A4D8F] to-[#138808]">
+                <!-- ISR Logo -->
+                <span class='flex h-11 w-11 shrink-0 items-center justify-center
+                 rounded-xl bg-gradient-to-br
+                 from-[#FF9933] via-[#1A4D8F] to-[#138808]
+                 shadow-md'>
 
-                    <span class="flex h-[calc(100%-4px)] w-[calc(100%-4px)]
+                    <span class='flex h-[calc(100%-4px)] w-[calc(100%-4px)]
                                  items-center justify-center rounded-[9px]
-                                 bg-white dark:bg-slate-950">
+                                 bg-white dark:bg-slate-950'>
 
-                        <span class="text-[11px] font-extrabold text-[#1A4D8F] dark:text-white">
-                            ISR
+                        <span class='text-[11px] font-extrabold tracking-tight
+                                         text-[#1A4D8F] dark:text-white'>
+                                ISR
                         </span>
 
                     </span>
                 </span>
 
-                <span class="font-display text-2xl font-medium tracking-tight
-                             text-slate-950 dark:text-white xl:text-3xl">
-                    Indian
-                    <span class="italic text-amber-500">Science</span>
-                    Reports
+                <!-- Wordmark -->
+                <span class='font-display text-5xl font-bold tracking-tight xl:text-3xl
+                         [text-shadow:0_1px_1px_rgba(15,23,42,0.18),0_2px_4px_rgba(15,23,42,0.08)]
+                         [-webkit-text-stroke:0.35px_rgba(15,23,42,0.12)]'>
+                    <span class='text-[#FF9933]'>Indian</span>
+                    <span class='text-[#1A4D8F]'>Science</span>
+                    <span class='text-[#138808]'>Reports</span>
                 </span>
-
             </a>
-
 
             <!-- Social + Theme -->
             <div class="flex items-center gap-1">

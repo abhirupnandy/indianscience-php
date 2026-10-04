@@ -7,7 +7,7 @@
 
     <title>
         <?= e($pageTitle ?? SITE_NAME) ?>
-        <?= isset($pageTitle) ? ' — ' . SITE_NAME : '' ?>
+        <?= isset($pageTitle) ? ' | ' . SITE_NAME : '' ?>
     </title>
 
     <meta
