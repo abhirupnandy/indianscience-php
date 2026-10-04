@@ -2,17 +2,12 @@
 $pageTitle = 'Research Output';
 
 $pageDescription =
-    // "Total citations to Indian Research output, Relative Citation Ratio, Highly Cited Papers of India and comparison with other major countries.";
     "Total research output of Indian research, within the 2010-2019 period from the top 1000 institutions.";
 
 $breadcrumbs = [
     [
         'label' => 'Home',
         'path' => '/',
-    ],
-    [
-        'label' => 'Reports',
-        'path' => null,
     ],
     [
         'label' => 'Research Output',
@@ -179,93 +174,247 @@ $tags = ["Research Output", "Research Impact", "India", "Dimensions", "Subjects"
                         </div>
                     </div>
 
-
-                    <section
-                        id="comparison-with-other-countries"
-                        class="mt-12 scroll-mt-24">
-                        <h2
-                            class="text-2xl font-bold tracking-tight
-                               text-gray-900
-                               dark:text-white">
-                            Comparison with other countries
-                        </h2>
-
-                        <p class="mt-4">
-                            India ranks at 12th place in terms of citation rank during the period 2010 to 2019. However, India's citation rank has improved from 14th in 2010 to 9th in 2019 (a jump of 5 places). Among the countries with highest citation share and rank, United States is at rank 1, with global share of 34.84% during 2010 to 2019, followed by China with 14.74% in 2010 to 2019. Other major countries are United Kingdom with 10.52% global share in citations, Germany with 8.51% of global citations and Canada with 5.51% of global share during 2010 to 2019 period.
-                            The figure below presents the global share of citations, in 2010 and 2019, of the 20 selected countries.
-                        </p>
-                    </section>
-
+                    <p class="mt-4">
+                        India's global rank in research output has also been improving constantly during this period. In the year 2010, India ranked 10th globally in research output volume, which improved to 9th in 2011 and 2012, 8th in 2013, 7th in 2014, and 6th in 2015. From 2015 onwards, India continues to be ranked 6th globally in research output volume. The countries ranking above India are - United States, China, United Kingdom, Germany, Japan. The figure below shows year-wise ranked positions of India during this period.
+                    </p>
                     <div class="mt-6 w-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
                         <img
-                            src="<?= url('assets/img/pages/cit_1.jpg') ?>"
-                            alt="Citation statistics"
+                            src="<?= url('assets/img/pages/res_3.jpg') ?>"
+                            alt="Research output rank"
                             class="h-auto w-full object-cover"
                             loading="lazy">
                     </div>
 
 
                     <section
-                        id="relative-citation-ratio-rcr-of-india-in-different-subject-areas"
+                        id="comparison-with-other-major-countries"
                         class="mt-12 scroll-mt-24">
                         <h2
                             class="text-2xl font-bold tracking-tight
                                text-gray-900
                                dark:text-white">
-                            Relative Citation Ratio (RCR) of India in different subject areas
+                            Comparison with other major countries
                         </h2>
 
                         <p class="mt-4">
-                            The Relative Citation Ratio (RCR) indicates relative citation performance of a publication when comparing it's citation rate to that of other publications in it's area of research. A value of more than 1 shows a citation rate above average. India's research output during 2010 to 2019, when divided into 22 major subject areas is as shown below. It can be observed that subject areas - Environmental Science, Agriculture & Veterinary Sciences, Engineering, Earth Sciences and Biological Sciences etc. have citation rate higher than the world average, whereas subject areas - Law & Legal Studies, Philosophy & Religious Studies, Education, Built Environment & Design and Psychology & Cognitive Sciences etc. has a citation rate lower than the world average.
-
+                            For a better understanding of India's research performance, the values of research output volume, CAGR, and global share of 20 major countries are compared, as shown in the Table below. It can be seen that India has a high CAGR value of 9.46%, which is lesser than only three countries - Russia (11.43%), Iran (10.56%) and China (9.50%). In terms of global share, India accounts for 2.95% of the total research output of the world during 2010-2019 period.
                         </p>
                     </section>
-                    <div class="mt-6 w-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
+
+                    <section class="mt-5">
+
+
+                        <!-- Table Card -->
+                        <div
+                            class="overflow-hidden rounded-2xl border
+                                border-gray-200 bg-white
+                                dark:border-gray-800 dark:bg-gray-900">
+
+                            <!-- Table toolbar -->
+                            <div
+                                class="flex flex-col gap-3 border-b border-gray-200
+                                    p-4 sm:flex-row sm:items-center sm:justify-between
+                                    dark:border-gray-800">
+
+                                <div>
+                                    <h3
+                                        class="text-sm font-semibold text-gray-900
+                                            dark:text-white">
+                                        Research Output Comparison
+                                    </h3>
+                                </div>
+
+                            </div>
+
+
+                            <!-- Responsive table -->
+                            <div class="w-full overflow-x-auto">
+
+
+                                <table
+                                    id="researchTable"
+                                    class="w-full text-left text-sm">
+
+                                    <thead
+                                        class="border-b border-gray-200 bg-gray-50
+                text-xs uppercase tracking-wider
+                text-gray-500
+                dark:border-gray-800 dark:bg-gray-950
+                dark:text-gray-400">
+
+                                        <tr>
+                                            <th class="px-4 py-3 font-semibold">
+                                                Rank
+                                            </th>
+
+                                            <th class="px-4 py-3 font-semibold">
+                                                Country
+                                            </th>
+
+                                            <th class="px-4 py-3 font-semibold">
+                                                No. of research publications
+                                            </th>
+
+                                            <th class="px-4 py-3 font-semibold">
+                                                CAGR %
+                                            </th>
+
+                                            <th class="px-4 py-3 font-semibold">
+                                                Global Share %
+                                            </th>
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody
+                                        class="divide-y divide-gray-100
+                dark:divide-gray-800">
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+                </section>
+
+
+                <section
+                    id="subject-area-distribution-of-indian-research-output"
+                    class="mt-12 scroll-mt-24">
+                    <h2
+                        class="text-2xl font-bold tracking-tight
+                               text-gray-900
+                               dark:text-white">
+                        Subject area distribution of Indian Research Output
+                    </h2>
+
+                    <p class="mt-4">
+                        Indian research output is visualized in 22 major fields of research, as provided by the Dimensions database. India's research output is dominated by subjects like Medical & Health Sciences, Engineering, Chemical Sciences and Information & Computing Sciences. The subject-area distribution of Indian research output as well as the world-wide research output is shown in the figures below -
+
+                    </p>
+                </section>
+                <div class="mt-6 grid w-full grid-cols-1 gap-4 lg:grid-cols-2">
+                    <div class="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
                         <img
-                            src="<?= url('assets/img/pages/cit_2.jpg') ?>"
-                            alt="Citation statistics"
-                            class="h-auto w-full object-cover"
+                            src="<?= url('assets/img/pages/res_4.jpg') ?>"
+                            alt="Subject Area Distribution of Indian Research Output"
+                            class="h-full w-full object-contain"
                             loading="lazy">
                     </div>
 
+                    <div class="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
+                        <img
+                            src="<?= url('assets/img/pages/res_5.jpg') ?>"
+                            alt="Subject Area Distribution of World Research Output"
+                            class="h-full w-full object-contain"
+                            loading="lazy">
+                    </div>
+                </div>
 
-                    <section
-                        id="india-s-contribution-to-highly-cited-papers"
-                        class="mt-12 scroll-mt-24">
-                        <h2
-                            class="text-2xl font-bold tracking-tight
+
+                <section
+                    id="subject-area-wise-cagr-global-share-and-rank"
+                    class="mt-12 scroll-mt-24">
+                    <h2
+                        class="text-2xl font-bold tracking-tight
                                text-gray-900
                                dark:text-white">
-                            India's contribution to highly cited papers
-                        </h2>
+                        Subject Area-wise CAGR, Global Share and Rank
+                    </h2>
 
-                        <p class="mt-4">
-                            Highly cited papers of a country are often measured by the number of publications that it contributes in the top 1% or top 10% most cited papers of the world. In case of India, it is observed that India's contribution to top 1% highly cited papers has grown from 1.85% in 2010 to 4.3% in 2019. Similarly, India's contribution in top 10% highly cited papers of the world has grown from 2.28% in 2010 to 4.52% in 2019. The figure below shows the year-wise percentage contribution of India to the top 1% and top 10% highly cited papers of the world.
+                    <p class="mt-4">
+                        As seen in the subject area distribution above, India's research performance varies across different subject areas. For the 2010 to 2019 period, India's global rank varies from 3rd in Chemical Sciences (and also Information & Computing Sciences, Technology) to 10th in Medical & Health Sciences, 15th in Studies in Human Society, 20th in History & Archaeology and 28th in Philosophy and Religious studies. These variations are observed in subject-area wise global shares as well. While, Indian Research Output in Technology constitutes 6.63% of global share, it is just 0.34% in Philosophy & Religious studies. The CAGR values in different subject areas also vary with Information and Computing Sciences (13.91%), Environmental Sciences (13.43%) and Engineering (12.83%) being the three fastest growing subject areas. The CAGR values for India in all the subject areas are found to be higher than the world average.
 
-                        </p>
+                    </p>
 
-                        <div class="mt-6 w-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
-                            <img
-                                src="<?= url('assets/img/pages/cit_3.jpg') ?>"
-                                alt="Citation statistics"
-                                class="h-auto w-full object-cover"
-                                loading="lazy">
+                </section>
+                <section class="mt-5">
+
+
+                    <!-- Table Card -->
+                    <div
+                        class="overflow-hidden rounded-2xl border
+                                border-gray-200 bg-white
+                                dark:border-gray-800 dark:bg-gray-900">
+
+                        <!-- Table toolbar -->
+                        <div
+                            class="flex flex-col gap-3 border-b border-gray-200
+                                    p-4 sm:flex-row sm:items-center sm:justify-between
+                                    dark:border-gray-800">
+
+                            <div>
+                                <h3
+                                    class="text-sm font-semibold text-gray-900
+                                            dark:text-white">
+                                    Subject Area-wise CAGR, Global Share and Rank
+                                </h3>
+                            </div>
+
                         </div>
 
-                        <p class="mt-4">
-                            When compared with contribution to top 1% highly cited papers of other major countries, it is observed that China has gained significantly with an increase from 7.78% share in 2010 to 33.2% share in 2019. United States on the other hand shows a decline from 50.1% share in 2010 to 36.96% share in 2019. Other countries to gain are Japan, India, Italy, Australia, Spain, etc. The countries to lose in their share of top 1% highly cited papers are Germany, France, Canada, etc. The figure below shows the share of top 1% highly cited papers of the major countries during 2010 and 2019.
-                        </p>
 
-                        <div class="mt-6 w-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800">
-                            <img
-                                src="<?= url('assets/img/pages/cit_4.jpg') ?>"
-                                alt="Citation statistics"
-                                class="h-auto w-full object-cover"
-                                loading="lazy">
+                        <!-- Responsive table -->
+                        <div class="w-full overflow-x-auto">
+
+                            <table
+                                id="research2"
+                                class="w-full text-left text-sm">
+
+                                <thead
+                                    class="border-b border-gray-200 bg-gray-50
+                text-xs uppercase tracking-wider
+                text-gray-500
+                dark:border-gray-800 dark:bg-gray-950
+                dark:text-gray-400">
+
+                                    <tr>
+                                        <th class="px-4 py-3 font-semibold">
+                                            Subject Area
+                                        </th>
+
+                                        <th class="px-4 py-3 font-semibold">
+                                            Indian Research Publications
+                                        </th>
+
+                                        <th class="px-4 py-3 font-semibold">
+                                            World Research Publications
+                                        </th>
+
+                                        <th class="px-4 py-3 font-semibold">
+                                            India's Global Share (%)
+                                        </th>
+
+                                        <th class="px-4 py-3 font-semibold">
+                                            India's Rank
+                                        </th>
+
+                                        <th class="px-4 py-3 font-semibold">
+                                            India's CAGR (%)
+                                        </th>
+
+                                        <th class="px-4 py-3 font-semibold">
+                                            World's CAGR (%)
+                                        </th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody
+                                    class="divide-y divide-gray-100
+                dark:divide-gray-800">
+                                </tbody>
+
+                            </table>
+
                         </div>
 
-                    </section>
+                    </div>
 
+                </section>
             </article>
 
 
@@ -380,7 +529,7 @@ $tags = ["Research Output", "Research Impact", "India", "Dimensions", "Subjects"
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 
-        new DataTable('#citationsTable', {
+        new DataTable('#researchTable', {
 
             paging: false,
             searching: false,
@@ -389,15 +538,68 @@ $tags = ["Research Output", "Research Impact", "India", "Dimensions", "Subjects"
             lengthChange: false,
 
             ajax: {
-                url: '<?= url('api/citations.php') ?>',
+                url: '<?= url('api/research-output.php') ?>',
                 type: 'POST'
             },
 
             columns: [{
-                    data: 'year'
+                    data: 'rank'
                 },
                 {
-                    data: 'volume',
+                    data: 'country'
+                },
+                {
+                    data: 'publications',
+                    render: function(data) {
+                        return Number(data).toLocaleString('en-IN');
+                    }
+                },
+                {
+                    data: 'cagr',
+                    render: function(data) {
+                        return Number(data).toFixed(2) + '%';
+                    }
+                },
+                {
+                    data: 'global_share',
+                    render: function(data) {
+                        return Number(data).toFixed(2) + '%';
+                    }
+                }
+            ]
+
+        });
+
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        new DataTable('#research2', {
+
+            paging: false,
+            searching: false,
+            ordering: false,
+            info: false,
+            lengthChange: false,
+
+            ajax: {
+                url: '<?= url('api/research2.php') ?>',
+                type: 'POST'
+            },
+
+            columns: [{
+                    data: 'subject_area'
+                },
+                {
+                    data: 'india_publications',
+                    render: function(data) {
+                        return Number(data).toLocaleString('en-IN');
+                    }
+                },
+                {
+                    data: 'world_publications',
                     render: function(data) {
                         return Number(data).toLocaleString('en-IN');
                     }
@@ -409,7 +611,19 @@ $tags = ["Research Output", "Research Impact", "India", "Dimensions", "Subjects"
                     }
                 },
                 {
-                    data: 'rank'
+                    data: 'india_rank'
+                },
+                {
+                    data: 'india_cagr',
+                    render: function(data) {
+                        return Number(data).toFixed(2) + '%';
+                    }
+                },
+                {
+                    data: 'world_cagr',
+                    render: function(data) {
+                        return Number(data).toFixed(2) + '%';
+                    }
                 }
             ]
 

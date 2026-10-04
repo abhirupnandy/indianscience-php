@@ -209,7 +209,7 @@ function socialIcon(string $icon): string
                                 @click="moreOpen=!moreOpen"
                                 class="inline-flex items-center gap-1.5 rounded-lg
                                        px-3 py-2 text-[15px] font-medium
-                                       text-slate-700 hover:bg-amber-50
+                                       text-slate-700 hover:bg-indigo-50
                                        hover:text-slate-950
                                        dark:text-slate-300
                                        dark:hover:bg-slate-800
@@ -243,7 +243,7 @@ function socialIcon(string $icon): string
                                     <a href="<?= url($dropdown['path']) ?>"
                                         class="block rounded-lg px-3 py-2.5
                                               text-[15px] text-slate-700
-                                              hover:bg-amber-50
+                                              hover:bg-indigo-50
                                               dark:text-slate-300
                                               dark:hover:bg-slate-800
                                               dark:hover:text-white">
@@ -262,7 +262,7 @@ function socialIcon(string $icon): string
 
                         <a href="<?= url($item['path']) ?>"
                             class="rounded-lg px-3 py-2 text-[15px] font-medium
-                                  text-slate-700 hover:bg-amber-50
+                                  text-slate-700 hover:bg-indigo-50
                                   hover:text-slate-950
                                   dark:text-slate-300
                                   dark:hover:bg-slate-800

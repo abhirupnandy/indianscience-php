@@ -113,8 +113,9 @@ $reports = [
                            dark:text-white">
 
                         How India
-                        <span class="italic text-amber-500">publishes,</span>
-                        cites, and collaborates.
+                        <span class="text-amber-500">publishes</span>,
+                        <span class='text-indigo-500'>cites,</span> and
+                        <span class='text-emerald-500'>collaborates</span>.
 
                     </h1>
 

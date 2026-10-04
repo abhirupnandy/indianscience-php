@@ -7,46 +7,92 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
     $email = trim((string) ($_POST['email'] ?? ''));
     $message = trim((string) ($_POST['message'] ?? ''));
 
+    // Strip line breaks from single-line fields (prevents email header injection).
+    $name = trim(preg_replace('/[\r\n]+/', ' ', $name));
+    $email = trim(preg_replace('/[\r\n]+/', '', $email));
+
     if ($name === '' || $email === '' || $message === '') {
         $feedbackStatus = 'error';
         $feedbackMessage = 'Please complete your name, email, and feedback message.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $feedbackStatus = 'error';
         $feedbackMessage = 'Please enter a valid email address.';
+    } elseif (mb_strlen($name) > 100 || mb_strlen($message) > 5000) {
+        $feedbackStatus = 'error';
+        $feedbackMessage = 'Your name or message is too long.';
     } else {
         $to = getenv('FEEDBACK_EMAIL') ?: 'hello@example.com';
+        $from = getenv('SMTP_FROM') ?: 'noreply@example.com';
         $subject = 'Website Feedback from ' . $name;
-        $body = "Name: {$name}\n" .
-            "Email: {$email}\n\n" .
-            "Message:\n{$message}\n";
+
+        // Build the email body from the template.
+        $template = (static function (array $data): array {
+            extract($data, EXTR_SKIP);
+            return require ROOT_PATH . '/partials/email-contact-template.php';
+        })([
+                'name'     => $name,
+                'email'    => $email,
+                'message'  => $message,
+                'siteName' => SITE_NAME,
+                'sentAt'   => date('d M Y, H:i'),
+        ]);
+
+        $htmlBody = $template['html'];
+        $textBody = $template['text'];
 
         $sent = false;
 
+        // 1) PHPMailer (if installed)
         if (file_exists(ROOT_PATH . '/vendor/autoload.php')) {
             require_once ROOT_PATH . '/vendor/autoload.php';
 
             if (class_exists('PHPMailer\\PHPMailer\\PHPMailer')) {
-                $mail = new PHPMailer\PHPMailer\PHPMailer();
-                $mail->isSMTP();
-                $mail->Host = getenv('SMTP_HOST') ?: 'localhost';
-                $mail->Port = (int) (getenv('SMTP_PORT') ?: 25);
-                $mail->SMTPAuth = false;
-                $mail->setFrom(getenv('SMTP_FROM') ?: 'noreply@example.com', SITE_NAME);
-                $mail->addAddress($to);
-                $mail->Subject = $subject;
-                $mail->Body = $body;
-                $mail->AltBody = strip_tags($body);
-                $sent = $mail->send();
+                try {
+                    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+                    $mail->CharSet = 'UTF-8';
+                    $mail->isSMTP();
+                    $mail->Host = getenv('SMTP_HOST') ?: 'localhost';
+                    $mail->Port = (int) (getenv('SMTP_PORT') ?: 25);
+                    $mail->SMTPAuth = false;
+                    $mail->setFrom($from, SITE_NAME);
+                    $mail->addAddress($to);
+                    $mail->addReplyTo($email, $name);
+                    $mail->isHTML(true);
+                    $mail->Subject = $subject;
+                    $mail->Body = $htmlBody;
+                    $mail->AltBody = $textBody;
+                    $sent = $mail->send();
+                } catch (\Throwable $e) {
+                    $sent = false;
+                }
             }
         }
 
+        // 2) Fallback: PHP mail() as multipart (text + HTML)
         if (!$sent) {
+            $boundary = 'bnd_' . bin2hex(random_bytes(8));
+
             $headers = [
-                'From: ' . (getenv('SMTP_FROM') ?: 'noreply@example.com'),
-                'Reply-To: ' . $email,
-                'Content-Type: text/plain; charset=UTF-8',
+                    'From: ' . $from,
+                    'Reply-To: ' . $email,
+                    'MIME-Version: 1.0',
+                    'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
             ];
-            $sent = mail($to, $subject, $body, implode("\r\n", $headers));
+
+            $body = "--{$boundary}\r\n"
+                    . "Content-Type: text/plain; charset=UTF-8\r\n\r\n"
+                    . $textBody . "\r\n"
+                    . "--{$boundary}\r\n"
+                    . "Content-Type: text/html; charset=UTF-8\r\n\r\n"
+                    . $htmlBody . "\r\n"
+                    . "--{$boundary}--";
+
+            $sent = mail(
+                    $to,
+                    '=?UTF-8?B?' . base64_encode($subject) . '?=',
+                    $body,
+                    implode("\r\n", $headers)
+            );
         }
 
         if ($sent) {
@@ -81,31 +127,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
                     <form method="post" action="<?= e($_SERVER['REQUEST_URI'] ?? '/') ?>" class="mt-4 space-y-3">
                         <div class="grid gap-3 sm:grid-cols-2">
                             <input
-                                type="text"
-                                name="name"
-                                placeholder="Your name"
-                                class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none ring-0 transition focus:border-[#1A4D8F] dark:border-gray-700 dark:bg-gray-950 dark:text-white"
-                                required>
+                                    type="text"
+                                    name="name"
+                                    value="<?= $feedbackStatus === 'error' ? e($_POST['name'] ?? '') : '' ?>"
+                                    placeholder="Your name"
+                                    maxlength="100"
+                                    class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none ring-0 transition focus:border-[#1A4D8F] dark:border-gray-700 dark:bg-gray-950 dark:text-white"
+                                    required>
                             <input
-                                type="email"
-                                name="email"
-                                placeholder="Email address"
-                                class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none ring-0 transition focus:border-[#1A4D8F] dark:border-gray-700 dark:bg-gray-950 dark:text-white"
-                                required>
+                                    type="email"
+                                    name="email"
+                                    value="<?= $feedbackStatus === 'error' ? e($_POST['email'] ?? '') : '' ?>"
+                                    placeholder="Email address"
+                                    class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none ring-0 transition focus:border-[#1A4D8F] dark:border-gray-700 dark:bg-gray-950 dark:text-white"
+                                    required>
                         </div>
 
                         <textarea
-                            name="message"
-                            rows="4"
-                            placeholder="Share your feedback..."
-                            class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none ring-0 transition focus:border-[#1A4D8F] dark:border-gray-700 dark:bg-gray-950 dark:text-white"
-                            required></textarea>
+                                name="message"
+                                rows="4"
+                                maxlength="5000"
+                                placeholder="Share your feedback..."
+                                class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none ring-0 transition focus:border-[#1A4D8F] dark:border-gray-700 dark:bg-gray-950 dark:text-white"
+                                required><?= $feedbackStatus === 'error' ? e($_POST['message'] ?? '') : '' ?></textarea>
 
                         <button
-                            type="submit"
-                            name="feedback_submit"
-                            value="1"
-                            class="inline-flex items-center justify-center rounded-lg bg-[#1A4D8F] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#153a73] dark:bg-[#1A4D8F] dark:hover:bg-[#153a73]">
+                                type="submit"
+                                name="feedback_submit"
+                                value="1"
+                                class="inline-flex items-center justify-center rounded-lg bg-[#1A4D8F] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#153a73] dark:bg-[#1A4D8F] dark:hover:bg-[#153a73]">
                             Send Feedback
                         </button>
                     </form>

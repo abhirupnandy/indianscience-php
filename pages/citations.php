@@ -10,10 +10,6 @@ $breadcrumbs = [
         "path" => "",
     ],
     [
-        "label" => "Reports",
-        "path" => null,
-    ],
-    [
         "label" => "Citations",
         "path" => null,
     ],
