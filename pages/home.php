@@ -2,25 +2,25 @@
 // $pdo is available globally (set up in config.php)
 
 $majorInstitutions = $pdo->query(
-        'SELECT * FROM institutions
+    'SELECT * FROM institutions
      WHERE is_major = 1
      ORDER BY name ASC
      LIMIT 8',
 )->fetchAll();
 
 $counters = $pdo->query(
-        'SELECT * FROM site_counters',
+    'SELECT * FROM site_counters',
 )->fetchAll();
 
 $featuredPublications = $pdo->query(
-        'SELECT * FROM publications
+    'SELECT * FROM publications
      WHERE is_featured = 1
      ORDER BY sort_order DESC, id DESC
      LIMIT 5',
 )->fetchAll();
 
 $recentPosts = $pdo->query(
-        'SELECT * FROM posts
+    'SELECT * FROM posts
      WHERE is_published = 1
      ORDER BY published_at DESC
      LIMIT 4',
@@ -34,41 +34,41 @@ foreach ($counters as $counter) {
         break;
     }
 }
-if (!$primaryCounter && $counters) {
+if (! $primaryCounter && $counters) {
     $primaryCounter = $counters[0];
 }
 
 $reports = [
-        [
-                'title' => 'Research Output',
-                'metric' => 'CAGR & subject-area share',
-                'description' => "India's overall research output, growth rate, global rank and how it splits across subject areas versus other major countries.",
-                'url' => url('reports/research-output'),
-        ],
-        [
-                'title' => 'Citations',
-                'metric' => 'RCR & highly cited papers',
-                'description' => 'Total citations to Indian research output, Relative Citation Ratio, and which papers land in the highly-cited tier.',
-                'url' => url('reports/citations'),
-        ],
-        [
-                'title' => 'Collaboration',
-                'metric' => 'Domestic vs. international',
-                'description' => 'Who Indian researchers publish with — domestic and international collaboration patterns by subject area, and the citation impact of each.',
-                'url' => url('reports/collaboration'),
-        ],
-        [
-                'title' => 'Gender Distribution',
-                'metric' => 'First-author share',
-                'description' => 'Female- and male-first-authored papers, and how collaboration patterns and research impact differ between them.',
-                'url' => url('reports/gender'),
-        ],
-        [
-                'title' => 'Open Access',
-                'metric' => 'Funded vs. unfunded',
-                'description' => "How much of India's research output is open access, and its relationship to research funding.",
-                'url' => url('reports/open-access'),
-        ],
+    [
+        'title' => 'Research Output',
+        'metric' => 'CAGR & subject-area share',
+        'description' => "India's overall research output, growth rate, global rank and how it splits across subject areas versus other major countries.",
+        'url' => url('reports/research-output'),
+    ],
+    [
+        'title' => 'Citations',
+        'metric' => 'RCR & highly cited papers',
+        'description' => 'Total citations to Indian research output, Relative Citation Ratio, and which papers land in the highly-cited tier.',
+        'url' => url('reports/citations'),
+    ],
+    [
+        'title' => 'Collaboration',
+        'metric' => 'Domestic vs. international',
+        'description' => 'Who Indian researchers publish with — domestic and international collaboration patterns by subject area, and the citation impact of each.',
+        'url' => url('reports/collaboration'),
+    ],
+    [
+        'title' => 'Gender Distribution',
+        'metric' => 'First-author share',
+        'description' => 'Female- and male-first-authored papers, and how collaboration patterns and research impact differ between them.',
+        'url' => url('reports/gender'),
+    ],
+    [
+        'title' => 'Open Access',
+        'metric' => 'Funded vs. unfunded',
+        'description' => "How much of India's research output is open access, and its relationship to research funding.",
+        'url' => url('reports/open-access'),
+    ],
 ];
 ?>
 
@@ -213,7 +213,7 @@ $reports = [
 
             <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
 
-                <?php foreach ($counters as $index => $counter): ?>
+                <?php foreach ($counters as $index => $counter) { ?>
 
                     <div class="text-center">
 
@@ -239,7 +239,7 @@ $reports = [
 
                     </div>
 
-                <?php endforeach; ?>
+                <?php } ?>
 
             </div>
 
@@ -333,7 +333,7 @@ $reports = [
 
             <div class="divide-y divide-slate-200 border-y border-slate-200 dark:divide-slate-800 dark:border-slate-800">
 
-                <?php foreach ($reports as $i => $report): ?>
+                <?php foreach ($reports as $i => $report) { ?>
 
 
                     <a href="<?= e($report['url']) ?>"
@@ -358,7 +358,7 @@ $reports = [
 
                     </a>
 
-                <?php endforeach; ?>
+                <?php } ?>
 
             </div>
 
@@ -396,17 +396,17 @@ $reports = [
 
             <div class="grid gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 sm:grid-cols-2 lg:grid-cols-4 dark:border-slate-800 dark:bg-slate-800">
 
-                <?php foreach ($majorInstitutions as $institution): ?>
+                <?php foreach ($majorInstitutions as $institution) { ?>
 
                     <div class="group bg-white p-5 transition hover:bg-amber-50/50 dark:bg-slate-950 dark:hover:bg-slate-900">
 
                         <?php partial('institution-card', [
-                                'institution' => $institution,
+                            'institution' => $institution,
                         ]); ?>
 
                     </div>
 
-                <?php endforeach; ?>
+                <?php } ?>
 
             </div>
 
@@ -745,7 +745,7 @@ $reports = [
 
             <div class="divide-y divide-slate-200 dark:divide-slate-800">
 
-                <?php foreach ($featuredPublications as $i => $pub): ?>
+                <?php foreach ($featuredPublications as $i => $pub) { ?>
 
                     <article class="group grid grid-cols-1 gap-2 py-6 sm:grid-cols-[3rem_1fr] sm:gap-6">
 
@@ -769,7 +769,7 @@ $reports = [
 
                     </article>
 
-                <?php endforeach; ?>
+                <?php } ?>
 
             </div>
 
@@ -788,7 +788,7 @@ $reports = [
     <!--         BLOG-->
     <!--    ========================================================== -->-->
     <!---->
-    <!--    --><?php //if ($recentPosts): ?>
+    <!--    --><?php // if ($recentPosts):?>
     <!---->
     <!--        <section class="border-t border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-900/40 px-4 sm:px-6 lg:px-8">-->
     <!---->
@@ -803,17 +803,17 @@ $reports = [
     <!---->
     <!--                <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">-->
     <!---->
-    <!--                    --><?php //foreach ($recentPosts as $post): ?>
+    <!--                    --><?php // foreach ($recentPosts as $post):?>
     <!---->
     <!--                        <div class="overflow-hidden rounded-xl border border-slate-200 bg-white transition hover:border-amber-300 hover:shadow-sm dark:border-slate-800 dark:bg-slate-950">-->
     <!---->
-    <!--                            --><?php //partial('post-card', [
+    <!--                            --><?php // partial('post-card', [
     //                                'post' => $post,
-    //                            ]); ?>
+    //                            ]);?>
     <!---->
     <!--                        </div>-->
     <!---->
-    <!--                    --><?php //endforeach; ?>
+    <!--                    --><?php // endforeach;?>
     <!---->
     <!--                </div>-->
     <!---->
@@ -821,7 +821,7 @@ $reports = [
     <!---->
     <!--        </section>-->
     <!---->
-    <!--    --><?php //endif; ?>
+    <!--    --><?php // endif;?>
 
 
     <!-- =========================================================

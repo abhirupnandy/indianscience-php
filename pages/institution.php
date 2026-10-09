@@ -2,38 +2,38 @@
 $slug = $params['slug'] ?? '';
 
 $institution = db_find($pdo, 'institutions', 'slug', $slug);
-if (!$institution) {
+if (! $institution) {
     abort_404(); // exits
 }
 
 $statsStmt = $pdo->prepare(
-    "SELECT * FROM institution_stats WHERE institution_id = :id ORDER BY id DESC LIMIT 1",
+    'SELECT * FROM institution_stats WHERE institution_id = :id ORDER BY id DESC LIMIT 1',
 );
 $statsStmt->execute([':id' => $institution['id']]);
 $s = $statsStmt->fetch() ?: null;
 
-$pageTitle = $institution['name'] . ' — Institutional Report';
+$pageTitle = $institution['name'].' — Institutional Report';
 ?>
 <div class="container institution-detail">
     <h1><?= e($institution['name']) ?></h1>
 
     <dl class="institution-meta">
-        <?php if (!empty($institution['institution_type'])): ?>
+        <?php if (! empty($institution['institution_type'])) { ?>
             <dt>Institution type</dt><dd><?= e($institution['institution_type']) ?></dd>
-        <?php endif; ?>
-        <?php if (!empty($institution['year_established'])): ?>
+        <?php } ?>
+        <?php if (! empty($institution['year_established'])) { ?>
             <dt>Year of Establishment</dt><dd><?= e((string) $institution['year_established']) ?></dd>
-        <?php endif; ?>
+        <?php } ?>
     </dl>
 
-    <?php if (!empty($institution['description'])): ?>
+    <?php if (! empty($institution['description'])) { ?>
         <p class="description"><?= e($institution['description']) ?></p>
-    <?php endif; ?>
-    <?php if (!empty($institution['source_note'])): ?>
+    <?php } ?>
+    <?php if (! empty($institution['source_note'])) { ?>
         <p class="source-note"><?= e($institution['source_note']) ?></p>
-    <?php endif; ?>
+    <?php } ?>
 
-    <?php if ($s): ?>
+    <?php if ($s) { ?>
     <section class="key-indicators">
         <h2>Key Indicators (<?= e($s['period_label']) ?>)</h2>
         <div class="indicator-grid">
@@ -79,9 +79,9 @@ $pageTitle = $institution['name'] . ' — Institutional Report';
             <li>NIRF rank (Overall): <?= e($s['nirf_rank'] ?? 'NA') ?></li>
         </ul>
     </section>
-    <?php else: ?>
+    <?php } else { ?>
         <p>No detailed indicators are available for this institution yet.</p>
-    <?php endif; ?>
+    <?php } ?>
 
     <p class="disclaimer">
         Note: The above analysis/outputs are generated using data obtained from Dimensions and Altmetric.

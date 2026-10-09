@@ -21,7 +21,6 @@ $sections = [
     'Authorship and Collaboration Patterns',
     'Open Access Availability',
 
-
 ];
 
 $tags = ['Research Institutions', 'Research Impact', 'India', 'Dimensions', 'Subjects'];
@@ -49,11 +48,11 @@ $tags = ['Research Institutions', 'Research Impact', 'India', 'Dimensions', 'Sub
                            text-sm text-gray-500
                            dark:text-gray-400">
 
-                    <?php foreach ($breadcrumbs as $index => $breadcrumb): ?>
+                    <?php foreach ($breadcrumbs as $index => $breadcrumb) { ?>
 
                         <li class="flex items-center gap-2">
 
-                            <?php if ($breadcrumb['path'] !== null): ?>
+                            <?php if ($breadcrumb['path'] !== null) { ?>
 
                                 <a
                                     href="<?= url($breadcrumb['path']) ?>"
@@ -62,7 +61,7 @@ $tags = ['Research Institutions', 'Research Impact', 'India', 'Dimensions', 'Sub
                                     <?= e($breadcrumb['label']) ?>
                                 </a>
 
-                            <?php else: ?>
+                            <?php } else { ?>
 
                                 <span
                                     class="<?= $index ===
@@ -72,10 +71,10 @@ $tags = ['Research Institutions', 'Research Impact', 'India', 'Dimensions', 'Sub
                                     <?= e($breadcrumb['label']) ?>
                                 </span>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
 
-                            <?php if ($index < count($breadcrumbs) - 1): ?>
+                            <?php if ($index < count($breadcrumbs) - 1) { ?>
 
                                 <svg
                                     class="h-4 w-4 shrink-0 text-gray-400"
@@ -89,11 +88,11 @@ $tags = ['Research Institutions', 'Research Impact', 'India', 'Dimensions', 'Sub
                                         d="m9 5 7 7-7 7"/>
                                 </svg>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
                         </li>
 
-                    <?php endforeach; ?>
+                    <?php } ?>
 
                 </ol>
             </nav>
@@ -595,7 +594,7 @@ $tags = ['Research Institutions', 'Research Impact', 'India', 'Dimensions', 'Sub
                             <ul class="space-y-1">
                                 <?php foreach (
                                     $sections as $index => $section
-                                ): ?>
+                                ) { ?>
                                     <li>
                                         <a
                                             href="#<?= e(
@@ -620,7 +619,7 @@ $tags = ['Research Institutions', 'Research Impact', 'India', 'Dimensions', 'Sub
 
                                     </li>
 
-                                <?php endforeach; ?>
+                                <?php } ?>
 
                             </ul>
 
@@ -647,7 +646,7 @@ $tags = ['Research Institutions', 'Research Impact', 'India', 'Dimensions', 'Sub
 
                         <div class="mt-4 flex flex-wrap gap-2">
 
-                            <?php foreach ($tags as $tag): ?>
+                            <?php foreach ($tags as $tag) { ?>
 
                                 <span
                                     class="rounded-full border
@@ -660,7 +659,7 @@ $tags = ['Research Institutions', 'Research Impact', 'India', 'Dimensions', 'Sub
                                     <?= e($tag) ?>
                                 </span>
 
-                            <?php endforeach; ?>
+                            <?php } ?>
 
                         </div>
 
@@ -673,7 +672,7 @@ $tags = ['Research Institutions', 'Research Impact', 'India', 'Dimensions', 'Sub
         </div>
 
     </section>
-    <?php include __DIR__ . '/../partials/data-source-note.php'; ?>
+    <?php include __DIR__.'/../partials/data-source-note.php'; ?>
 
 </div>
 

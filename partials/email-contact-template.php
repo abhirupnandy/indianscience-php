@@ -25,9 +25,8 @@
 
 $font = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif";
 
-$replySubject = 'Re: Your feedback on ' . $siteName;
-$replyUrl     = 'mailto:' . $email . '?subject=' . rawurlencode($replySubject);
-
+$replySubject = 'Re: Your feedback on '.$siteName;
+$replyUrl = 'mailto:'.$email.'?subject='.rawurlencode($replySubject);
 
 // -----------------------------------------------------------------------------
 // Plain-text version
@@ -49,7 +48,6 @@ Message:
 --------
 Reply directly to this email to respond to {$name}.
 TEXT;
-
 
 // -----------------------------------------------------------------------------
 // HTML version

@@ -2,7 +2,7 @@
 
 $pageTitle = 'Related Publications';
 
-require ROOT_PATH . '/api/related_publications.php';
+require ROOT_PATH.'/api/related_publications.php';
 
 ?>
 
@@ -119,13 +119,13 @@ require ROOT_PATH . '/api/related_publications.php';
                            dark:border-slate-700
                            dark:bg-slate-900 dark:text-white">
 
-                    <?php foreach ($allowedPageSizes as $size): ?>
+                    <?php foreach ($allowedPageSizes as $size) { ?>
                         <option
                                 value="<?= $size ?>"
                                 <?= $perPage === $size ? 'selected' : '' ?>>
                             <?= $size ?>
                         </option>
-                    <?php endforeach; ?>
+                    <?php } ?>
 
                 </select>
 
@@ -158,22 +158,22 @@ require ROOT_PATH . '/api/related_publications.php';
                         : 'publications' ?>.
             </p>
 
-            <?php if ($search !== ''): ?>
+            <?php if ($search !== '') { ?>
                 <a
-                        href="<?= e('?' . http_build_query([
-                                        'per_page' => $perPage,
-                                        'page' => 1,
-                                ])) ?>"
+                        href="<?= e('?'.http_build_query([
+                            'per_page' => $perPage,
+                            'page' => 1,
+                        ])) ?>"
                         class="font-medium text-amber-700
                            hover:underline dark:text-amber-400">
                     Clear search
                 </a>
-            <?php endif; ?>
+            <?php } ?>
 
         </div>
 
 
-        <?php if ($publications): ?>
+        <?php if ($publications) { ?>
 
             <div class="overflow-x-auto rounded-lg
                         border border-slate-200
@@ -237,7 +237,7 @@ require ROOT_PATH . '/api/related_publications.php';
                             class="divide-y divide-slate-200
                                dark:divide-slate-800">
 
-                    <?php foreach ($publications as $index => $pub): ?>
+                    <?php foreach ($publications as $index => $pub) { ?>
 
                         <tr class="transition-colors
                                        hover:bg-amber-50/50
@@ -249,23 +249,23 @@ require ROOT_PATH . '/api/related_publications.php';
                                            text-slate-400
                                            dark:text-slate-500">
                                 <?= str_pad(
-                                        $offset + $index + 1,
-                                        2,
-                                        '0',
-                                        STR_PAD_LEFT
+                                    $offset + $index + 1,
+                                    2,
+                                    '0',
+                                    STR_PAD_LEFT
                                 ) ?>
                             </td>
 
                             <td class="px-4 py-5 align-top">
 
-                                <?php if (!empty($pub['authors'])): ?>
+                                <?php if (! empty($pub['authors'])) { ?>
                                     <p
                                             class="mb-2 text-xs leading-5
                                                    text-slate-500
                                                    dark:text-slate-400">
                                         <?= e($pub['authors']) ?>
                                     </p>
-                                <?php endif; ?>
+                                <?php } ?>
 
                                 <p
                                         class="font-semibold leading-6
@@ -280,7 +280,7 @@ require ROOT_PATH . '/api/related_publications.php';
                                     class="px-4 py-5 align-top
                                            leading-6 text-slate-600
                                            dark:text-slate-400">
-                                <?= !empty($pub['journal'])
+                                <?= ! empty($pub['journal'])
                                         ? e($pub['journal'])
                                         : '—' ?>
                             </td>
@@ -290,15 +290,15 @@ require ROOT_PATH . '/api/related_publications.php';
            text-slate-600
            dark:text-slate-400'>
 
-                                <?= !empty($pub['published_at'])
-                                        ? e((string)$pub['published_at'])
+                                <?= ! empty($pub['published_at'])
+                                        ? e((string) $pub['published_at'])
                                         : '—' ?>
 
                             </td>
 
                             <td class="px-4 py-5 align-top">
 
-                                <?php if (!empty($pub['url'])): ?>
+                                <?php if (! empty($pub['url'])) { ?>
 
                                     <a
                                             href="<?= e($pub['url']) ?>"
@@ -331,7 +331,7 @@ require ROOT_PATH . '/api/related_publications.php';
 
                                     </a>
 
-                                <?php else: ?>
+                                <?php } else { ?>
 
                                     <span
                                             class="text-slate-400
@@ -339,13 +339,13 @@ require ROOT_PATH . '/api/related_publications.php';
                                             Unavailable
                                         </span>
 
-                                <?php endif; ?>
+                                <?php } ?>
 
                             </td>
 
                         </tr>
 
-                    <?php endforeach; ?>
+                    <?php } ?>
 
                     </tbody>
 
@@ -355,7 +355,7 @@ require ROOT_PATH . '/api/related_publications.php';
 
 
             <!-- Pagination -->
-            <?php if ($totalPages > 1): ?>
+            <?php if ($totalPages > 1) { ?>
 
                 <?php
                 $startPage = max(1, $page - 2);
@@ -384,7 +384,7 @@ require ROOT_PATH . '/api/related_publications.php';
                     <div class="flex flex-wrap items-center gap-1">
 
                         <!-- Previous -->
-                        <?php if ($page > 1): ?>
+                        <?php if ($page > 1) { ?>
 
                             <a
                                     href="<?= e($paginationUrl($page - 1)) ?>"
@@ -399,7 +399,7 @@ require ROOT_PATH . '/api/related_publications.php';
                                 Previous
                             </a>
 
-                        <?php else: ?>
+                        <?php } else { ?>
 
                             <span
                                     class="cursor-not-allowed rounded-lg
@@ -410,11 +410,11 @@ require ROOT_PATH . '/api/related_publications.php';
                                 Previous
                             </span>
 
-                        <?php endif; ?>
+                        <?php } ?>
 
 
                         <!-- First page -->
-                        <?php if ($startPage > 1): ?>
+                        <?php if ($startPage > 1) { ?>
 
                             <a
                                     href="<?= e($paginationUrl(1)) ?>"
@@ -427,21 +427,21 @@ require ROOT_PATH . '/api/related_publications.php';
                                 1
                             </a>
 
-                            <?php if ($startPage > 2): ?>
+                            <?php if ($startPage > 2) { ?>
                                 <span
                                         class="px-1 text-slate-400"
                                         aria-hidden="true">
                                     …
                                 </span>
-                            <?php endif; ?>
+                            <?php } ?>
 
-                        <?php endif; ?>
+                        <?php } ?>
 
 
                         <!-- Numbered pages -->
-                        <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                        <?php for ($i = $startPage; $i <= $endPage; $i++) { ?>
 
-                            <?php if ($i === $page): ?>
+                            <?php if ($i === $page) { ?>
 
                                 <span
                                         aria-current="page"
@@ -455,7 +455,7 @@ require ROOT_PATH . '/api/related_publications.php';
                                     <?= $i ?>
                                 </span>
 
-                            <?php else: ?>
+                            <?php } else { ?>
 
                                 <a
                                         href="<?= e($paginationUrl($i)) ?>"
@@ -469,21 +469,21 @@ require ROOT_PATH . '/api/related_publications.php';
                                     <?= $i ?>
                                 </a>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
-                        <?php endfor; ?>
+                        <?php } ?>
 
 
                         <!-- Last page -->
-                        <?php if ($endPage < $totalPages): ?>
+                        <?php if ($endPage < $totalPages) { ?>
 
-                            <?php if ($endPage < $totalPages - 1): ?>
+                            <?php if ($endPage < $totalPages - 1) { ?>
                                 <span
                                         class="px-1 text-slate-400"
                                         aria-hidden="true">
                                     …
                                 </span>
-                            <?php endif; ?>
+                            <?php } ?>
 
                             <a
                                     href="<?= e($paginationUrl($totalPages)) ?>"
@@ -496,11 +496,11 @@ require ROOT_PATH . '/api/related_publications.php';
                                 <?= $totalPages ?>
                             </a>
 
-                        <?php endif; ?>
+                        <?php } ?>
 
 
                         <!-- Next -->
-                        <?php if ($page < $totalPages): ?>
+                        <?php if ($page < $totalPages) { ?>
 
                             <a
                                     href="<?= e($paginationUrl($page + 1)) ?>"
@@ -514,7 +514,7 @@ require ROOT_PATH . '/api/related_publications.php';
                                 Next
                             </a>
 
-                        <?php else: ?>
+                        <?php } else { ?>
 
                             <span
                                     class="cursor-not-allowed rounded-lg
@@ -525,16 +525,16 @@ require ROOT_PATH . '/api/related_publications.php';
                                 Next
                             </span>
 
-                        <?php endif; ?>
+                        <?php } ?>
 
                     </div>
 
                 </nav>
 
-            <?php endif; ?>
+            <?php } ?>
 
 
-        <?php else: ?>
+        <?php } else { ?>
 
             <!-- Empty state -->
             <div
@@ -549,24 +549,24 @@ require ROOT_PATH . '/api/related_publications.php';
                             : 'No publications are currently available.' ?>
                 </p>
 
-                <?php if ($search !== ''): ?>
+                <?php if ($search !== '') { ?>
 
                     <a
-                            href="<?= e('?' . http_build_query([
-                                            'per_page' => $perPage,
-                                            'page' => 1,
-                                    ])) ?>"
+                            href="<?= e('?'.http_build_query([
+                                'per_page' => $perPage,
+                                'page' => 1,
+                            ])) ?>"
                             class="mt-3 inline-block text-sm font-semibold
                                text-amber-700 hover:underline
                                dark:text-amber-400">
                         Clear search and show all publications
                     </a>
 
-                <?php endif; ?>
+                <?php } ?>
 
             </div>
 
-        <?php endif; ?>
+        <?php } ?>
 
     </div>
 

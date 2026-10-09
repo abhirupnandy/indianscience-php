@@ -15,7 +15,6 @@
  *         visit_count INT
  */
 
-
 // ------------------------------------------------------------
 // Client IP detection
 // ------------------------------------------------------------
@@ -29,7 +28,7 @@
  * Only trusted proxies are allowed to set forwarded headers,
  * otherwise anyone could spoof their IP.
  */
-if (!function_exists('vc_get_client_ip')) {
+if (! function_exists('vc_get_client_ip')) {
 
     function vc_get_client_ip(): ?string
     {
@@ -40,20 +39,19 @@ if (!function_exists('vc_get_client_ip')) {
 
         $remote = $_SERVER['REMOTE_ADDR'] ?? null;
 
-        $isValid = static fn($ip) =>
-                is_string($ip) && filter_var($ip, FILTER_VALIDATE_IP) !== false;
+        $isValid = static fn ($ip) => is_string($ip) && filter_var($ip, FILTER_VALIDATE_IP) !== false;
 
-        if (!$isValid($remote)) {
+        if (! $isValid($remote)) {
             return null;
         }
 
         // Not behind a trusted proxy: REMOTE_ADDR is the real client.
-        if (!in_array($remote, $trustedProxies, true)) {
+        if (! in_array($remote, $trustedProxies, true)) {
             return $remote;
         }
 
         // Cloudflare
-        if (!empty($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+        if (! empty($_SERVER['HTTP_CF_CONNECTING_IP'])) {
             $ip = trim($_SERVER['HTTP_CF_CONNECTING_IP']);
             if ($isValid($ip)) {
                 return $ip;
@@ -61,7 +59,7 @@ if (!function_exists('vc_get_client_ip')) {
         }
 
         // Standard proxy header: "client, proxy1, proxy2"
-        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        if (! empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             foreach (explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']) as $ip) {
                 $ip = trim($ip);
                 if ($isValid($ip)) {
@@ -70,7 +68,7 @@ if (!function_exists('vc_get_client_ip')) {
             }
         }
 
-        if (!empty($_SERVER['HTTP_X_REAL_IP'])) {
+        if (! empty($_SERVER['HTTP_X_REAL_IP'])) {
             $ip = trim($_SERVER['HTTP_X_REAL_IP']);
             if ($isValid($ip)) {
                 return $ip;
@@ -83,14 +81,13 @@ if (!function_exists('vc_get_client_ip')) {
 
 $visitorIp = vc_get_client_ip();
 
-
 // ------------------------------------------------------------
 // AJAX visitor registration
 // ------------------------------------------------------------
 
 if (
-        $_SERVER['REQUEST_METHOD'] === 'POST' &&
-        isset($_POST['register_visitor'])
+    $_SERVER['REQUEST_METHOD'] === 'POST' &&
+    isset($_POST['register_visitor'])
 ) {
 
     header('Content-Type: application/json; charset=UTF-8');
@@ -98,14 +95,14 @@ if (
     $browserId = trim((string) ($_POST['browser_id'] ?? ''));
 
     // Must be exactly 32 lowercase hex characters.
-    if (!preg_match('/^[a-f0-9]{32}$/', $browserId)) {
+    if (! preg_match('/^[a-f0-9]{32}$/', $browserId)) {
 
         http_response_code(400);
 
         try {
             echo json_encode([
-                    'success' => false,
-                    'message' => 'Invalid browser identifier.',
+                'success' => false,
+                'message' => 'Invalid browser identifier.',
             ], JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
 
@@ -118,7 +115,7 @@ if (
 
         // Check whether this browser already exists
         $stmt = $pdo->prepare(
-                'SELECT id FROM visitors WHERE browser_id = ? LIMIT 1',
+            'SELECT id FROM visitors WHERE browser_id = ? LIMIT 1',
         );
         $stmt->execute([$browserId]);
         $existingVisitor = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -128,7 +125,7 @@ if (
             // Existing browser: update IP + visit stats,
             // total visitor count stays the same.
             $update = $pdo->prepare(
-                    'UPDATE visitors
+                'UPDATE visitors
                  SET last_visit = CURRENT_TIMESTAMP,
                      visit_count = visit_count + 1,
                      ip_address = ?
@@ -140,7 +137,7 @@ if (
 
             // New browser: store ID and IP
             $insert = $pdo->prepare(
-                    'INSERT INTO visitors
+                'INSERT INTO visitors
                     (browser_id, ip_address, first_visit, last_visit, visit_count)
                  VALUES
                     (?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1)',
@@ -150,13 +147,13 @@ if (
         }
 
         $totalVisitors = (int) $pdo
-                ->query('SELECT COUNT(*) FROM visitors')
-                ->fetchColumn();
+            ->query('SELECT COUNT(*) FROM visitors')
+            ->fetchColumn();
 
         echo json_encode([
-                'success' => true,
-                'total' => $totalVisitors,
-                'ip' => $visitorIp,   // returned so the page can display it
+            'success' => true,
+            'total' => $totalVisitors,
+            'ip' => $visitorIp,   // returned so the page can display it
         ], JSON_THROW_ON_ERROR);
 
         exit;
@@ -166,8 +163,8 @@ if (
 
         try {
             echo json_encode([
-                    'success' => false,
-                    'message' => 'Unable to register visitor.',
+                'success' => false,
+                'message' => 'Unable to register visitor.',
             ], JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
 
@@ -178,7 +175,6 @@ if (
     }
 }
 
-
 // ------------------------------------------------------------
 // Current total (initial render)
 // ------------------------------------------------------------
@@ -188,10 +184,10 @@ $visitorTotal = 0;
 if (isset($pdo) && $pdo instanceof PDO) {
     try {
         $visitorTotal = (int) $pdo
-                ->query('SELECT COUNT(*) FROM visitors')
-                ->fetchColumn();
+            ->query('SELECT COUNT(*) FROM visitors')
+            ->fetchColumn();
     } catch (PDOException $e) {
-        error_log('Visitor counter error: ' . $e->getMessage());
+        error_log('Visitor counter error: '.$e->getMessage());
     }
 }
 

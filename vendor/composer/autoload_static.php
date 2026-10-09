@@ -67,12 +67,21 @@ class ComposerStaticInit2185d2f99bcd56787481d9357a5972d3
             'Evenement\\' => 10,
             'Ergebnis\\AgentDetector\\' => 23,
         ),
+        'D' =>
+        array (
+            'Database\\Seeders\\' => 17,
+            'Database\\Factories\\' => 19,
+        ),
         'C' =>
         array (
             'Composer\\XdebugHandler\\' => 23,
             'Composer\\Semver\\' => 16,
             'Composer\\Pcre\\' => 14,
             'Clue\\React\\NDJson\\' => 18,
+        ),
+        'A' =>
+        array (
+            'App\\' => 4,
         ),
     );
 
@@ -205,6 +214,14 @@ class ComposerStaticInit2185d2f99bcd56787481d9357a5972d3
         array (
             0 => __DIR__ . '/..' . '/ergebnis/agent-detector/src',
         ),
+        'Database\\Seeders\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/laravel/pint/database/seeders',
+        ),
+        'Database\\Factories\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/laravel/pint/database/factories',
+        ),
         'Composer\\XdebugHandler\\' =>
         array (
             0 => __DIR__ . '/..' . '/composer/xdebug-handler/src',
@@ -220,6 +237,10 @@ class ComposerStaticInit2185d2f99bcd56787481d9357a5972d3
         'Clue\\React\\NDJson\\' =>
         array (
             0 => __DIR__ . '/..' . '/clue/ndjson-react/src',
+        ),
+        'App\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/laravel/pint/app',
         ),
     );
 

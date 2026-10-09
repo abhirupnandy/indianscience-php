@@ -20,7 +20,7 @@ $perPage = filter_var(
 
 if (
     $perPage === false ||
-    !in_array($perPage, $allowedPageSizes, true)
+    ! in_array($perPage, $allowedPageSizes, true)
 ) {
     $perPage = 10;
 }
@@ -50,10 +50,10 @@ if ($search !== '') {
            OR journal LIKE :journal
     ';
 
-    $term = '%' . $search . '%';
+    $term = '%'.$search.'%';
 
     $params = [
-        ':title'   => $term,
+        ':title' => $term,
         ':authors' => $term,
         ':journal' => $term,
     ];
@@ -135,9 +135,9 @@ $paginationUrl = static function (int $targetPage) use (
     $search,
     $perPage
 ): string {
-    return '?' . http_build_query([
-            'q'        => $search,
-            'per_page' => $perPage,
-            'page'     => $targetPage,
-        ]);
+    return '?'.http_build_query([
+        'q' => $search,
+        'per_page' => $perPage,
+        'page' => $targetPage,
+    ]);
 };

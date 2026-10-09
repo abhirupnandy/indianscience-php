@@ -5,22 +5,22 @@ $pageDescription =
         'All international collaborations by the top 1000 Indian Research Institutions during the time 2010-19.';
 
 $breadcrumbs = [
-        [
-                'label' => 'Home',
-                'path' => '',
-        ],
-        [
-                'label' => 'Collaborations',
-                'path' => null,
-        ],
+    [
+        'label' => 'Home',
+        'path' => '',
+    ],
+    [
+        'label' => 'Collaborations',
+        'path' => null,
+    ],
 ];
 
 $sections = [
-        'Collaboration patterns in Indian Research Output',
-        'International Collaboration Patterns',
-        "India's major collaborating partner countries",
-        "Subject area-wise distribution of domestic and Internationally Collaborated papers",
-        "Citation impact of Internationally Collaborated Papers",
+    'Collaboration patterns in Indian Research Output',
+    'International Collaboration Patterns',
+    "India's major collaborating partner countries",
+    'Subject area-wise distribution of domestic and Internationally Collaborated papers',
+    'Citation impact of Internationally Collaborated Papers',
 ];
 
 $tags = ['International Collaborations', 'Research Output', 'Research Impact', 'India'];
@@ -49,11 +49,11 @@ $tags = ['International Collaborations', 'Research Output', 'Research Impact', '
                            text-sm text-gray-500
                            dark:text-gray-400">
 
-                    <?php foreach ($breadcrumbs as $index => $breadcrumb): ?>
+                    <?php foreach ($breadcrumbs as $index => $breadcrumb) { ?>
 
                         <li class="flex items-center gap-2">
 
-                            <?php if ($breadcrumb['path'] !== null): ?>
+                            <?php if ($breadcrumb['path'] !== null) { ?>
 
                                 <a
                                         href="<?= url($breadcrumb['path']) ?>"
@@ -62,7 +62,7 @@ $tags = ['International Collaborations', 'Research Output', 'Research Impact', '
                                     <?= e($breadcrumb['label']) ?>
                                 </a>
 
-                            <?php else: ?>
+                            <?php } else { ?>
 
                                 <span
                                         class="<?= $index ===
@@ -72,10 +72,10 @@ $tags = ['International Collaborations', 'Research Output', 'Research Impact', '
                                     <?= e($breadcrumb['label']) ?>
                                 </span>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
 
-                            <?php if ($index < count($breadcrumbs) - 1): ?>
+                            <?php if ($index < count($breadcrumbs) - 1) { ?>
 
                                 <svg
                                         class="h-4 w-4 shrink-0 text-gray-400"
@@ -89,11 +89,11 @@ $tags = ['International Collaborations', 'Research Output', 'Research Impact', '
                                             d="m9 5 7 7-7 7"/>
                                 </svg>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
                         </li>
 
-                    <?php endforeach; ?>
+                    <?php } ?>
 
                 </ol>
             </nav>
@@ -437,18 +437,18 @@ $tags = ['International Collaborations', 'Research Output', 'Research Impact', '
 
                             <ul class="space-y-1">
                                 <?php foreach (
-                                        $sections as $index => $section
-                                ): ?>
+                                    $sections as $index => $section
+                                ) { ?>
                                     <li>
                                         <a
                                                 href="#<?= e(
-                                                        strtolower(
-                                                                preg_replace(
-                                                                        '/[^a-z0-9]+/i',
-                                                                        '-',
-                                                                        $section,
-                                                                ),
+                                                    strtolower(
+                                                        preg_replace(
+                                                            '/[^a-z0-9]+/i',
+                                                            '-',
+                                                            $section,
                                                         ),
+                                                    ),
                                                 ) ?>"
                                                 class="block rounded-lg px-3 py-2
                                                    text-sm leading-5
@@ -463,7 +463,7 @@ $tags = ['International Collaborations', 'Research Output', 'Research Impact', '
 
                                     </li>
 
-                                <?php endforeach; ?>
+                                <?php } ?>
 
                             </ul>
 
@@ -490,7 +490,7 @@ $tags = ['International Collaborations', 'Research Output', 'Research Impact', '
 
                         <div class="mt-4 flex flex-wrap gap-2">
 
-                            <?php foreach ($tags as $tag): ?>
+                            <?php foreach ($tags as $tag) { ?>
 
                                 <span
                                         class="rounded-full border
@@ -503,7 +503,7 @@ $tags = ['International Collaborations', 'Research Output', 'Research Impact', '
                                     <?= e($tag) ?>
                                 </span>
 
-                            <?php endforeach; ?>
+                            <?php } ?>
 
                         </div>
 
@@ -517,7 +517,7 @@ $tags = ['International Collaborations', 'Research Output', 'Research Impact', '
 
     </section>
 
-<?php include __DIR__ . '/../partials/data-source-note.php'; ?>
+<?php include __DIR__.'/../partials/data-source-note.php'; ?>
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {

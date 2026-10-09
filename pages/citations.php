@@ -1,28 +1,28 @@
 <?php
-$pageTitle = "Citations";
+$pageTitle = 'Citations';
 
 $pageDescription =
-    "Total citations to Indian Research output, Relative Citation Ratio, Highly Cited Papers of India and comparison with other major countries.";
+    'Total citations to Indian Research output, Relative Citation Ratio, Highly Cited Papers of India and comparison with other major countries.';
 
 $breadcrumbs = [
     [
-        "label" => "Home",
-        "path" => "",
+        'label' => 'Home',
+        'path' => '',
     ],
     [
-        "label" => "Citations",
-        "path" => null,
+        'label' => 'Citations',
+        'path' => null,
     ],
 ];
 
 $sections = [
-    "Citations received by Indian Research output during 2010 - 2019",
-    "Comparison with other countries",
-    "Relative Citation Ratio (RCR) of India in different subject areas",
+    'Citations received by Indian Research output during 2010 - 2019',
+    'Comparison with other countries',
+    'Relative Citation Ratio (RCR) of India in different subject areas',
     "India's contribution to highly cited papers",
 ];
 
-$tags = ["Citations", "Research Output", "Research Impact", "India"];
+$tags = ['Citations', 'Research Output', 'Research Impact', 'India'];
 ?>
 
 <div class="w-full max-w-full">
@@ -48,33 +48,33 @@ $tags = ["Citations", "Research Output", "Research Impact", "India"];
                            text-sm text-gray-500
                            dark:text-gray-400">
 
-                    <?php foreach ($breadcrumbs as $index => $breadcrumb): ?>
+                    <?php foreach ($breadcrumbs as $index => $breadcrumb) { ?>
 
                         <li class="flex items-center gap-2">
 
-                            <?php if ($breadcrumb["path"] !== null): ?>
+                            <?php if ($breadcrumb['path'] !== null) { ?>
 
                                 <a
-                                    href="<?= url($breadcrumb["path"]) ?>"
+                                    href="<?= url($breadcrumb['path']) ?>"
                                     class="transition hover:text-gray-900
                                            dark:hover:text-white">
-                                    <?= e($breadcrumb["label"]) ?>
+                                    <?= e($breadcrumb['label']) ?>
                                 </a>
 
-                            <?php else: ?>
+                            <?php } else { ?>
 
                                 <span
                                     class="<?= $index ===
                                                 count($breadcrumbs) - 1
-                                                ? "font-medium text-gray-900 dark:text-white"
-                                                : "" ?>">
-                                    <?= e($breadcrumb["label"]) ?>
+                                                ? 'font-medium text-gray-900 dark:text-white'
+                                                : '' ?>">
+                                    <?= e($breadcrumb['label']) ?>
                                 </span>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
 
-                            <?php if ($index < count($breadcrumbs) - 1): ?>
+                            <?php if ($index < count($breadcrumbs) - 1) { ?>
 
                                 <svg
                                     class="h-4 w-4 shrink-0 text-gray-400"
@@ -88,11 +88,11 @@ $tags = ["Citations", "Research Output", "Research Impact", "India"];
                                         d="m9 5 7 7-7 7" />
                                 </svg>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
                         </li>
 
-                    <?php endforeach; ?>
+                    <?php } ?>
 
                 </ol>
             </nav>
@@ -346,14 +346,14 @@ $tags = ["Citations", "Research Output", "Research Impact", "India"];
                             <ul class="space-y-1">
                                 <?php foreach (
                                     $sections as $index => $section
-                                ): ?>
+                                ) { ?>
                                     <li>
                                         <a
                                             href="#<?= e(
                                                 strtolower(
                                                     preg_replace(
-                                                        "/[^a-z0-9]+/i",
-                                                        "-",
+                                                        '/[^a-z0-9]+/i',
+                                                        '-',
                                                         $section,
                                                     ),
                                                 ),
@@ -371,7 +371,7 @@ $tags = ["Citations", "Research Output", "Research Impact", "India"];
 
                                     </li>
 
-                                <?php endforeach; ?>
+                                <?php } ?>
 
                             </ul>
 
@@ -398,7 +398,7 @@ $tags = ["Citations", "Research Output", "Research Impact", "India"];
 
                         <div class="mt-4 flex flex-wrap gap-2">
 
-                            <?php foreach ($tags as $tag): ?>
+                            <?php foreach ($tags as $tag) { ?>
 
                                 <span
                                     class="rounded-full border
@@ -411,7 +411,7 @@ $tags = ["Citations", "Research Output", "Research Impact", "India"];
                                     <?= e($tag) ?>
                                 </span>
 
-                            <?php endforeach; ?>
+                            <?php } ?>
 
                         </div>
 
@@ -424,7 +424,7 @@ $tags = ["Citations", "Research Output", "Research Impact", "India"];
         </div>
 
     </section>
-    <?php include __DIR__ . '/../partials/data-source-note.php'; ?>
+    <?php include __DIR__.'/../partials/data-source-note.php'; ?>
 
 </div>
 

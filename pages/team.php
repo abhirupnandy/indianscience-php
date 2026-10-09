@@ -6,19 +6,19 @@ $pageDescription =
         'Meet the people behind Indian Science Reports and the work that supports its research analytics and institutional insights.';
 
 $breadcrumbs = [
-        [
-                'label' => 'Home',
-                'path' => '',
-        ],
-        [
-                'label' => 'Our Team',
-                'path' => null,
-        ],
+    [
+        'label' => 'Home',
+        'path' => '',
+    ],
+    [
+        'label' => 'Our Team',
+        'path' => null,
+    ],
 ];
 
 $sections = [
-        'Team leader',
-        'Team members',
+    'Team leader',
+    'Team members',
 ];
 
 /*
@@ -33,56 +33,56 @@ $sections = [
 */
 
 $teamLeader = [
-        'name' => 'Vivek Kumar Singh',
-        'role' => 'Professor',
-        'initials' => 'VKS',
-        'photo' => "https://indianscience.net/images/vivek.jpg",
-        'bio' => 'I lead the Text Analytics Research Group with very bright members interested in working on different aspects of Text Analytics, Information Retrieval, Sciento-text, NLP, Scientometrics, Social Media Data Analytics.',
+    'name' => 'Vivek Kumar Singh',
+    'role' => 'Professor',
+    'initials' => 'VKS',
+    'photo' => 'https://indianscience.net/images/vivek.jpg',
+    'bio' => 'I lead the Text Analytics Research Group with very bright members interested in working on different aspects of Text Analytics, Information Retrieval, Sciento-text, NLP, Scientometrics, Social Media Data Analytics.',
 ];
 
 $teamMembers = [
-        [
-                'name' => 'Hiran H. Lathabai',
-                'role' => 'Research Associate',
-                'initials' => 'H.H.L',
-                'photo' => "https://indianscience.net/images/team/uploads/hiran.jpg",
-                'bio' => 'My core research interest lies in Scientometrics and S&T policy. Other areas of interest/expertise are Technology management (including technological forecasting), Complex network analysis, Data mining, Systems engineering, etc.',
-        ],
-        [
-                'name' => 'Mousumi Karmakar',
-                'role' => 'Research Scholar',
-                'initials' => 'MK',
-                'photo' => "https://indianscience.net/images/team/uploads/mousumi.png",
-                'bio' => 'My work is focused on computational assessment of research output from various social media platforms. My research interests are mainly Altmetrics, Scientometrics, and Text Analysis.',
-        ],
-        [
-                'name' => 'Abhirup Nandy',
-                'role' => 'Research Scholar',
-                'initials' => 'AN',
-                'photo' => "https://indianscience.net/images/team/uploads/abhirup.png",
-                'bio' => 'I am currently working on the field of Text-based algorithms in Scientometrics. Also working with citation metrics like Bibliographic Coupling and Expertise Index',
-        ],
-        [
-                'name' => 'Satya Swarup',
-                'role' => 'Researcher',
-                'initials' => 'SS',
-                'photo' => "https://indianscience.net/images/team/uploads/satya.png",
-                'bio' => 'Currently, I am working on public health improvement with ML and AI tools. My interests are focused on the areas of Data Science, Computer Vision and Scientometrics.',
-        ],
-        [
-                'name' => 'Prashasti Singh',
-                'role' => 'Research Scholar',
-                'initials' => 'PS',
-                'photo' => "https://indianscience.net/images/team/uploads/prashasti.png",
-                'bio' => 'I am a Doctoral Research Scholar at the Deptt of CS, ISc Banaras Hindu University. I am actively involved in research covering various aspects of Scholarly databases, coverage and retrieval in scholarly databases, metadata evaluation and scientometric studies.',
-        ],
-        [
-                'name' => 'Aakash Singh',
-                'role' => 'Research Scholar',
-                'initials' => 'AS',
-                'photo' => "https://indianscience.net/images/team/uploads/aakash.jpg",
-                'bio' => "I am currently pursuing my Ph.D. in area of Artificial Intelligence for Social Good. I further have 3 years of working experience from India's topmost research institution DRDO. My other areas of interest are Deep learning, Natural language processing, Web development and scraping.",
-        ],
+    [
+        'name' => 'Hiran H. Lathabai',
+        'role' => 'Research Associate',
+        'initials' => 'H.H.L',
+        'photo' => 'https://indianscience.net/images/team/uploads/hiran.jpg',
+        'bio' => 'My core research interest lies in Scientometrics and S&T policy. Other areas of interest/expertise are Technology management (including technological forecasting), Complex network analysis, Data mining, Systems engineering, etc.',
+    ],
+    [
+        'name' => 'Mousumi Karmakar',
+        'role' => 'Research Scholar',
+        'initials' => 'MK',
+        'photo' => 'https://indianscience.net/images/team/uploads/mousumi.png',
+        'bio' => 'My work is focused on computational assessment of research output from various social media platforms. My research interests are mainly Altmetrics, Scientometrics, and Text Analysis.',
+    ],
+    [
+        'name' => 'Abhirup Nandy',
+        'role' => 'Research Scholar',
+        'initials' => 'AN',
+        'photo' => 'https://indianscience.net/images/team/uploads/abhirup.png',
+        'bio' => 'I am currently working on the field of Text-based algorithms in Scientometrics. Also working with citation metrics like Bibliographic Coupling and Expertise Index',
+    ],
+    [
+        'name' => 'Satya Swarup',
+        'role' => 'Researcher',
+        'initials' => 'SS',
+        'photo' => 'https://indianscience.net/images/team/uploads/satya.png',
+        'bio' => 'Currently, I am working on public health improvement with ML and AI tools. My interests are focused on the areas of Data Science, Computer Vision and Scientometrics.',
+    ],
+    [
+        'name' => 'Prashasti Singh',
+        'role' => 'Research Scholar',
+        'initials' => 'PS',
+        'photo' => 'https://indianscience.net/images/team/uploads/prashasti.png',
+        'bio' => 'I am a Doctoral Research Scholar at the Deptt of CS, ISc Banaras Hindu University. I am actively involved in research covering various aspects of Scholarly databases, coverage and retrieval in scholarly databases, metadata evaluation and scientometric studies.',
+    ],
+    [
+        'name' => 'Aakash Singh',
+        'role' => 'Research Scholar',
+        'initials' => 'AS',
+        'photo' => 'https://indianscience.net/images/team/uploads/aakash.jpg',
+        'bio' => "I am currently pursuing my Ph.D. in area of Artificial Intelligence for Social Good. I further have 3 years of working experience from India's topmost research institution DRDO. My other areas of interest are Deep learning, Natural language processing, Web development and scraping.",
+    ],
 ];
 
 ?>
@@ -112,11 +112,11 @@ $teamMembers = [
                            text-sm text-gray-500
                            dark:text-gray-400">
 
-                    <?php foreach ($breadcrumbs as $index => $breadcrumb): ?>
+                    <?php foreach ($breadcrumbs as $index => $breadcrumb) { ?>
 
                         <li class="flex items-center gap-2">
 
-                            <?php if ($breadcrumb['path'] !== null): ?>
+                            <?php if ($breadcrumb['path'] !== null) { ?>
 
                                 <a
                                         href="<?= url($breadcrumb['path']) ?>"
@@ -127,7 +127,7 @@ $teamMembers = [
 
                                 </a>
 
-                            <?php else: ?>
+                            <?php } else { ?>
 
                                 <span
                                         class="font-medium text-gray-900
@@ -137,9 +137,9 @@ $teamMembers = [
 
                                 </span>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
-                            <?php if ($index < count($breadcrumbs) - 1): ?>
+                            <?php if ($index < count($breadcrumbs) - 1) { ?>
 
                                 <svg
                                         class="h-4 w-4 shrink-0 text-gray-400"
@@ -156,11 +156,11 @@ $teamMembers = [
 
                                 </svg>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
                         </li>
 
-                    <?php endforeach; ?>
+                    <?php } ?>
 
                 </ol>
 
@@ -268,10 +268,10 @@ $teamMembers = [
 
                     <?php
                     partial('team-member-card', [
-                            'member' => $teamLeader,
-                            'featured' => true,
+                        'member' => $teamLeader,
+                        'featured' => true,
                     ]);
-                    ?>
+?>
 
                 </section>
 
@@ -329,16 +329,16 @@ $teamMembers = [
                                sm:grid-cols-2
                                xl:grid-cols-3">
 
-                        <?php foreach ($teamMembers as $member): ?>
+                        <?php foreach ($teamMembers as $member) { ?>
 
                             <?php
-                            partial('team-member-card', [
-                                    'member' => $member,
-                                    'featured' => false,
-                            ]);
+        partial('team-member-card', [
+            'member' => $member,
+            'featured' => false,
+        ]);
                             ?>
 
-                        <?php endforeach; ?>
+                        <?php } ?>
 
                     </div>
 
@@ -376,15 +376,15 @@ $teamMembers = [
 
                             <ul class="space-y-1">
 
-                                <?php foreach ($sections as $section): ?>
+                                <?php foreach ($sections as $section) { ?>
 
                                     <?php
                                     $sectionId = strtolower(
-                                            preg_replace(
-                                                    '/[^a-z0-9]+/i',
-                                                    '-',
-                                                    $section,
-                                            ),
+                                        preg_replace(
+                                            '/[^a-z0-9]+/i',
+                                            '-',
+                                            $section,
+                                        ),
                                     );
                                     ?>
 
@@ -407,7 +407,7 @@ $teamMembers = [
 
                                     </li>
 
-                                <?php endforeach; ?>
+                                <?php } ?>
 
                             </ul>
 

@@ -52,11 +52,11 @@ $tags = [
                            text-sm text-gray-500
                            dark:text-gray-400">
 
-                    <?php foreach ($breadcrumbs as $index => $breadcrumb): ?>
+                    <?php foreach ($breadcrumbs as $index => $breadcrumb) { ?>
 
                         <li class="flex items-center gap-2">
 
-                            <?php if ($breadcrumb['path'] !== null): ?>
+                            <?php if ($breadcrumb['path'] !== null) { ?>
 
                                 <a
                                     href="<?= url($breadcrumb['path']) ?>"
@@ -65,7 +65,7 @@ $tags = [
                                     <?= e($breadcrumb['label']) ?>
                                 </a>
 
-                            <?php else: ?>
+                            <?php } else { ?>
 
                                 <span
                                     class="<?= $index ===
@@ -75,10 +75,10 @@ $tags = [
                                     <?= e($breadcrumb['label']) ?>
                                 </span>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
 
-                            <?php if ($index < count($breadcrumbs) - 1): ?>
+                            <?php if ($index < count($breadcrumbs) - 1) { ?>
 
                                 <svg
                                     class="h-4 w-4 shrink-0 text-gray-400"
@@ -92,11 +92,11 @@ $tags = [
                                         d="m9 5 7 7-7 7"/>
                                 </svg>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
                         </li>
 
-                    <?php endforeach; ?>
+                    <?php } ?>
 
                 </ol>
             </nav>
@@ -270,7 +270,7 @@ $tags = [
                             <ul class="space-y-1">
                                 <?php foreach (
                                     $sections as $index => $section
-                                ): ?>
+                                ) { ?>
                                     <li>
                                         <a
                                             href="#<?= e(
@@ -295,7 +295,7 @@ $tags = [
 
                                     </li>
 
-                                <?php endforeach; ?>
+                                <?php } ?>
 
                             </ul>
 
@@ -322,7 +322,7 @@ $tags = [
 
                         <div class="mt-4 flex flex-wrap gap-2">
 
-                            <?php foreach ($tags as $tag): ?>
+                            <?php foreach ($tags as $tag) { ?>
 
                                 <span
                                     class="rounded-full border
@@ -335,7 +335,7 @@ $tags = [
                                     <?= e($tag) ?>
                                 </span>
 
-                            <?php endforeach; ?>
+                            <?php } ?>
 
                         </div>
 
@@ -364,24 +364,24 @@ $tags = [
                     <?php
                     $reportUrl = 'https://indianscience.net/data/INDIA%E2%80%99S%20INNOVATION%20STORY.pdf';
 
-                    $citations = [
-                            'apa' => 'Saraswat, V. K., Singh, V. K., Bhattacharya, S., Kanaujia, A., Sonkusare, A., Thyagaraju, B. M., Dhamija, A., Chanana, P., Agarwal, T., Kaur, S., Narang, D., & Suroor, N. (2025). *Pathways to progress: Analysis and insights into India’s innovation story*. NITI Aayog.',
+$citations = [
+    'apa' => 'Saraswat, V. K., Singh, V. K., Bhattacharya, S., Kanaujia, A., Sonkusare, A., Thyagaraju, B. M., Dhamija, A., Chanana, P., Agarwal, T., Kaur, S., Narang, D., & Suroor, N. (2025). *Pathways to progress: Analysis and insights into India’s innovation story*. NITI Aayog.',
 
-                            'mla' => 'Saraswat, V. K., et al. *Pathways to Progress: Analysis and Insights into India’s Innovation Story*. NITI Aayog, 2025.',
+    'mla' => 'Saraswat, V. K., et al. *Pathways to Progress: Analysis and Insights into India’s Innovation Story*. NITI Aayog, 2025.',
 
-                            'harvard' => 'Saraswat, V.K. et al. (2025) *Pathways to Progress: Analysis and Insights into India’s Innovation Story*. New Delhi: NITI Aayog.',
+    'harvard' => 'Saraswat, V.K. et al. (2025) *Pathways to Progress: Analysis and Insights into India’s Innovation Story*. New Delhi: NITI Aayog.',
 
-                            'vancouver' => 'Saraswat VK, Singh VK, Bhattacharya S, Kanaujia A, Sonkusare A, Thyagaraju BM, et al. Pathways to Progress: Analysis and Insights into India’s Innovation Story. New Delhi: NITI Aayog; 2025.',
+    'vancouver' => 'Saraswat VK, Singh VK, Bhattacharya S, Kanaujia A, Sonkusare A, Thyagaraju BM, et al. Pathways to Progress: Analysis and Insights into India’s Innovation Story. New Delhi: NITI Aayog; 2025.',
 
-                            'bibtex' => '@techreport{saraswat2025pathways,
+    'bibtex' => '@techreport{saraswat2025pathways,
   title       = {Pathways to Progress: Analysis and Insights into India’s Innovation Story},
   author      = {Saraswat, V. K. and Singh, Vivek Kumar and Bhattacharya, Sujit and Kanaujia, Anurag and Sonkusare, Ashok and Thyagaraju, B. M. and Dhamija, Akanksha and Chanana, Pratibha and Agarwal, Tusha and Kaur, Simarjot and Narang, Deepak and Suroor, Naba},
   institution = {NITI Aayog},
   address     = {New Delhi, India},
   year        = {2025}
 }',
-                    ];
-                    ?>
+];
+?>
 
                     <div class="mt-4">
 
@@ -498,8 +498,8 @@ $tags = [
 <script>
     (() => {
         const citations = <?= json_encode(
-                $citations,
-                JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
+            $citations,
+            JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
         ) ?>;
 
         const styleSelect = document.getElementById('report-citation-style');

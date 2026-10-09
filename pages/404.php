@@ -1,5 +1,5 @@
 <?php
-if (!isset($pdo) || !($pdo instanceof PDO)) {
+if (! isset($pdo) || ! ($pdo instanceof PDO)) {
     error_log('Visitor counter: PDO connection is unavailable.');
 }
 ?>

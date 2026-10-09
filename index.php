@@ -15,8 +15,7 @@
 
 declare(strict_types=1);
 
-require __DIR__ . '/config.php';
-
+require __DIR__.'/config.php';
 
 // ================================================================
 // ROUTES
@@ -59,7 +58,6 @@ $routes = [
     'terms' => 'terms.php',
 ];
 
-
 // ================================================================
 // GET REQUEST PATH
 // ================================================================
@@ -71,7 +69,6 @@ $path = trim(
     ),
     '/',
 );
-
 
 // ================================================================
 // MATCH ROUTE
@@ -98,8 +95,7 @@ foreach ($routes as $pattern => $file) {
         $pattern,
     );
 
-    $regex = '#^' . $regexPattern . '$#';
-
+    $regex = '#^'.$regexPattern.'$#';
 
     if (preg_match($regex, $path, $matches)) {
 
@@ -121,18 +117,16 @@ foreach ($routes as $pattern => $file) {
     }
 }
 
-
 // ================================================================
 // 404
 // ================================================================
 
 if (
     $page === null ||
-    !file_exists(ROOT_PATH . '/pages/' . $page)
+    ! file_exists(ROOT_PATH.'/pages/'.$page)
 ) {
     abort_404();
 }
-
 
 // ================================================================
 // RENDER PAGE
@@ -148,7 +142,7 @@ if (
 // The page's HTML is buffered into $content.
 //
 
-$pageFile = ROOT_PATH . '/pages/' . $page;
+$pageFile = ROOT_PATH.'/pages/'.$page;
 
 ob_start();
 
@@ -156,13 +150,12 @@ require $pageFile;
 
 $content = ob_get_clean();
 
-
 // ================================================================
 // LAYOUT
 // ================================================================
 
-require ROOT_PATH . '/partials/header.php';
+require ROOT_PATH.'/partials/header.php';
 
 echo $content;
 
-require ROOT_PATH . '/partials/footer.php';
+require ROOT_PATH.'/partials/footer.php';

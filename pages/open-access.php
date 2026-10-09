@@ -5,21 +5,21 @@ $pageDescription =
         'Open Access Distribution of the Total Research Output of India from 2010 to 2019';
 
 $breadcrumbs = [
-        [
-                'label' => 'Home',
-                'path' => '',
-        ],
-        [
-                'label' => 'Open Access',
-                'path' => null,
-        ],
+    [
+        'label' => 'Home',
+        'path' => '',
+    ],
+    [
+        'label' => 'Open Access',
+        'path' => null,
+    ],
 ];
 
 $sections = [
-        'Open Access availability of Indian Research Output',
-        'Comparison with other major countries',
-        'Subject area-wise Open Access availability of Indian Research Output',
-        'Open Access availability of Funded Research Output',
+    'Open Access availability of Indian Research Output',
+    'Comparison with other major countries',
+    'Subject area-wise Open Access availability of Indian Research Output',
+    'Open Access availability of Funded Research Output',
 ];
 
 $tags = ['Open Access', 'Gold OA', 'Green OA', 'Hybrid OA', 'Bronze OA', 'Diamond OA', 'Research Impact', 'India'];
@@ -48,11 +48,11 @@ $tags = ['Open Access', 'Gold OA', 'Green OA', 'Hybrid OA', 'Bronze OA', 'Diamon
                            text-sm text-gray-500
                            dark:text-gray-400">
 
-                    <?php foreach ($breadcrumbs as $index => $breadcrumb): ?>
+                    <?php foreach ($breadcrumbs as $index => $breadcrumb) { ?>
 
                         <li class="flex items-center gap-2">
 
-                            <?php if ($breadcrumb['path'] !== null): ?>
+                            <?php if ($breadcrumb['path'] !== null) { ?>
 
                                 <a
                                         href="<?= url($breadcrumb['path']) ?>"
@@ -61,7 +61,7 @@ $tags = ['Open Access', 'Gold OA', 'Green OA', 'Hybrid OA', 'Bronze OA', 'Diamon
                                     <?= e($breadcrumb['label']) ?>
                                 </a>
 
-                            <?php else: ?>
+                            <?php } else { ?>
 
                                 <span
                                         class="<?= $index ===
@@ -71,10 +71,10 @@ $tags = ['Open Access', 'Gold OA', 'Green OA', 'Hybrid OA', 'Bronze OA', 'Diamon
                                     <?= e($breadcrumb['label']) ?>
                                 </span>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
 
-                            <?php if ($index < count($breadcrumbs) - 1): ?>
+                            <?php if ($index < count($breadcrumbs) - 1) { ?>
 
                                 <svg
                                         class="h-4 w-4 shrink-0 text-gray-400"
@@ -88,11 +88,11 @@ $tags = ['Open Access', 'Gold OA', 'Green OA', 'Hybrid OA', 'Bronze OA', 'Diamon
                                             d="m9 5 7 7-7 7"/>
                                 </svg>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
                         </li>
 
-                    <?php endforeach; ?>
+                    <?php } ?>
 
                 </ol>
             </nav>
@@ -478,18 +478,18 @@ $tags = ['Open Access', 'Gold OA', 'Green OA', 'Hybrid OA', 'Bronze OA', 'Diamon
 
                             <ul class="space-y-1">
                                 <?php foreach (
-                                        $sections as $index => $section
-                                ): ?>
+                                    $sections as $index => $section
+                                ) { ?>
                                     <li>
                                         <a
                                                 href="#<?= e(
-                                                        strtolower(
-                                                                preg_replace(
-                                                                        '/[^a-z0-9]+/i',
-                                                                        '-',
-                                                                        $section,
-                                                                ),
+                                                    strtolower(
+                                                        preg_replace(
+                                                            '/[^a-z0-9]+/i',
+                                                            '-',
+                                                            $section,
                                                         ),
+                                                    ),
                                                 ) ?>"
                                                 class="block rounded-lg px-3 py-2
                                                    text-sm leading-5
@@ -504,7 +504,7 @@ $tags = ['Open Access', 'Gold OA', 'Green OA', 'Hybrid OA', 'Bronze OA', 'Diamon
 
                                     </li>
 
-                                <?php endforeach; ?>
+                                <?php } ?>
 
                             </ul>
 
@@ -531,7 +531,7 @@ $tags = ['Open Access', 'Gold OA', 'Green OA', 'Hybrid OA', 'Bronze OA', 'Diamon
 
                         <div class="mt-4 flex flex-wrap gap-2">
 
-                            <?php foreach ($tags as $tag): ?>
+                            <?php foreach ($tags as $tag) { ?>
 
                                 <span
                                         class="rounded-full border
@@ -544,7 +544,7 @@ $tags = ['Open Access', 'Gold OA', 'Green OA', 'Hybrid OA', 'Bronze OA', 'Diamon
                                     <?= e($tag) ?>
                                 </span>
 
-                            <?php endforeach; ?>
+                            <?php } ?>
 
                         </div>
 
@@ -557,7 +557,7 @@ $tags = ['Open Access', 'Gold OA', 'Green OA', 'Hybrid OA', 'Bronze OA', 'Diamon
         </div>
 
     </section>
-    <?php include __DIR__ . '/../partials/data-source-note.php'; ?>
+    <?php include __DIR__.'/../partials/data-source-note.php'; ?>
 
 </div>
 

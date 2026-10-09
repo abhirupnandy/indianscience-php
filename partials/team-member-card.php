@@ -7,7 +7,6 @@
  *   $member   array
  *   $featured bool (optional)
  */
-
 $featured = $featured ?? false;
 
 $name = $member['name'] ?? 'Team member';
@@ -16,7 +15,7 @@ $bio = $member['bio'] ?? '';
 $photo = $member['photo'] ?? null;
 $initials = $member['initials'] ?? 'TM';
 
-$cardId = 'team-card-' . bin2hex(random_bytes(6));
+$cardId = 'team-card-'.bin2hex(random_bytes(6));
 ?>
 
 <article
@@ -75,7 +74,7 @@ $cardId = 'team-card-' . bin2hex(random_bytes(6));
                                 bg-gray-100 ring-1 ring-gray-200
                                 dark:bg-gray-800 dark:ring-gray-700">
 
-                            <?php if ($photo): ?>
+                            <?php if ($photo) { ?>
 
                                 <img
                                     src="<?= e($photo) ?>"
@@ -85,7 +84,7 @@ $cardId = 'team-card-' . bin2hex(random_bytes(6));
                                            transition duration-300
                                            group-hover:scale-105"/>
 
-                            <?php else: ?>
+                            <?php } else { ?>
 
                                 <div
                                     class="flex h-full w-full
@@ -104,7 +103,7 @@ $cardId = 'team-card-' . bin2hex(random_bytes(6));
 
                                 </div>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
                         </div>
 
@@ -115,7 +114,7 @@ $cardId = 'team-card-' . bin2hex(random_bytes(6));
                         class="flex flex-1 flex-col items-center
                                px-5 pb-5 pt-5 text-center">
 
-                        <?php if ($featured): ?>
+                        <?php if ($featured) { ?>
 
                             <span
                                 class="mb-3 inline-flex items-center
@@ -143,7 +142,7 @@ $cardId = 'team-card-' . bin2hex(random_bytes(6));
 
                             </span>
 
-                        <?php endif; ?>
+                        <?php } ?>
 
                         <h3
                             class="<?= $featured
@@ -156,7 +155,7 @@ $cardId = 'team-card-' . bin2hex(random_bytes(6));
 
                         </h3>
 
-                        <?php if ($role !== ''): ?>
+                        <?php if ($role !== '') { ?>
 
                             <p
                                 class="mt-1.5 text-sm font-medium
@@ -167,7 +166,7 @@ $cardId = 'team-card-' . bin2hex(random_bytes(6));
 
                             </p>
 
-                        <?php endif; ?>
+                        <?php } ?>
 
                         <!-- Flip hint -->
                         <span
@@ -224,7 +223,7 @@ $cardId = 'team-card-' . bin2hex(random_bytes(6));
            bg-gray-100 ring-1 ring-gray-200
            dark:bg-gray-800 dark:ring-gray-700'>
 
-                            <?php if ($photo): ?>
+                            <?php if ($photo) { ?>
 
                                 <img
                                     src="<?= e($photo) ?>"
@@ -232,7 +231,7 @@ $cardId = 'team-card-' . bin2hex(random_bytes(6));
                                     loading="lazy"
                                     class="h-full w-full object-cover"/>
 
-                            <?php else: ?>
+                            <?php } else { ?>
 
                                 <div
                                     class="flex h-full w-full items-center justify-center
@@ -241,7 +240,7 @@ $cardId = 'team-card-' . bin2hex(random_bytes(6));
                                     <?= e($initials) ?>
                                 </div>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
                         </div>
 
@@ -256,7 +255,7 @@ $cardId = 'team-card-' . bin2hex(random_bytes(6));
 
                             </h3>
 
-                            <?php if ($role !== ''): ?>
+                            <?php if ($role !== '') { ?>
 
                                 <p
                                     class="mt-1 text-sm font-medium
@@ -267,7 +266,7 @@ $cardId = 'team-card-' . bin2hex(random_bytes(6));
 
                                 </p>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
                         </div>
 

@@ -67,7 +67,7 @@ $pageTitle = 'Institutional Reports';
                 class="flex flex-wrap gap-1.5"
                 aria-label="Filter institutions alphabetically"
         >
-            <?php foreach (array_merge(['All'], range('A', 'Z'), ['#']) as $letter): ?>
+            <?php foreach (array_merge(['All'], range('A', 'Z'), ['#']) as $letter) { ?>
                 <button
                         type="button"
                         data-letter="<?= $letter === 'All' ? '' : e($letter) ?>"
@@ -76,7 +76,7 @@ $pageTitle = 'Institutional Reports';
                 >
                     <?= e($letter) ?>
                 </button>
-            <?php endforeach; ?>
+            <?php } ?>
         </div>
     </section>
 

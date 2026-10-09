@@ -5,19 +5,19 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 
-require __DIR__ . '/../config.php';
+require __DIR__.'/../config.php';
 // Change this path if your database bootstrap is elsewhere.
 
 try {
-    if (!isset($pdo) || !$pdo instanceof PDO) {
+    if (! isset($pdo) || ! $pdo instanceof PDO) {
         throw new RuntimeException('Database connection is unavailable.');
     }
 
-    $query = trim((string)($_GET['q'] ?? ''));
-    $letter = strtoupper(trim((string)($_GET['letter'] ?? '')));
-    $page = max(1, (int)($_GET['page'] ?? 1));
+    $query = trim((string) ($_GET['q'] ?? ''));
+    $letter = strtoupper(trim((string) ($_GET['letter'] ?? '')));
+    $page = max(1, (int) ($_GET['page'] ?? 1));
 
-    $requestedSize = (int)(
+    $requestedSize = (int) (
         $_GET['per_page'] ?? $_GET['limit'] ?? 20
     );
 
@@ -25,7 +25,7 @@ try {
         ? $requestedSize
         : 20;
 
-    if ($letter !== '' && !preg_match('/^[A-Z#]$/', $letter)) {
+    if ($letter !== '' && ! preg_match('/^[A-Z#]$/', $letter)) {
         $letter = '';
     }
 
@@ -42,7 +42,7 @@ try {
             OR grid_id LIKE :grid
         )';
 
-        $term = '%' . $query . '%';
+        $term = '%'.$query.'%';
 
         $params[':name'] = $term;
         $params[':city'] = $term;
@@ -56,11 +56,11 @@ try {
         $conditions[] = "name NOT REGEXP '^[A-Za-z]'";
     } elseif ($letter !== '') {
         $conditions[] = 'name LIKE :letter';
-        $params[':letter'] = $letter . '%';
+        $params[':letter'] = $letter.'%';
     }
 
     $whereSql = $conditions
-        ? 'WHERE ' . implode(' AND ', $conditions)
+        ? 'WHERE '.implode(' AND ', $conditions)
         : '';
 
     // Total matching records.
@@ -69,9 +69,9 @@ try {
     );
 
     $countStmt->execute($params);
-    $total = (int)$countStmt->fetchColumn();
+    $total = (int) $countStmt->fetchColumn();
 
-    $totalPages = (int)ceil($total / $perPage);
+    $totalPages = (int) ceil($total / $perPage);
     $page = $totalPages > 0 ? min($page, $totalPages) : 1;
     $offset = ($page - 1) * $perPage;
 
@@ -124,7 +124,7 @@ try {
     ], JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);
 
 } catch (Throwable $exception) {
-    error_log('Institution list API error: ' . $exception->getMessage());
+    error_log('Institution list API error: '.$exception->getMessage());
 
     http_response_code(500);
 

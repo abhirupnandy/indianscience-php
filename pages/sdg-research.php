@@ -5,19 +5,19 @@ $pageDescription =
         'SDG related research output in India during the period of 2010-2019';
 
 $breadcrumbs = [
-        [
-                'label' => 'Home',
-                'path' => '/',
-        ],
-        [
-                'label' => 'SDG Related Research',
-                'path' => null,
-        ],
+    [
+        'label' => 'Home',
+        'path' => '/',
+    ],
+    [
+        'label' => 'SDG Related Research',
+        'path' => null,
+    ],
 ];
 
 $sections = [
-        'Indian Research Publications on Sustainable Development Goals',
-        'Subject area-wise composition of Research Output on SDGs',
+    'Indian Research Publications on Sustainable Development Goals',
+    'Subject area-wise composition of Research Output on SDGs',
 ];
 
 $tags = ['SDG related research', 'Research Impact', 'India', 'Dimensions', 'Subjects'];
@@ -45,11 +45,11 @@ $tags = ['SDG related research', 'Research Impact', 'India', 'Dimensions', 'Subj
                            text-sm text-gray-500
                            dark:text-gray-400">
 
-                    <?php foreach ($breadcrumbs as $index => $breadcrumb): ?>
+                    <?php foreach ($breadcrumbs as $index => $breadcrumb) { ?>
 
                         <li class="flex items-center gap-2">
 
-                            <?php if ($breadcrumb['path'] !== null): ?>
+                            <?php if ($breadcrumb['path'] !== null) { ?>
 
                                 <a
                                         href="<?= url($breadcrumb['path']) ?>"
@@ -58,7 +58,7 @@ $tags = ['SDG related research', 'Research Impact', 'India', 'Dimensions', 'Subj
                                     <?= e($breadcrumb['label']) ?>
                                 </a>
 
-                            <?php else: ?>
+                            <?php } else { ?>
 
                                 <span
                                         class="<?= $index ===
@@ -68,10 +68,10 @@ $tags = ['SDG related research', 'Research Impact', 'India', 'Dimensions', 'Subj
                                     <?= e($breadcrumb['label']) ?>
                                 </span>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
 
-                            <?php if ($index < count($breadcrumbs) - 1): ?>
+                            <?php if ($index < count($breadcrumbs) - 1) { ?>
 
                                 <svg
                                         class="h-4 w-4 shrink-0 text-gray-400"
@@ -85,11 +85,11 @@ $tags = ['SDG related research', 'Research Impact', 'India', 'Dimensions', 'Subj
                                             d="m9 5 7 7-7 7"/>
                                 </svg>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
                         </li>
 
-                    <?php endforeach; ?>
+                    <?php } ?>
 
                 </ol>
             </nav>
@@ -240,11 +240,11 @@ $tags = ['SDG related research', 'Research Impact', 'India', 'Dimensions', 'Subj
                                             Subjects
                                         </th>
 
-                                        <?php for ($i = 1; $i <= 17; $i++): ?>
+                                        <?php for ($i = 1; $i <= 17; $i++) { ?>
                                             <th class='min-w-[70px] whitespace-nowrap px-3 py-3 text-center font-semibold'>
                                                 SDG <?= $i ?>
                                             </th>
-                                        <?php endfor; ?>
+                                        <?php } ?>
                                     </tr>
                                     </thead>
 
@@ -285,18 +285,18 @@ $tags = ['SDG related research', 'Research Impact', 'India', 'Dimensions', 'Subj
 
                             <ul class="space-y-1">
                                 <?php foreach (
-                                        $sections as $index => $section
-                                ): ?>
+                                    $sections as $index => $section
+                                ) { ?>
                                     <li>
                                         <a
                                                 href="#<?= e(
-                                                        strtolower(
-                                                                preg_replace(
-                                                                        '/[^a-z0-9]+/i',
-                                                                        '-',
-                                                                        $section,
-                                                                ),
+                                                    strtolower(
+                                                        preg_replace(
+                                                            '/[^a-z0-9]+/i',
+                                                            '-',
+                                                            $section,
                                                         ),
+                                                    ),
                                                 ) ?>"
                                                 class="block rounded-lg px-3 py-2
                                                    text-sm leading-5
@@ -311,7 +311,7 @@ $tags = ['SDG related research', 'Research Impact', 'India', 'Dimensions', 'Subj
 
                                     </li>
 
-                                <?php endforeach; ?>
+                                <?php } ?>
 
                             </ul>
 
@@ -338,7 +338,7 @@ $tags = ['SDG related research', 'Research Impact', 'India', 'Dimensions', 'Subj
 
                         <div class="mt-4 flex flex-wrap gap-2">
 
-                            <?php foreach ($tags as $tag): ?>
+                            <?php foreach ($tags as $tag) { ?>
 
                                 <span
                                         class="rounded-full border
@@ -351,7 +351,7 @@ $tags = ['SDG related research', 'Research Impact', 'India', 'Dimensions', 'Subj
                                     <?= e($tag) ?>
                                 </span>
 
-                            <?php endforeach; ?>
+                            <?php } ?>
 
                         </div>
 
@@ -364,7 +364,7 @@ $tags = ['SDG related research', 'Research Impact', 'India', 'Dimensions', 'Subj
         </div>
 
     </section>
-    <?php include __DIR__ . '/../partials/data-source-note.php'; ?>
+    <?php include __DIR__.'/../partials/data-source-note.php'; ?>
 
 </div>
 
@@ -392,12 +392,12 @@ $tags = ['SDG related research', 'Research Impact', 'India', 'Dimensions', 'Subj
                     className: 'font-medium whitespace-nowrap'
                 },
 
-                <?php for ($i = 1; $i <= 17; $i++): ?>
+                <?php for ($i = 1; $i <= 17; $i++) { ?>
                 {
                     data: 'sdg<?= $i ?>',
                     className: 'text-center'
                 }<?= $i < 17 ? ',' : '' ?>
-                <?php endfor; ?>
+                <?php } ?>
             ],
 
             language: {

@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-require __DIR__ . '/../config.php';
+require __DIR__.'/../config.php';
 
 header('Content-Type: application/json; charset=utf-8');
-
 
 // ================================================================
 // STATIC CITATION DATA
@@ -74,7 +73,6 @@ $citations = [
     ],
 ];
 
-
 // ================================================================
 // DATATABLES PARAMETERS
 // ================================================================
@@ -91,7 +89,6 @@ $length = (int) ($_POST['length'] ?? 10);
 if ($length < 1) {
     $length = 10;
 }
-
 
 // ================================================================
 // SEARCH
@@ -138,7 +135,6 @@ if ($search !== '') {
     $filtered = array_values($filtered);
 }
 
-
 // ================================================================
 // SORTING
 // ================================================================
@@ -161,7 +157,6 @@ $orderDirection = in_array(
     ? $orderDirection
     : 'asc';
 
-
 $columns = [
     0 => 'year',
     1 => 'volume',
@@ -170,7 +165,6 @@ $columns = [
 ];
 
 $orderBy = $columns[$orderColumn] ?? 'year';
-
 
 usort(
     $filtered,
@@ -183,7 +177,6 @@ usort(
             : $comparison;
     },
 );
-
 
 // ================================================================
 // PAGINATION
@@ -198,7 +191,6 @@ $data = array_slice(
     $start,
     $length,
 );
-
 
 // ================================================================
 // RESPONSE

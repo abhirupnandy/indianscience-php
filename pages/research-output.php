@@ -2,7 +2,7 @@
 $pageTitle = 'Research Output';
 
 $pageDescription =
-    "Total research output of Indian research, within the 2010-2019 period from the top 1000 institutions.";
+    'Total research output of Indian research, within the 2010-2019 period from the top 1000 institutions.';
 
 $breadcrumbs = [
     [
@@ -16,13 +16,13 @@ $breadcrumbs = [
 ];
 
 $sections = [
-    "Indian Research Output during 2010 - 2019",
-    "Comparison with other major countries",
-    "Subject area distribution of Indian Research Output",
-    "Subject Area-wise CAGR, Global Share and Rank",
+    'Indian Research Output during 2010 - 2019',
+    'Comparison with other major countries',
+    'Subject area distribution of Indian Research Output',
+    'Subject Area-wise CAGR, Global Share and Rank',
 ];
 
-$tags = ["Research Output", "Research Impact", "India", "Dimensions", "Subjects"];
+$tags = ['Research Output', 'Research Impact', 'India', 'Dimensions', 'Subjects'];
 ?>
 <div class="w-full max-w-full">
 
@@ -47,33 +47,33 @@ $tags = ["Research Output", "Research Impact", "India", "Dimensions", "Subjects"
                            text-sm text-gray-500
                            dark:text-gray-400">
 
-                    <?php foreach ($breadcrumbs as $index => $breadcrumb): ?>
+                    <?php foreach ($breadcrumbs as $index => $breadcrumb) { ?>
 
                         <li class="flex items-center gap-2">
 
-                            <?php if ($breadcrumb["path"] !== null): ?>
+                            <?php if ($breadcrumb['path'] !== null) { ?>
 
                                 <a
-                                    href="<?= url($breadcrumb["path"]) ?>"
+                                    href="<?= url($breadcrumb['path']) ?>"
                                     class="transition hover:text-gray-900
                                            dark:hover:text-white">
-                                    <?= e($breadcrumb["label"]) ?>
+                                    <?= e($breadcrumb['label']) ?>
                                 </a>
 
-                            <?php else: ?>
+                            <?php } else { ?>
 
                                 <span
                                     class="<?= $index ===
                                                 count($breadcrumbs) - 1
-                                                ? "font-medium text-gray-900 dark:text-white"
-                                                : "" ?>">
-                                    <?= e($breadcrumb["label"]) ?>
+                                                ? 'font-medium text-gray-900 dark:text-white'
+                                                : '' ?>">
+                                    <?= e($breadcrumb['label']) ?>
                                 </span>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
 
-                            <?php if ($index < count($breadcrumbs) - 1): ?>
+                            <?php if ($index < count($breadcrumbs) - 1) { ?>
 
                                 <svg
                                     class="h-4 w-4 shrink-0 text-gray-400"
@@ -87,11 +87,11 @@ $tags = ["Research Output", "Research Impact", "India", "Dimensions", "Subjects"
                                         d="m9 5 7 7-7 7" />
                                 </svg>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
                         </li>
 
-                    <?php endforeach; ?>
+                    <?php } ?>
 
                 </ol>
             </nav>
@@ -445,18 +445,18 @@ $tags = ["Research Output", "Research Impact", "India", "Dimensions", "Subjects"
                             <ul class="space-y-1">
                                 <?php foreach (
                                     $sections as $index => $section
-                                ): ?>
+                                ) { ?>
                                     <li>
                                         <a
                                             href="#<?= e(
-                                                        strtolower(
-                                                            preg_replace(
-                                                                "/[^a-z0-9]+/i",
-                                                                "-",
-                                                                $section,
-                                                            ),
-                                                        ),
-                                                    ) ?>"
+                                                strtolower(
+                                                    preg_replace(
+                                                        '/[^a-z0-9]+/i',
+                                                        '-',
+                                                        $section,
+                                                    ),
+                                                ),
+                                            ) ?>"
                                             class="block rounded-lg px-3 py-2
                                                    text-sm leading-5
                                                    text-gray-600 transition
@@ -470,7 +470,7 @@ $tags = ["Research Output", "Research Impact", "India", "Dimensions", "Subjects"
 
                                     </li>
 
-                                <?php endforeach; ?>
+                                <?php } ?>
 
                             </ul>
 
@@ -497,7 +497,7 @@ $tags = ["Research Output", "Research Impact", "India", "Dimensions", "Subjects"
 
                         <div class="mt-4 flex flex-wrap gap-2">
 
-                            <?php foreach ($tags as $tag): ?>
+                            <?php foreach ($tags as $tag) { ?>
 
                                 <span
                                     class="rounded-full border
@@ -510,7 +510,7 @@ $tags = ["Research Output", "Research Impact", "India", "Dimensions", "Subjects"
                                     <?= e($tag) ?>
                                 </span>
 
-                            <?php endforeach; ?>
+                            <?php } ?>
 
                         </div>
 
@@ -523,7 +523,7 @@ $tags = ["Research Output", "Research Impact", "India", "Dimensions", "Subjects"
         </div>
 
     </section>
-    <?php include __DIR__ . '/../partials/data-source-note.php'; ?>
+    <?php include __DIR__.'/../partials/data-source-note.php'; ?>
 
 </div>
 

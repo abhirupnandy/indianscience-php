@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
     if ($name === '' || $email === '' || $message === '') {
         $feedbackStatus = 'error';
         $feedbackMessage = 'Please complete your name, email, and feedback message.';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    } elseif (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $feedbackStatus = 'error';
         $feedbackMessage = 'Please enter a valid email address.';
     } elseif (mb_strlen($name) > 100 || mb_strlen($message) > 5000) {
@@ -23,18 +23,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
     } else {
         $to = getenv('FEEDBACK_EMAIL') ?: 'hello@example.com';
         $from = getenv('SMTP_FROM') ?: 'noreply@example.com';
-        $subject = 'Website Feedback from ' . $name;
+        $subject = 'Website Feedback from '.$name;
 
         // Build the email body from the template.
         $template = (static function (array $data): array {
             extract($data, EXTR_SKIP);
-            return require ROOT_PATH . '/partials/email-contact-template.php';
+
+            return require ROOT_PATH.'/partials/email-contact-template.php';
         })([
-                'name'     => $name,
-                'email'    => $email,
-                'message'  => $message,
-                'siteName' => SITE_NAME,
-                'sentAt'   => date('d M Y, H:i'),
+            'name' => $name,
+            'email' => $email,
+            'message' => $message,
+            'siteName' => SITE_NAME,
+            'sentAt' => date('d M Y, H:i'),
         ]);
 
         $htmlBody = $template['html'];
@@ -43,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
         $sent = false;
 
         // 1) PHPMailer (if installed)
-        if (file_exists(ROOT_PATH . '/vendor/autoload.php')) {
-            require_once ROOT_PATH . '/vendor/autoload.php';
+        if (file_exists(ROOT_PATH.'/vendor/autoload.php')) {
+            require_once ROOT_PATH.'/vendor/autoload.php';
 
             if (class_exists('PHPMailer\\PHPMailer\\PHPMailer')) {
                 try {
@@ -62,36 +63,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
                     $mail->Body = $htmlBody;
                     $mail->AltBody = $textBody;
                     $sent = $mail->send();
-                } catch (\Throwable $e) {
+                } catch (Throwable $e) {
                     $sent = false;
                 }
             }
         }
 
         // 2) Fallback: PHP mail() as multipart (text + HTML)
-        if (!$sent) {
-            $boundary = 'bnd_' . bin2hex(random_bytes(8));
+        if (! $sent) {
+            $boundary = 'bnd_'.bin2hex(random_bytes(8));
 
             $headers = [
-                    'From: ' . $from,
-                    'Reply-To: ' . $email,
-                    'MIME-Version: 1.0',
-                    'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
+                'From: '.$from,
+                'Reply-To: '.$email,
+                'MIME-Version: 1.0',
+                'Content-Type: multipart/alternative; boundary="'.$boundary.'"',
             ];
 
             $body = "--{$boundary}\r\n"
-                    . "Content-Type: text/plain; charset=UTF-8\r\n\r\n"
-                    . $textBody . "\r\n"
-                    . "--{$boundary}\r\n"
-                    . "Content-Type: text/html; charset=UTF-8\r\n\r\n"
-                    . $htmlBody . "\r\n"
-                    . "--{$boundary}--";
+                    ."Content-Type: text/plain; charset=UTF-8\r\n\r\n"
+                    .$textBody."\r\n"
+                    ."--{$boundary}\r\n"
+                    ."Content-Type: text/html; charset=UTF-8\r\n\r\n"
+                    .$htmlBody."\r\n"
+                    ."--{$boundary}--";
 
             $sent = mail(
-                    $to,
-                    '=?UTF-8?B?' . base64_encode($subject) . '?=',
-                    $body,
-                    implode("\r\n", $headers)
+                $to,
+                '=?UTF-8?B?'.base64_encode($subject).'?=',
+                $body,
+                implode("\r\n", $headers)
             );
         }
 
@@ -118,11 +119,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
                         We value your suggestions, questions, and comments about the portal.
                     </p>
 
-                    <?php if ($feedbackMessage !== ''): ?>
+                    <?php if ($feedbackMessage !== '') { ?>
                         <div class="mt-4 rounded-xl border px-3 py-2 text-sm <?= $feedbackStatus === 'success' ? 'border-green-200 bg-green-50 text-green-700 dark:border-green-900 dark:bg-green-950/50 dark:text-green-300' : 'border-red-200 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950/50 dark:text-red-300' ?>">
                             <?= e($feedbackMessage) ?>
                         </div>
-                    <?php endif; ?>
+                    <?php } ?>
 
                     <form method="post" action="<?= e($_SERVER['REQUEST_URI'] ?? '/') ?>" class="mt-4 space-y-3">
                         <div class="grid gap-3 sm:grid-cols-2">
@@ -163,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
 
                 <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-800 dark:bg-gray-900/60">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Visitors</h3>
-                    <?php require_once ROOT_PATH . '/includes/visitor-counter.php'; ?>
+                    <?php require_once ROOT_PATH.'/includes/visitor-counter.php'; ?>
                 </div>
             </div>
 

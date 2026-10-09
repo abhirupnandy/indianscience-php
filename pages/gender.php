@@ -6,28 +6,28 @@ $pageDescription =
         'How was Indian research output distributed by gender based on first authorship?';
 
 $breadcrumbs = [
-        [
-                'label' => 'Home',
-                'path' => '',
-        ],
-        [
-                'label' => 'Gender Distribution',
-                'path' => null,
-        ],
+    [
+        'label' => 'Home',
+        'path' => '',
+    ],
+    [
+        'label' => 'Gender Distribution',
+        'path' => null,
+    ],
 ];
 
 $sections = [
-        'Gender Distribution of Indian Research Output',
-        'Subject area-wise Gender Distribution',
-        'International Collaboration Patterns in Female- and Male-First-Authored Papers',
-        'Citation Impact of Female- and Male-First-Authored Papers',
+    'Gender Distribution of Indian Research Output',
+    'Subject area-wise Gender Distribution',
+    'International Collaboration Patterns in Female- and Male-First-Authored Papers',
+    'Citation Impact of Female- and Male-First-Authored Papers',
 ];
 
 $tags = [
-        'Gender Distribution',
-        'Research Output',
-        'Research Impact',
-        'India',
+    'Gender Distribution',
+    'Research Output',
+    'Research Impact',
+    'India',
 ];
 
 ?>
@@ -55,11 +55,11 @@ $tags = [
                            text-sm text-gray-500
                            dark:text-gray-400">
 
-                    <?php foreach ($breadcrumbs as $index => $breadcrumb): ?>
+                    <?php foreach ($breadcrumbs as $index => $breadcrumb) { ?>
 
                         <li class="flex items-center gap-2">
 
-                            <?php if ($breadcrumb['path'] !== null): ?>
+                            <?php if ($breadcrumb['path'] !== null) { ?>
 
                                 <a
                                         href="<?= url($breadcrumb['path']) ?>"
@@ -68,7 +68,7 @@ $tags = [
                                     <?= e($breadcrumb['label']) ?>
                                 </a>
 
-                            <?php else: ?>
+                            <?php } else { ?>
 
                                 <span
                                         class="<?= $index ===
@@ -78,10 +78,10 @@ $tags = [
                                     <?= e($breadcrumb['label']) ?>
                                 </span>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
 
-                            <?php if ($index < count($breadcrumbs) - 1): ?>
+                            <?php if ($index < count($breadcrumbs) - 1) { ?>
 
                                 <svg
                                         class="h-4 w-4 shrink-0 text-gray-400"
@@ -95,11 +95,11 @@ $tags = [
                                             d="m9 5 7 7-7 7"/>
                                 </svg>
 
-                            <?php endif; ?>
+                            <?php } ?>
 
                         </li>
 
-                    <?php endforeach; ?>
+                    <?php } ?>
 
                 </ol>
             </nav>
@@ -466,18 +466,18 @@ $tags = [
 
                             <ul class="space-y-1">
                                 <?php foreach (
-                                        $sections as $index => $section
-                                ): ?>
+                                    $sections as $index => $section
+                                ) { ?>
                                     <li>
                                         <a
                                                 href="#<?= e(
-                                                        strtolower(
-                                                                preg_replace(
-                                                                        '/[^a-z0-9]+/i',
-                                                                        '-',
-                                                                        $section,
-                                                                ),
+                                                    strtolower(
+                                                        preg_replace(
+                                                            '/[^a-z0-9]+/i',
+                                                            '-',
+                                                            $section,
                                                         ),
+                                                    ),
                                                 ) ?>"
                                                 class="block rounded-lg px-3 py-2
                                                    text-sm leading-5
@@ -492,7 +492,7 @@ $tags = [
 
                                     </li>
 
-                                <?php endforeach; ?>
+                                <?php } ?>
 
                             </ul>
 
@@ -519,7 +519,7 @@ $tags = [
 
                         <div class="mt-4 flex flex-wrap gap-2">
 
-                            <?php foreach ($tags as $tag): ?>
+                            <?php foreach ($tags as $tag) { ?>
 
                                 <span
                                         class="rounded-full border
@@ -532,7 +532,7 @@ $tags = [
                                     <?= e($tag) ?>
                                 </span>
 
-                            <?php endforeach; ?>
+                            <?php } ?>
 
                         </div>
 
@@ -545,7 +545,7 @@ $tags = [
         </div>
 
     </section>
-    <?php include __DIR__ . '/../partials/data-source-note.php'; ?>
+    <?php include __DIR__.'/../partials/data-source-note.php'; ?>
 
 </div>
 

@@ -1,82 +1,82 @@
 <?php
 $defaultSlides = [
-        [
-                'image' => 'https://indianscience.net/images/inst/anna.jpg',
-                'eyebrow' => 'Featured Institution',
-                'title' => 'Anna University, Chennai',
-                'description' => 'Explore the research contributions and academic activities of Anna University, Chennai.',
-                'source' => 'timesofindia.indiatimes.com',
-        ],
-        [
-                'image' => 'https://indianscience.net/images/inst/aiims.jpg',
-                'eyebrow' => 'Medical Research',
-                'title' => 'All India Institute of Medical Sciences, Delhi',
-                'description' => 'Explore the research contributions and academic activities of AIIMS, Delhi.',
-                'source' => 'aiims.edu',
-        ],
-        [
-                'image' => 'https://indianscience.net/images/inst/iisc.jpg',
-                'eyebrow' => 'Scientific Research',
-                'title' => 'Indian Institute of Science, Bangalore',
-                'description' => 'Explore the research contributions and academic activities of the Indian Institute of Science, Bangalore.',
-                'source' => 'iisc.ac.in',
-        ],
-        [
-                'image' => 'https://indianscience.net/images/inst/iitkgp.jpg',
-                'eyebrow' => 'Engineering & Technology',
-                'title' => 'Indian Institute of Technology Kharagpur',
-                'description' => 'Explore the research contributions and academic activities of IIT Kharagpur.',
-                'source' => 'iitkgp.wikia.com',
-        ],
-        [
-                'image' => 'https://indianscience.net/images/inst/iitbom.jpg',
-                'eyebrow' => 'Engineering & Technology',
-                'title' => 'Indian Institute of Technology Bombay',
-                'description' => 'Explore the research contributions and academic activities of IIT Bombay.',
-                'source' => 'newsd.in',
-        ],
-        [
-                'image' => 'https://indianscience.net/images/inst/iitmad.jpg',
-                'eyebrow' => 'Engineering & Technology',
-                'title' => 'Indian Institute of Technology Madras',
-                'description' => 'Explore the research contributions and academic activities of IIT Madras.',
-                'source' => 'duexpress.in',
-        ],
-        [
-                'image' => 'https://indianscience.net/images/inst/iitdel.jpg',
-                'eyebrow' => 'Engineering & Technology',
-                'title' => 'Indian Institute of Technology Delhi',
-                'description' => 'Explore the research contributions and academic activities of IIT Delhi.',
-                'source' => 'hindustantimes.com',
-        ],
-        [
-                'image' => 'https://indianscience.net/images/inst/univdel.jpg',
-                'eyebrow' => 'Higher Education',
-                'title' => 'University of Delhi',
-                'description' => 'Explore the research contributions and academic activities of the University of Delhi.',
-                'source' => 'dnaindia.com',
-        ],
-        [
-                'image' => 'https://indianscience.net/images/inst/barc.jpg',
-                'eyebrow' => 'Atomic Research',
-                'title' => 'Bhabha Atomic Research Centre, Mumbai',
-                'description' => 'Explore the research contributions and scientific activities of Bhabha Atomic Research Centre, Mumbai.',
-                'source' => 'indianexpress.com',
-        ],
-        [
-                'image' => 'https://indianscience.net/images/inst/pgimer.jpg',
-                'eyebrow' => 'Medical Research',
-                'title' => 'Post Graduate Institute of Medical Education and Research',
-                'description' => 'Explore the research contributions and academic activities of PGIMER.',
-                'source' => 'mykrisndtkp.com',
-        ],
-        [
-                'image' => 'https://indianscience.net/images/inst/bhu.jpg',
-                'eyebrow' => 'Featured Institution',
-                'title' => 'Banaras Hindu University',
-                'description' => 'Explore the research contributions and academic activities of Banaras Hindu University.',
-                'source' => 'news.careers360.com',
-        ],
+    [
+        'image' => 'https://indianscience.net/images/inst/anna.jpg',
+        'eyebrow' => 'Featured Institution',
+        'title' => 'Anna University, Chennai',
+        'description' => 'Explore the research contributions and academic activities of Anna University, Chennai.',
+        'source' => 'timesofindia.indiatimes.com',
+    ],
+    [
+        'image' => 'https://indianscience.net/images/inst/aiims.jpg',
+        'eyebrow' => 'Medical Research',
+        'title' => 'All India Institute of Medical Sciences, Delhi',
+        'description' => 'Explore the research contributions and academic activities of AIIMS, Delhi.',
+        'source' => 'aiims.edu',
+    ],
+    [
+        'image' => 'https://indianscience.net/images/inst/iisc.jpg',
+        'eyebrow' => 'Scientific Research',
+        'title' => 'Indian Institute of Science, Bangalore',
+        'description' => 'Explore the research contributions and academic activities of the Indian Institute of Science, Bangalore.',
+        'source' => 'iisc.ac.in',
+    ],
+    [
+        'image' => 'https://indianscience.net/images/inst/iitkgp.jpg',
+        'eyebrow' => 'Engineering & Technology',
+        'title' => 'Indian Institute of Technology Kharagpur',
+        'description' => 'Explore the research contributions and academic activities of IIT Kharagpur.',
+        'source' => 'iitkgp.wikia.com',
+    ],
+    [
+        'image' => 'https://indianscience.net/images/inst/iitbom.jpg',
+        'eyebrow' => 'Engineering & Technology',
+        'title' => 'Indian Institute of Technology Bombay',
+        'description' => 'Explore the research contributions and academic activities of IIT Bombay.',
+        'source' => 'newsd.in',
+    ],
+    [
+        'image' => 'https://indianscience.net/images/inst/iitmad.jpg',
+        'eyebrow' => 'Engineering & Technology',
+        'title' => 'Indian Institute of Technology Madras',
+        'description' => 'Explore the research contributions and academic activities of IIT Madras.',
+        'source' => 'duexpress.in',
+    ],
+    [
+        'image' => 'https://indianscience.net/images/inst/iitdel.jpg',
+        'eyebrow' => 'Engineering & Technology',
+        'title' => 'Indian Institute of Technology Delhi',
+        'description' => 'Explore the research contributions and academic activities of IIT Delhi.',
+        'source' => 'hindustantimes.com',
+    ],
+    [
+        'image' => 'https://indianscience.net/images/inst/univdel.jpg',
+        'eyebrow' => 'Higher Education',
+        'title' => 'University of Delhi',
+        'description' => 'Explore the research contributions and academic activities of the University of Delhi.',
+        'source' => 'dnaindia.com',
+    ],
+    [
+        'image' => 'https://indianscience.net/images/inst/barc.jpg',
+        'eyebrow' => 'Atomic Research',
+        'title' => 'Bhabha Atomic Research Centre, Mumbai',
+        'description' => 'Explore the research contributions and scientific activities of Bhabha Atomic Research Centre, Mumbai.',
+        'source' => 'indianexpress.com',
+    ],
+    [
+        'image' => 'https://indianscience.net/images/inst/pgimer.jpg',
+        'eyebrow' => 'Medical Research',
+        'title' => 'Post Graduate Institute of Medical Education and Research',
+        'description' => 'Explore the research contributions and academic activities of PGIMER.',
+        'source' => 'mykrisndtkp.com',
+    ],
+    [
+        'image' => 'https://indianscience.net/images/inst/bhu.jpg',
+        'eyebrow' => 'Featured Institution',
+        'title' => 'Banaras Hindu University',
+        'description' => 'Explore the research contributions and academic activities of Banaras Hindu University.',
+        'source' => 'news.careers360.com',
+    ],
 ];
 
 $slides = $slides ?? $defaultSlides;
@@ -94,7 +94,7 @@ $slides = $slides ?? $defaultSlides;
 
     <div class="relative h-[420px] overflow-hidden sm:h-[460px] lg:h-[520px]">
 
-        <?php foreach ($slides as $index => $slide): ?>
+        <?php foreach ($slides as $index => $slide) { ?>
 
             <article
                 class="absolute inset-0 transition-opacity duration-700 ease-in-out <?= $index === 0 ? 'opacity-100' : 'pointer-events-none opacity-0' ?>"
@@ -129,7 +129,7 @@ $slides = $slides ?? $defaultSlides;
 
                     <div class="max-w-4xl px-5 pb-24 pt-12 sm:px-8 sm:pb-28 lg:px-12">
 
-                        <?php if (!empty($slide['eyebrow'])): ?>
+                        <?php if (! empty($slide['eyebrow'])) { ?>
 
                             <div class="mb-4 flex items-center gap-3">
 
@@ -141,28 +141,28 @@ $slides = $slides ?? $defaultSlides;
 
                             </div>
 
-                        <?php endif; ?>
+                        <?php } ?>
 
 
-                        <?php if (!empty($slide['title'])): ?>
+                        <?php if (! empty($slide['title'])) { ?>
 
                             <h2 class="max-w-3xl text-2xl font-bold leading-tight tracking-tight text-white sm:text-3xl lg:text-4xl xl:text-[42px]">
                                 <?= e($slide['title']) ?>
                             </h2>
 
-                        <?php endif; ?>
+                        <?php } ?>
 
 
-                        <?php if (!empty($slide['description'])): ?>
+                        <?php if (! empty($slide['description'])) { ?>
 
                             <p class="mt-4 max-w-2xl text-sm leading-6 text-slate-200 sm:text-base sm:leading-7">
                                 <?= e($slide['description']) ?>
                             </p>
 
-                        <?php endif; ?>
+                        <?php } ?>
 
 
-                        <?php if (!empty($slide['source'])): ?>
+                        <?php if (! empty($slide['source'])) { ?>
 
                             <div class="mt-5 flex items-center gap-2 text-xs text-slate-300">
 
@@ -185,7 +185,7 @@ $slides = $slides ?? $defaultSlides;
 
                             </div>
 
-                        <?php endif; ?>
+                        <?php } ?>
 
                     </div>
 
@@ -193,7 +193,7 @@ $slides = $slides ?? $defaultSlides;
 
             </article>
 
-        <?php endforeach; ?>
+        <?php } ?>
 
     </div>
 
@@ -257,7 +257,7 @@ $slides = $slides ?? $defaultSlides;
                 role="tablist"
                 aria-label="Carousel navigation">
 
-                <?php foreach ($slides as $index => $slide): ?>
+                <?php foreach ($slides as $index => $slide) { ?>
 
                     <button
                         type="button"
@@ -267,7 +267,7 @@ $slides = $slides ?? $defaultSlides;
                         aria-label="Go to slide <?= $index + 1 ?>"
                         aria-selected="<?= $index === 0 ? 'true' : 'false' ?>"></button>
 
-                <?php endforeach; ?>
+                <?php } ?>
 
             </div>
 

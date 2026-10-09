@@ -104,7 +104,7 @@ function socialIcon(string $icon): string
             <!-- Social + Theme -->
             <div class="flex items-center gap-1">
 
-                <?php foreach ($socialLinks as $social): ?>
+                <?php foreach ($socialLinks as $social) { ?>
 
                     <a href="<?= e($social['url']) ?>"
                         target="_blank"
@@ -120,7 +120,7 @@ function socialIcon(string $icon): string
 
                     </a>
 
-                <?php endforeach; ?>
+                <?php } ?>
 
 
                 <!-- Divider -->
@@ -203,9 +203,9 @@ function socialIcon(string $icon): string
 
             <div class="flex items-center gap-1">
 
-                <?php foreach ($navigation as $item): ?>
+                <?php foreach ($navigation as $item) { ?>
 
-                    <?php if (isset($item['dropdown'])): ?>
+                    <?php if (isset($item['dropdown'])) { ?>
 
                         <div class="relative" @click.outside="moreOpen=false">
 
@@ -243,7 +243,7 @@ function socialIcon(string $icon): string
                                        shadow-xl dark:border-slate-700
                                        dark:bg-slate-900">
 
-                                <?php foreach ($item['dropdown'] as $dropdown): ?>
+                                <?php foreach ($item['dropdown'] as $dropdown) { ?>
 
                                     <a href="<?= url($dropdown['path']) ?>"
                                         class="block rounded-lg px-3 py-2.5
@@ -257,13 +257,13 @@ function socialIcon(string $icon): string
 
                                     </a>
 
-                                <?php endforeach; ?>
+                                <?php } ?>
 
                             </div>
 
                         </div>
 
-                    <?php else: ?>
+                    <?php } else { ?>
 
                         <a href="<?= url($item['path']) ?>"
                             class="rounded-lg px-3 py-2 text-[15px] font-medium
@@ -277,9 +277,9 @@ function socialIcon(string $icon): string
 
                         </a>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                <?php endforeach; ?>
+                <?php } ?>
 
             </div>
 
@@ -363,9 +363,9 @@ function socialIcon(string $icon): string
 
             <div class="space-y-1">
 
-                <?php foreach ($navigation as $item): ?>
+                <?php foreach ($navigation as $item) { ?>
 
-                    <?php if (isset($item['dropdown'])): ?>
+                    <?php if (isset($item['dropdown'])) { ?>
 
                         <button
                             type="button"
@@ -397,7 +397,7 @@ function socialIcon(string $icon): string
                             class="ml-4 border-l-2 border-amber-400 pl-3"
                             style="display:none">
 
-                            <?php foreach ($item['dropdown'] as $dropdown): ?>
+                            <?php foreach ($item['dropdown'] as $dropdown) { ?>
 
                                 <a href="<?= url($dropdown['path']) ?>"
                                     @click="mobileOpen=false"
@@ -410,11 +410,11 @@ function socialIcon(string $icon): string
 
                                 </a>
 
-                            <?php endforeach; ?>
+                            <?php } ?>
 
                         </div>
 
-                    <?php else: ?>
+                    <?php } else { ?>
 
                         <a href="<?= url($item['path']) ?>"
                             @click="mobileOpen=false"
@@ -428,9 +428,9 @@ function socialIcon(string $icon): string
 
                         </a>
 
-                    <?php endif; ?>
+                    <?php } ?>
 
-                <?php endforeach; ?>
+                <?php } ?>
 
             </div>
 
@@ -443,7 +443,7 @@ function socialIcon(string $icon): string
 
             <div class="flex items-center justify-center gap-3">
 
-                <?php foreach ($socialLinks as $social): ?>
+                <?php foreach ($socialLinks as $social) { ?>
 
                     <a href="<?= e($social['url']) ?>"
                         target="_blank"
@@ -459,7 +459,7 @@ function socialIcon(string $icon): string
 
                     </a>
 
-                <?php endforeach; ?>
+                <?php } ?>
 
 
                 <span class="mx-1 h-5 w-px bg-slate-200 dark:bg-slate-700"></span>
