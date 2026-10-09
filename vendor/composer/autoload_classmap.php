@@ -10,6 +10,7 @@ return array(
     'CURLStringFile' => $vendorDir . '/symfony/polyfill-php81/Resources/stubs/CURLStringFile.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Deprecated' => $vendorDir . '/symfony/polyfill-php84/Resources/stubs/Deprecated.php',
+    'Dompdf\\Cpdf' => $vendorDir . '/dompdf/dompdf/lib/Cpdf.php',
     'Normalizer' => $vendorDir . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
     'Pdo\\Dblib' => $vendorDir . '/symfony/polyfill-php84/Resources/stubs/Pdo/Dblib.php',
     'Pdo\\Firebird' => $vendorDir . '/symfony/polyfill-php84/Resources/stubs/Pdo/Firebird.php',

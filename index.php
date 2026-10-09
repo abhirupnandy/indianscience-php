@@ -28,7 +28,7 @@ $routes = [
 
     // Institutions
     'institutions' => 'institutions.php',
-    'institution/{slug}' => 'institution.php',
+    'institutions/{slug}' => 'institution.php',
 
     // Blog
     'blog' => 'blog.php',
