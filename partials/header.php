@@ -53,6 +53,10 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script src="https://cdn.datatables.net/2.3.3/js/dataTables.min.js"></script>
+    <link rel='stylesheet'
+          href='https://cdn.datatables.net/fixedcolumns/5.0.4/css/fixedColumns.dataTables.min.css'>
+
+    <script src='https://cdn.datatables.net/fixedcolumns/5.0.4/js/dataTables.fixedColumns.min.js'></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">

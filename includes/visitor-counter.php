@@ -185,12 +185,14 @@ if (
 
 $visitorTotal = 0;
 
-try {
-    $visitorTotal = (int) $pdo
-            ->query('SELECT COUNT(*) FROM visitors')
-            ->fetchColumn();
-} catch (PDOException $e) {
-    $visitorTotal = 0;
+if (isset($pdo) && $pdo instanceof PDO) {
+    try {
+        $visitorTotal = (int) $pdo
+                ->query('SELECT COUNT(*) FROM visitors')
+                ->fetchColumn();
+    } catch (PDOException $e) {
+        error_log('Visitor counter error: ' . $e->getMessage());
+    }
 }
 
 ?>

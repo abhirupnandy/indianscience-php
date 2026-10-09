@@ -4,6 +4,8 @@
  * includes/functions.php — small reusable helpers available on every page.
  */
 
+use JetBrains\PhpStorm\NoReturn;
+
 /** Escape a string for safe HTML output. */
 function e(?string $value): string
 {
@@ -57,9 +59,13 @@ function db_find(PDO $pdo, string $table, string $column, string $value): ?array
     return $row ?: null;
 }
 
+
 /** Send a 404 status and render the 404 page, then stop. */
+#[NoReturn]
 function abort_404(): void
 {
+    global $pdo;
+
     http_response_code(404);
     $pageTitle = 'Page Not Found';
 

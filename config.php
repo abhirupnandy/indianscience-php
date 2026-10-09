@@ -33,11 +33,11 @@ define('APP_ENV', getenv('APP_ENV') ?: 'production');
 error_reporting(E_ALL);
 ini_set('display_errors', APP_ENV === 'production' ? '0' : '1');
 
-define('SITE_NAME', 'Indian Science Reports');
-define('SITE_DESCRIPTION', 'An online portal to showcase the research growth of India and various Indian institutions.');
+const SITE_NAME = 'Indian Science Reports';
+const SITE_DESCRIPTION = 'An online portal to showcase the research growth of India and various Indian institutions.';
 define('SITE_URL', rtrim(getenv('SITE_URL') ?: '', '/'));
 
-define('ROOT_PATH', __DIR__);
+const ROOT_PATH = __DIR__;
 
 // --- Database ------------------------------------------------------------
 try {

@@ -47,6 +47,10 @@ $routes = [
     'reports/social-media' => 'social-media.php',
     'reports/grants' => 'grants.php',
     'reports/sdg-research' => 'sdg-research.php',
+    'reports/major-institutions' => 'major_inst.php',
+
+    // Others
+    'reports/innovation' => 'india_innovation_story.php',
 
     // Static pages
     'about' => 'about.php',

@@ -14,9 +14,11 @@ $navigation = [
             ['label' => 'Social Media Visibility', 'path' => 'reports/social-media'],
             ['label' => 'Research Grants', 'path' => 'reports/grants'],
             ['label' => 'SDG related Research', 'path' => 'reports/sdg-research'],
+            ['label' => 'Major Institutions', 'path' => 'reports/major-institutions'],
             ['label' => 'Institutional Reports', 'path' => 'institutions'],
         ],
     ],
+    ['label' => "India's Innovation Story", 'path' => 'reports/innovation'],
 ];
 
 $socialLinks = [
