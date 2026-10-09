@@ -26,7 +26,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'GET') {
     ]);
 }
 
-require_once __DIR__ . '/../config.php';
+require_once __DIR__.'/../config.php';
 
 $slug = trim((string) ($_GET['slug'] ?? ''));
 
@@ -50,7 +50,7 @@ try {
     $institutionStmt->execute(['slug' => $slug]);
     $institution = $institutionStmt->fetch();
 
-    if (!$institution) {
+    if (! $institution) {
         sendJson(404, [
             'success' => false,
             'message' => 'Institution not found.',
@@ -106,7 +106,7 @@ try {
             'top_10_collaborators',
         ];
 
-        if (!in_array($table, $allowedTables, true)) {
+        if (! in_array($table, $allowedTables, true)) {
             return [];
         }
 
@@ -136,7 +136,7 @@ try {
             'year_wise_sdg_table',
         ];
 
-        if (!in_array($table, $allowedTables, true)) {
+        if (! in_array($table, $allowedTables, true)) {
             return [];
         }
 
@@ -148,7 +148,7 @@ try {
             'SDG ASC',
         ];
 
-        if (!in_array($orderBy, $allowedOrders, true)) {
+        if (! in_array($orderBy, $allowedOrders, true)) {
             $orderBy = '';
         }
 
@@ -316,7 +316,7 @@ try {
             'institution' => $institution,
             'grid_id' => $grid,
             'research' => [
-                'has_data' => !empty($indicators),
+                'has_data' => ! empty($indicators),
                 'indicators' => $indicators,
                 'legacy_institute' => $legacyInstitute,
                 'external' => $external,
@@ -340,7 +340,7 @@ try {
     ]);
 } catch (Throwable $exception) {
     error_log(
-        'Institution API error: ' . $exception->getMessage()
+        'Institution API error: '.$exception->getMessage()
     );
 
     sendJson(500, [

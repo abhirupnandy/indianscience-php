@@ -5,21 +5,21 @@
  * Layout: p1 overview · p2 output & impact · p3 authorship/collaboration/access
  *         p4 subject strengths & collaborators · p5 SDGs & visibility
  */
-require_once __DIR__ . '/institution-report-charts.php';
+require_once __DIR__.'/institution-report-charts.php';
 
 /* ---------------------------------------------------------------- *
  *  Data preparation
  * ---------------------------------------------------------------- */
-$arr = static fn($v): array => is_array($v) ? $v : [];
+$arr = static fn ($v): array => is_array($v) ? $v : [];
 
-$institution   = $arr($reportData['institution'] ?? []);
-$research      = $arr($reportData['research'] ?? []);
-$indicators    = $arr($research['indicators'] ?? []);
-$external      = $arr($research['external'] ?? []);
-$legacy        = $arr($research['legacy_institute'] ?? []);
-$pubCitation   = $arr($research['publication_citation'] ?? []);
-$cited         = $arr(($research['cited_percent'][0] ?? []));
-$grant         = $arr(($research['grants'][0] ?? []));
+$institution = $arr($reportData['institution'] ?? []);
+$research = $arr($reportData['research'] ?? []);
+$indicators = $arr($research['indicators'] ?? []);
+$external = $arr($research['external'] ?? []);
+$legacy = $arr($research['legacy_institute'] ?? []);
+$pubCitation = $arr($research['publication_citation'] ?? []);
+$cited = $arr(($research['cited_percent'][0] ?? []));
+$grant = $arr(($research['grants'][0] ?? []));
 $collaborators = $arr($research['collaborators'] ?? []);
 
 $name = trim((string) ($institution['name'] ?? '')) ?: 'Institutional Research Profile';
@@ -27,21 +27,21 @@ $grid = (string) ($reportData['grid_id'] ?? $institution['grid_id'] ?? $institut
 $description = report_excerpt((string) ($institution['description'] ?? $external['info'] ?? ''), 460);
 $location = implode(', ', array_filter(
     [$institution['city'] ?? null, $institution['state'] ?? null, $institution['country'] ?? null],
-    fn($v) => trim((string) $v) !== ''
+    fn ($v) => trim((string) $v) !== ''
 ));
 $logoDataUri = (string) ($reportData['logo_data_uri'] ?? '');
 $hasLogo = $logoDataUri !== '' && preg_match('#^data:image/(png|jpeg|jpg|webp);base64,#', $logoDataUri);
 $stop = ['of', 'the', 'and', 'for', 'in', 'at', 'a', 'an', 'on'];
 $initialWords = array_values(array_filter(
     preg_split('/[\s\-]+/u', $name) ?: [],
-    fn($w) => $w !== '' && !in_array(mb_strtolower($w, 'UTF-8'), $stop, true)
+    fn ($w) => $w !== '' && ! in_array(mb_strtolower($w, 'UTF-8'), $stop, true)
 ));
 $initials = implode('', array_map(
-    fn($w) => mb_strtoupper(mb_substr($w, 0, 1, 'UTF-8'), 'UTF-8'),
+    fn ($w) => mb_strtoupper(mb_substr($w, 0, 1, 'UTF-8'), 'UTF-8'),
     array_slice($initialWords, 0, 3)
 ));
-$hasResearch = !empty($indicators) || !empty($pubCitation);
-$footerName = mb_strlen($name, 'UTF-8') > 70 ? mb_substr($name, 0, 67, 'UTF-8') . '...' : $name;
+$hasResearch = ! empty($indicators) || ! empty($pubCitation);
+$footerName = mb_strlen($name, 'UTF-8') > 70 ? mb_substr($name, 0, 67, 'UTF-8').'...' : $name;
 
 $years = range(2010, 2019);
 $yearLabels = array_map('strval', $years);
@@ -61,23 +61,23 @@ $kpis = [
 $facts = array_filter([
     'Institution type' => $institution['institution_type'] ?? $external['inst_type'] ?? null,
     'Year established' => $institution['year_established'] ?? $external['est_year'] ?? null,
-    'Location'         => $location,
-    'GRID identifier'  => $grid,
-], fn($v) => $v !== null && trim((string) $v) !== '');
+    'Location' => $location,
+    'GRID identifier' => $grid,
+], fn ($v) => $v !== null && trim((string) $v) !== '');
 
 /* --- Output & impact ------------------------------------------------ */
-$pubValues   = report_year_values($pubCitation, 'pub_', $years);
-$citValues   = report_year_values($pubCitation, 'cit_', $years);
+$pubValues = report_year_values($pubCitation, 'pub_', $years);
+$citValues = report_year_values($pubCitation, 'cit_', $years);
 $citedValues = report_year_values($cited, 'cit_', $years);
 $grantValues = report_year_values($grant, 'fund_', $years);
 
 /* --- Authorship / collaboration / access ---------------------------- */
-$authRows   = $arr($research['author_types'] ?? []);
+$authRows = $arr($research['author_types'] ?? []);
 $collabRows = $arr($research['collaboration'] ?? []);
 $genderRows = $arr($research['gender'] ?? []);
-$oaRows     = $arr($research['open_access'] ?? []);
-$altRows    = $arr($research['altmetric'] ?? []);
-$sdgRows    = $arr($research['sdg_by_year'] ?? []);
+$oaRows = $arr($research['open_access'] ?? []);
+$altRows = $arr($research['altmetric'] ?? []);
+$sdgRows = $arr($research['sdg_by_year'] ?? []);
 
 $authSeries = [
     ['label' => 'Single-authored', 'color' => '#2f6fdd', 'values' => report_values_from_rows($authRows, 'auth_1')],
@@ -105,8 +105,8 @@ foreach (array_values($altRows) as $i => $row) {
         $vals[] = isset($row[$year]) && is_numeric($row[$year]) ? (float) $row[$year] : null;
     }
     $altSeries[] = [
-        'label'  => (string) ($row['name'] ?? 'Metric ' . ($i + 1)),
-        'color'  => REPORT_PALETTE[$i % count(REPORT_PALETTE)],
+        'label' => (string) ($row['name'] ?? 'Metric '.($i + 1)),
+        'color' => REPORT_PALETTE[$i % count(REPORT_PALETTE)],
         'values' => $vals,
     ];
 }
@@ -114,9 +114,9 @@ foreach (array_values($altRows) as $i => $row) {
 /* --- Subjects & collaborators -------------------------------------- */
 $subjectRows = array_values(array_filter(
     $arr($research['subject_series'] ?? []),
-    fn($r) => isset($r['name']) && is_numeric($r['value'] ?? null)
+    fn ($r) => isset($r['name']) && is_numeric($r['value'] ?? null)
 ));
-usort($subjectRows, fn($a, $b) => (float) $b['value'] <=> (float) $a['value']);
+usort($subjectRows, fn ($a, $b) => (float) $b['value'] <=> (float) $a['value']);
 $topSubjects = array_slice($subjectRows, 0, 10);
 
 $collabCountries = [];
@@ -127,7 +127,7 @@ for ($i = 1; $i <= 10; $i++) {
         $collabCountries[] = ['label' => $country, 'value' => (float) $count];
     }
 }
-usort($collabCountries, fn($a, $b) => $b['value'] <=> $a['value']);
+usort($collabCountries, fn ($a, $b) => $b['value'] <=> $a['value']);
 
 /* --- SDGs ------------------------------------------------------------ */
 $sdgNames = [
@@ -144,13 +144,16 @@ foreach ($sdgNames as $id => $sdgName) {
     $seen = false;
     foreach ($sdgRows as $row) {
         $v = $row["SDG$id"] ?? null;
-        if (is_numeric($v)) { $total += (float) $v; $seen = true; }
+        if (is_numeric($v)) {
+            $total += (float) $v;
+            $seen = true;
+        }
     }
     if ($seen && $total > 0) {
         $sdgBars[] = ['label' => "SDG $id: $sdgName", 'value' => $total, 'color' => REPORT_SDG_COLORS[$id]];
     }
 }
-usort($sdgBars, fn($a, $b) => $b['value'] <=> $a['value']);
+usort($sdgBars, fn ($a, $b) => $b['value'] <=> $a['value']);
 
 /* Pre-build chart panels used on page 5 so the layout can adapt to missing data. */
 $sdgPanel = $sdgBars
@@ -169,9 +172,9 @@ $altPanel = report_valid_series($altSeries)
     )
     : '';
 $aboutPanel = '<div class="callout"><strong>About this profile</strong><br>'
-    . 'This profile summarises the indicators available in the Indian Science Reports dataset. '
-    . 'Historical series cover 2010-2019 where supplied by the source. Values should be read in the context of '
-    . 'their source definitions and coverage.<br><span class="small muted">Generated ' . date('j F Y') . '.</span></div>';
+    .'This profile summarises the indicators available in the Indian Science Reports dataset. '
+    .'Historical series cover 2010-2019 where supplied by the source. Values should be read in the context of '
+    .'their source definitions and coverage.<br><span class="small muted">Generated '.date('j F Y').'.</span></div>';
 ?>
 <!doctype html>
 <html lang="en">
@@ -267,23 +270,25 @@ $aboutPanel = '<div class="callout"><strong>About this profile</strong><br>'
 <div class="cover">
     <table class="cover-grid"><tr>
             <td style="width:86px">
-                <?php if ($hasLogo): ?>
+                <?php if ($hasLogo) { ?>
                     <div class="logo-box"><img src="<?= report_e($logoDataUri) ?>" alt=""></div>
-                <?php else: ?>
+                <?php } else { ?>
                     <table class="initials"><tr><td><?= report_e($initials) ?></td></tr></table>
-                <?php endif; ?>
+                <?php } ?>
             </td>
             <td>
                 <div class="brand">Indian Science Reports · Institutional Research Profile</div>
                 <h1><?= report_e($name) ?></h1>
-                <div class="subtitle"><?= report_e($location ?: 'Institutional research snapshot') ?><?= $grid !== '' ? ' &nbsp;|&nbsp; GRID: ' . report_e($grid) : '' ?></div>
+                <div class="subtitle"><?= report_e($location ?: 'Institutional research snapshot') ?><?= $grid !== '' ? ' &nbsp;|&nbsp; GRID: '.report_e($grid) : '' ?></div>
                 <div class="pills">
                     <?php foreach ([
-                                       'Institution type' => $institution['institution_type'] ?? $external['inst_type'] ?? null,
-                                       'Established'      => $institution['year_established'] ?? $external['est_year'] ?? null,
-                                   ] as $label => $value): if ($value !== null && trim((string) $value) !== ''): ?>
+                        'Institution type' => $institution['institution_type'] ?? $external['inst_type'] ?? null,
+                        'Established' => $institution['year_established'] ?? $external['est_year'] ?? null,
+                    ] as $label => $value) {
+                        if ($value !== null && trim((string) $value) !== '') { ?>
                         <span class="pill"><?= report_e($label) ?>: <?= report_e($value) ?></span>
-                    <?php endif; endforeach; ?>
+                    <?php }
+                        } ?>
                 </div>
             </td>
             <td style="width:150px">
@@ -296,7 +301,7 @@ $aboutPanel = '<div class="callout"><strong>About this profile</strong><br>'
 <div class="section"><div class="section-title">Research at a glance</div></div>
 
 <table class="kpi-grid"><tr>
-        <?php foreach ($kpis as $i => $kpi): ?>
+        <?php foreach ($kpis as $i => $kpi) { ?>
         <td class="<?= $i % 4 === 3 ? 'last' : '' ?>">
             <div class="card" style="border-top-color: <?= report_e($kpi[4]) ?>">
                 <div class="kpi-label"><?= report_e($kpi[0]) ?></div>
@@ -304,8 +309,8 @@ $aboutPanel = '<div class="callout"><strong>About this profile</strong><br>'
                 <div class="kpi-note"><?= report_e($kpi[3]) ?></div>
             </div>
         </td>
-        <?php if ($i % 4 === 3 && $i < count($kpis) - 1): ?></tr><tr><?php endif; ?>
-        <?php endforeach; ?>
+        <?php if ($i % 4 === 3 && $i < count($kpis) - 1) { ?></tr><tr><?php } ?>
+        <?php } ?>
     </tr></table>
 
 <div class="section"><div class="section-title">Institution profile</div></div>
@@ -313,106 +318,107 @@ $aboutPanel = '<div class="callout"><strong>About this profile</strong><br>'
         <td>
             <div class="panel">
                 <h3>About</h3>
-                <?php if ($description !== ''): ?>
+                <?php if ($description !== '') { ?>
                     <p><?= nl2br(report_e($description)) ?></p>
-                <?php else: ?>
+                <?php } else { ?>
                     <p class="muted">No institutional description is available in the source data.</p>
-                <?php endif; ?>
+                <?php } ?>
             </div>
         </td>
         <td class="r">
             <div class="panel">
                 <h3>Key facts</h3>
-                <?php if ($facts): $lastKey = array_key_last($facts); ?>
+                <?php if ($facts) {
+                    $lastKey = array_key_last($facts); ?>
                     <table class="data">
-                        <?php foreach ($facts as $label => $value): ?>
+                        <?php foreach ($facts as $label => $value) { ?>
                             <tr class="<?= $label === $lastKey ? 'last' : '' ?>"><td class="k"><?= report_e($label) ?></td><td class="v"><?= report_e($value) ?></td></tr>
-                        <?php endforeach; ?>
+                        <?php } ?>
                     </table>
-                <?php else: ?>
+                <?php } else { ?>
                     <p class="muted">No institutional details are available.</p>
-                <?php endif; ?>
+                <?php } ?>
             </div>
         </td>
     </tr></table>
 
-<?php if (!$hasResearch): ?>
+<?php if (! $hasResearch) { ?>
     <div class="callout">Detailed research indicators are not available for this institution in the current dataset,
         so the trend, collaboration and SDG sections have been omitted.</div>
-<?php else: ?>
+<?php } else { ?>
 
     <!-- ============================== PAGE 2 ============================== -->
     <?= report_section('Research output and impact', 'Annual publications, citations, citation reach and funding, 2010–2019', 'section-first break') ?>
     <table class="grid"><tr>
             <td><?= report_chart_panel('Annual research output',
-                    report_column_chart($yearLabels, $pubValues, '#2f6fdd', 480, 200, 'Annual publications'),
-                    'Number of publications per year.') ?></td>
+                report_column_chart($yearLabels, $pubValues, '#2f6fdd', 480, 200, 'Annual publications'),
+                'Number of publications per year.') ?></td>
             <td class="r"><?= report_chart_panel('Annual citations',
-                    report_column_chart($yearLabels, $citValues, '#1fa89c', 480, 200, 'Annual citations'),
-                    'Citations attributed to each year.') ?></td>
+                report_column_chart($yearLabels, $citValues, '#1fa89c', 480, 200, 'Annual citations'),
+                'Citations attributed to each year.') ?></td>
         </tr><tr>
             <td><?= report_chart_panel('Cited publications',
-                    report_line_chart($yearLabels, [['label' => 'Cited publications (%)', 'color' => '#7a5af8', 'values' => $citedValues]], 480, 200, 'Cited publications over time', true, true),
-                    'Percentage of publications that have been cited, as recorded in the source dataset.') ?></td>
+                report_line_chart($yearLabels, [['label' => 'Cited publications (%)', 'color' => '#7a5af8', 'values' => $citedValues]], 480, 200, 'Cited publications over time', true, true),
+                'Percentage of publications that have been cited, as recorded in the source dataset.') ?></td>
             <td class="r"><?= report_chart_panel('Research funding',
-                    report_column_chart($yearLabels, $grantValues, '#f2a33a', 480, 200, 'Research funding'),
-                    'Funding amount in million USD, as recorded in the legacy dataset.') ?></td>
+                report_column_chart($yearLabels, $grantValues, '#f2a33a', 480, 200, 'Research funding'),
+                'Funding amount in million USD, as recorded in the legacy dataset.') ?></td>
         </tr></table>
 
     <!-- ============================== PAGE 3 ============================== -->
     <?= report_section('Authorship, collaboration and access', 'How the institution\'s research is produced, shared and attributed', 'section-first break') ?>
     <?php
-    $authLabels   = report_labels_from_rows($authRows);
+    $authLabels = report_labels_from_rows($authRows);
     $collabLabels = report_labels_from_rows($collabRows);
     $genderLabels = report_labels_from_rows($genderRows);
-    $oaLabels     = report_labels_from_rows($oaRows);
+    $oaLabels = report_labels_from_rows($oaRows);
     ?>
     <table class="grid"><tr>
             <td><?= report_chart_panel('Authorship patterns',
-                    report_stacked_chart($authLabels, $authSeries, 480, 200, 'Authorship patterns'),
-                    'Publications by number of authors; totals shown above each bar.', report_valid_series($authSeries)) ?></td>
+                report_stacked_chart($authLabels, $authSeries, 480, 200, 'Authorship patterns'),
+                'Publications by number of authors; totals shown above each bar.', report_valid_series($authSeries)) ?></td>
             <td class="r"><?= report_chart_panel('Collaboration patterns',
-                    report_stacked_chart($collabLabels, $collabSeries, 480, 200, 'Collaboration patterns'),
-                    'International and domestic collaboration types.', report_valid_series($collabSeries)) ?></td>
+                report_stacked_chart($collabLabels, $collabSeries, 480, 200, 'Collaboration patterns'),
+                'International and domestic collaboration types.', report_valid_series($collabSeries)) ?></td>
         </tr><tr>
             <td><?= report_chart_panel('Gender of first authors',
-                    report_composition_chart($genderLabels, $genderSeries, 480, 200, 'Gender of first authors'),
-                    'Share of female and male first-authored publications.', report_valid_series($genderSeries)) ?></td>
+                report_composition_chart($genderLabels, $genderSeries, 480, 200, 'Gender of first authors'),
+                'Share of female and male first-authored publications.', report_valid_series($genderSeries)) ?></td>
             <td class="r"><?= report_chart_panel('Open versus closed access',
-                    report_composition_chart($oaLabels, $oaSeries, 480, 200, 'Open versus closed access'),
-                    'Open-access and closed-access proportions.', report_valid_series($oaSeries)) ?></td>
+                report_composition_chart($oaLabels, $oaSeries, 480, 200, 'Open versus closed access'),
+                'Open-access and closed-access proportions.', report_valid_series($oaSeries)) ?></td>
         </tr></table>
 
-    <?php if ($topSubjects || $collabCountries): ?>
+    <?php if ($topSubjects || $collabCountries) { ?>
         <!-- ============================== PAGE 4 ============================== -->
         <?= report_section('Research strengths and collaboration leaders', 'Where the institution publishes most, and who it works with', 'section-first break') ?>
         <table class="grid"><tr>
                 <td><?= report_chart_panel('Leading subject areas',
-                        report_hbar_chart(array_map(fn($r) => ['label' => (string) $r['name'], 'value' => (float) $r['value']], $topSubjects), 480, 'Leading subject areas', '#2f6fdd', 195, 22, 8.5),
-                        'Top ten subject areas ranked by recorded publication volume.') ?></td>
+                    report_hbar_chart(array_map(fn ($r) => ['label' => (string) $r['name'], 'value' => (float) $r['value']], $topSubjects), 480, 'Leading subject areas', '#2f6fdd', 195, 22, 8.5),
+                    'Top ten subject areas ranked by recorded publication volume.') ?></td>
                 <td class="r"><?= report_chart_panel('Subject-area profile',
-                        report_radar_chart(
-                            array_map(fn($r) => (string) $r['name'], array_slice($topSubjects, 0, 8)),
-                            array_map(fn($r) => (float) $r['value'], array_slice($topSubjects, 0, 8)),
-                            480, 240, 'Subject-area radar chart'),
-                        'The eight leading subject areas; the outer ring marks the highest publication count.') ?></td>
+                    report_radar_chart(
+                        array_map(fn ($r) => (string) $r['name'], array_slice($topSubjects, 0, 8)),
+                        array_map(fn ($r) => (float) $r['value'], array_slice($topSubjects, 0, 8)),
+                        480, 240, 'Subject-area radar chart'),
+                    'The eight leading subject areas; the outer ring marks the highest publication count.') ?></td>
             </tr><tr>
                 <td class="wide" colspan="2"><?= report_chart_panel('Top collaborating countries',
-                        report_hbar_chart($collabCountries, 1000, 'Top collaborating countries', '#1fa89c', 190, 18, 9.0),
-                        'Collaborators ranked by recorded number of joint publications.') ?></td>
+                    report_hbar_chart($collabCountries, 1000, 'Top collaborating countries', '#1fa89c', 190, 18, 9.0),
+                    'Collaborators ranked by recorded number of joint publications.') ?></td>
             </tr></table>
-    <?php endif; ?>
+    <?php } ?>
 
-    <?php if ($sdgPanel !== '' || $altPanel !== ''): ?>
+    <?php if ($sdgPanel !== '' || $altPanel !== '') { ?>
         <!-- ============================== PAGE 5 ============================== -->
         <?= report_section('Societal visibility and the Sustainable Development Goals', 'Contribution to the UN SDGs and online attention to the research', 'section-first break') ?>
         <table class="grid"><tr>
                 <td><?= $sdgPanel !== '' ? $sdgPanel : $altPanel ?></td>
-                <td class="r"><?= $sdgPanel !== '' ? $altPanel . ($altPanel !== '' ? '<div style="height:10px"></div>' : '') . $aboutPanel : $aboutPanel ?></td>
+                <td class="r"><?= $sdgPanel !== '' ? $altPanel.($altPanel !== '' ? '<div style="height:10px"></div>' : '').$aboutPanel : $aboutPanel ?></td>
             </tr></table>
-    <?php endif; ?>
+    <?php } ?>
 
-<?php endif; /* $hasResearch */ ?>
+<?php } /* $hasResearch */ ?>
 
 </body>
 </html>
