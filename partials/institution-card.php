@@ -1,12 +1,30 @@
 <?php
 /** Expects: $institution (assoc array row from `institutions` table) */
+
+require_once ROOT_PATH . '/includes/institution-logo.php';
+
+$logoUrl = institutionLogoUrl((string) $institution['name']);
+
+if ($logoUrl === null && !empty($institution['logo_path'])) {
+    $logoUrl = $institution['logo_path'];
+}
 ?>
-<a class="institution-card" href="<?= url('institution/'.$institution['slug']) ?>">
-    <?php if (! empty($institution['logo_path'])) { ?>
-        <img src="<?= e($institution['logo_path']) ?>" alt="<?= e($institution['name']) ?>" loading="lazy">
-    <?php } ?>
+
+<div class="institution-card">
+    <?php if ($logoUrl !== null && $logoUrl !== ''): ?>
+        <img
+                src="<?= e($logoUrl) ?>"
+                alt="<?= e($institution['name']) ?> logo"
+                loading="lazy"
+                decoding="async"
+        >
+    <?php endif; ?>
+
     <h3><?= e($institution['name']) ?></h3>
-    <?php if (! empty($institution['city'])) { ?>
-        <p class="location"><?= e($institution['city']) ?><?= ! empty($institution['state']) ? ', '.e($institution['state']) : '' ?></p>
-    <?php } ?>
-</a>
+
+    <?php if (!empty($institution['city'])): ?>
+        <p class="location">
+            <?= e($institution['city']) ?><?= !empty($institution['state']) ? ', ' . e($institution['state']) : '' ?>
+        </p>
+    <?php endif; ?>
+</div>

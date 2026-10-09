@@ -27,6 +27,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'GET') {
 }
 
 require_once __DIR__.'/../config.php';
+require_once __DIR__ . '/../includes/institution-logo.php';
 
 $slug = trim((string) ($_GET['slug'] ?? ''));
 
@@ -56,6 +57,9 @@ try {
             'message' => 'Institution not found.',
         ]);
     }
+    $institution['logo_url'] = institutionLogoUrl(
+        (string) ($institution['name'] ?? '')
+    );
 
     $grid = trim((string) (
         $institution['grid_id'] ?? $institution['grid'] ?? ''

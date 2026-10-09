@@ -1,11 +1,14 @@
 {
-    "require": {
-        "phpmailer/phpmailer": "^7.1",
-      "ext-pdo": "*",
-        "dompdf/dompdf": "^3.1"
-    },
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.95",
-        "laravel/pint": "^1.32"
-    }
+  "name": "indianscience/website",
+  "description": "Indian Science Reports website",
+  "license": "proprietary",
+  "require": {
+    "phpmailer/phpmailer": "^7.1",
+    "ext-pdo": "*",
+    "dompdf/dompdf": "^3.1"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.95",
+    "laravel/pint": "^1.32"
+  }
 }

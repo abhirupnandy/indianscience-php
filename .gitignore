@@ -1,3 +1,22 @@
+# Secrets and environment
 .env
+.env.*
+!.env.example
+
+# Local development
+.ddev/
+.idea/
+.vscode/
+
+# Backups and database dumps
+backups/
+*.sql
+*.sql.gz
+
+# Logs and temporary files
 *.log
+.php-cs-fixer.cache
+
+# Operating system
 .DS_Store
+Thumbs.db

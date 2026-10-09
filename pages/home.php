@@ -2,10 +2,13 @@
 // $pdo is available globally (set up in config.php)
 
 $majorInstitutions = $pdo->query(
-    'SELECT * FROM institutions
-     WHERE is_major = 1
-     ORDER BY name ASC
-     LIMIT 8',
+        'SELECT i.*, legacy.pub_count
+     FROM institutions AS i
+     INNER JOIN legacy_institutes AS legacy
+         ON i.grid_id COLLATE utf8mb4_unicode_ci
+          = legacy.grid COLLATE utf8mb4_unicode_ci
+     ORDER BY legacy.pub_count DESC, i.name ASC
+     LIMIT 10',
 )->fetchAll();
 
 $counters = $pdo->query(
@@ -368,44 +371,77 @@ $reports = [
 
 
     <!-- =========================================================
-         INSTITUTIONS
-    ========================================================== -->
+     INSTITUTIONS
+========================================================== -->
 
-    <section class="bg-slate-50 dark:bg-slate-900/40 px-4 sm:px-6 lg:px-8">
+    <section class='bg-slate-50 px-4 py-16 dark:bg-slate-900/40 sm:px-6 lg:px-8 lg:py-24'>
 
-        <div class="container py-16 lg:py-24">
+        <div class='container mx-auto'>
 
-            <div class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <!-- Section heading -->
+            <div class='mb-10 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between lg:mb-12'>
 
                 <div>
-                    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-500">
-                        Institutions
+                    <p class='text-xs font-semibold uppercase tracking-[0.2em] text-amber-600 dark:text-amber-400'>
+                        Research landscape
                     </p>
-                    <h2 class="mt-2 font-display text-3xl font-medium tracking-tight text-slate-950 dark:text-white">
-                        Major research institutions
+
+                    <h2 class='mt-3 font-display text-3xl font-medium tracking-tight text-slate-950 dark:text-white sm:text-4xl'>
+                        Leading research institutions
                     </h2>
+
+                    <p class='mt-3 max-w-xl text-sm leading-6 text-slate-600 dark:text-slate-400 sm:text-base'>
+                        Explore India's leading institutions by research publication output.
+                    </p>
                 </div>
 
-
                 <a href="<?= url('institutions') ?>"
-                   class="text-sm font-semibold text-slate-950 underline decoration-amber-400 decoration-2 underline-offset-4 dark:text-white">
-                    View all →
+                   class="group inline-flex w-fit shrink-0 items-center gap-2 text-sm font-semibold text-slate-900 transition-colors hover:text-amber-600 dark:text-white dark:hover:text-amber-400">
+                    Explore all institutions
+                    <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
                 </a>
 
             </div>
 
-            <div class="grid gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 sm:grid-cols-2 lg:grid-cols-4 dark:border-slate-800 dark:bg-slate-800">
+            <!-- Institution cards -->
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
 
                 <?php foreach ($majorInstitutions as $institution) { ?>
 
-                    <div class="group bg-white p-5 transition hover:bg-amber-50/50 dark:bg-slate-950 dark:hover:bg-slate-900">
+                    <a
+                            href="<?= url('institutions/' . $institution['slug']) ?>"
+                            class='group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white no-underline transition duration-200 hover:-translate-y-1 hover:border-amber-300 hover:shadow-lg hover:shadow-slate-900/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-amber-500/50 dark:hover:shadow-black/20 dark:focus-visible:ring-offset-slate-900'
+                            aria-label="View <?= htmlspecialchars($institution['name'], ENT_QUOTES, 'UTF-8') ?> institution profile"
+                    >
+                        <!-- Accent -->
+                        <div class='h-1 w-full bg-gradient-to-r from-amber-400 via-amber-500 to-orange-400 opacity-70 transition-opacity group-hover:opacity-100'></div>
 
-                        <?php partial('institution-card', [
-                            'institution' => $institution,
-                        ]); ?>
+                        <div class='flex flex-1 flex-col p-5'>
+                            <?php partial('institution-card', [
+                                    'institution' => $institution,
+                            ]); ?>
 
+                            <?php if (isset($institution['pub_count'])) { ?>
+                                <div class="mt-5 border-t border-slate-100 pt-4 dark:border-slate-800">
+                                    <p class="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                                        Publications
+                                    </p>
+                                    <p class="mt-1 text-xl font-semibold tabular-nums tracking-tight text-slate-950 dark:text-white">
+                                        <?= number_format((int)$institution['pub_count']) ?>
+                                    </p>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </a>
+
+                <?php } ?>
+
+                <?php if (empty($majorInstitutions)) { ?>
+                    <div class="col-span-full rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center dark:border-slate-700">
+                        <p class="text-sm text-slate-600 dark:text-slate-400">
+                            Institution data is currently unavailable.
+                        </p>
                     </div>
-
                 <?php } ?>
 
             </div>

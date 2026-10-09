@@ -7,6 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
     $email = trim((string) ($_POST['email'] ?? ''));
     $message = trim((string) ($_POST['message'] ?? ''));
 
+
+
     // Strip line breaks from single-line fields (prevents email header injection).
     $name = trim(preg_replace('/[\r\n]+/', ' ', $name));
     $email = trim(preg_replace('/[\r\n]+/', '', $email));
@@ -21,79 +23,88 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
         $feedbackStatus = 'error';
         $feedbackMessage = 'Your name or message is too long.';
     } else {
-        $to = getenv('FEEDBACK_EMAIL') ?: 'hello@example.com';
-        $from = getenv('SMTP_FROM') ?: 'noreply@example.com';
-        $subject = 'Website Feedback from '.$name;
+        $to = trim((string) getenv('FEEDBACK_EMAIL'));
+        $from = trim((string) getenv('SMTP_FROM'));
+        $smtpHost = trim((string) getenv('SMTP_HOST'));
+        $smtpUsername = (string) getenv('SMTP_USERNAME');
+        $smtpPassword = (string) getenv('SMTP_PASSWORD');
+        $smtpPort = (int) (getenv('SMTP_PORT') ?: 587);
+        $smtpEncryption = strtolower(trim((string) (getenv('SMTP_ENCRYPTION') ?: 'tls')));
 
-        // Build the email body from the template.
+        // Render both email bodies before passing them to PHPMailer.
         $template = (static function (array $data): array {
             extract($data, EXTR_SKIP);
 
-            return require ROOT_PATH.'/partials/email-contact-template.php';
+            return require ROOT_PATH . '/partials/email-contact-template.php';
         })([
-            'name' => $name,
-            'email' => $email,
-            'message' => $message,
-            'siteName' => SITE_NAME,
-            'sentAt' => date('d M Y, H:i'),
+                'name' => $name,
+                'email' => $email,
+                'message' => $message,
+                'siteName' => SITE_NAME,
+                'sentAt' => date('d M Y, H:i'),
         ]);
 
-        $htmlBody = $template['html'];
-        $textBody = $template['text'];
+        $htmlBody = (string) ($template['html'] ?? '');
+        $textBody = (string) ($template['text'] ?? '');
 
         $sent = false;
 
-        // 1) PHPMailer (if installed)
-        if (file_exists(ROOT_PATH.'/vendor/autoload.php')) {
-            require_once ROOT_PATH.'/vendor/autoload.php';
+        if ($htmlBody === '' || $textBody === '') {
+            error_log('Contact form: email template returned an empty body.');
+        } elseif (
+                $to === ''
+                || $from === ''
+                || $smtpHost === ''
+                || $smtpUsername === ''
+                || $smtpPassword === ''
+        ) {
+            error_log('Contact form: SMTP configuration is incomplete.');
+        } elseif (
+                !filter_var($to, FILTER_VALIDATE_EMAIL)
+                || !filter_var($from, FILTER_VALIDATE_EMAIL)
+                || !in_array($smtpEncryption, ['tls', 'ssl'], true)
+                || $smtpPort < 1
+                || $smtpPort > 65535
+        ) {
+            error_log('Contact form: SMTP configuration contains invalid values.');
+        } elseif (!is_file(ROOT_PATH . '/vendor/autoload.php')) {
+            error_log('Contact form: Composer autoload file not found.');
+        } else {
+            require_once ROOT_PATH . '/vendor/autoload.php';
 
-            if (class_exists('PHPMailer\\PHPMailer\\PHPMailer')) {
-                try {
-                    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
-                    $mail->CharSet = 'UTF-8';
-                    $mail->isSMTP();
-                    $mail->Host = getenv('SMTP_HOST') ?: 'localhost';
-                    $mail->Port = (int) (getenv('SMTP_PORT') ?: 25);
-                    $mail->SMTPAuth = false;
-                    $mail->setFrom($from, SITE_NAME);
-                    $mail->addAddress($to);
-                    $mail->addReplyTo($email, $name);
-                    $mail->isHTML(true);
-                    $mail->Subject = $subject;
-                    $mail->Body = $htmlBody;
-                    $mail->AltBody = $textBody;
-                    $sent = $mail->send();
-                } catch (Throwable $e) {
-                    $sent = false;
-                }
+            try {
+                $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+
+                $mail->isSMTP();
+                $mail->Host = $smtpHost;
+                $mail->SMTPAuth = true;
+                $mail->Username = $smtpUsername;
+                $mail->Password = $smtpPassword;
+                $mail->Port = $smtpPort;
+                $mail->SMTPSecure = $smtpEncryption === 'ssl'
+                        ? PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS
+                        : PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+
+                $mail->CharSet = PHPMailer\PHPMailer\PHPMailer::CHARSET_UTF8;
+
+                $mail->setFrom($from, SITE_NAME);
+                $mail->addAddress($to);
+                $mail->addReplyTo($email, $name);
+
+                $mail->Timeout = 10;
+                $mail->SMTPKeepAlive = false;
+
+                $mail->isHTML(true);
+                $mail->Subject = 'Website Feedback from ' . $name;
+                $mail->Body = $htmlBody;
+                $mail->AltBody = $textBody;
+
+                $mail->send();
+                $sent = true;
+            } catch (Throwable $e) {
+                // Keep SMTP credentials and internal errors out of the public response.
+                error_log('Contact form email failed: ' . $e->getMessage());
             }
-        }
-
-        // 2) Fallback: PHP mail() as multipart (text + HTML)
-        if (! $sent) {
-            $boundary = 'bnd_'.bin2hex(random_bytes(8));
-
-            $headers = [
-                'From: '.$from,
-                'Reply-To: '.$email,
-                'MIME-Version: 1.0',
-                'Content-Type: multipart/alternative; boundary="'.$boundary.'"',
-            ];
-
-            $body = "--{$boundary}\r\n"
-                    ."Content-Type: text/plain; charset=UTF-8\r\n\r\n"
-                    .$textBody."\r\n"
-                    ."--{$boundary}\r\n"
-                    ."Content-Type: text/html; charset=UTF-8\r\n\r\n"
-                    .$htmlBody."\r\n"
-                    ."--{$boundary}--";
-
-            $sent = mail(
-                $to,
-                '=?UTF-8?B?'.base64_encode($subject).'?=',
-                $body,
-                implode("\r\n", $headers)
-            );
         }
 
         if ($sent) {

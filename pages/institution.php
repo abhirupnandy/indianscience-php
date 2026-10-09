@@ -40,7 +40,13 @@ if ($slug === '') {
                 <div class="flex flex-col gap-5 sm:flex-row sm:items-start">
                     <div class="relative flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
                         <div id="institution-initials" class="flex h-full w-full items-center justify-center text-2xl font-bold text-blue-700 dark:text-blue-300" aria-hidden="true">—</div>
-                        <img id="institution-logo" class="hidden h-full w-full object-contain bg-white p-2" alt="Institution logo" loading="lazy" referrerpolicy="no-referrer">
+                        <img
+                                id='institution-logo'
+                                data-logo-url=''
+                                class='hidden h-full w-full object-contain bg-white p-2'
+                                alt='Institution logo'
+                                loading='lazy'
+                        >
                     </div>
                     <div class="min-w-0 flex-1">
                         <p class="text-xs font-semibold uppercase tracking-widest text-blue-700 dark:text-blue-300">Institutional Research Profile</p>
@@ -327,35 +333,31 @@ if ($slug === '') {
         async function loadInstitutionLogo(name) {
             const image = $('institution-logo');
             const initials = $('institution-initials');
-            if (!image || !name) return;
-            // Search Wikimedia by the institution name. If no suitable thumbnail exists,
-            // retain the initials placeholder instead of showing a broken image.
-            try {
-                const endpoint = new URL('https://en.wikipedia.org/w/api.php');
-                endpoint.searchParams.set('action', 'query');
-                endpoint.searchParams.set('generator', 'search');
-                endpoint.searchParams.set('gsrsearch', `${name} university institution logo`);
-                endpoint.searchParams.set('gsrnamespace', '0');
-                endpoint.searchParams.set('gsrlimit', '5');
-                endpoint.searchParams.set('prop', 'pageimages');
-                endpoint.searchParams.set('piprop', 'thumbnail');
-                endpoint.searchParams.set('pithumbsize', '300');
-                endpoint.searchParams.set('format', 'json');
-                endpoint.searchParams.set('origin', '*');
-                const response = await fetch(endpoint.toString());
-                if (!response.ok) return;
-                const json = await response.json();
-                const pages = Object.values(json?.query?.pages || {});
-                const candidate = pages.find(page => page.thumbnail?.source && /logo|university|college|institute|institution/i.test(page.title || ''))
-                    || pages.find(page => page.thumbnail?.source);
-                if (!candidate?.thumbnail?.source) return;
-                image.onload = () => { image.classList.remove('hidden'); initials.classList.add('hidden'); };
-                image.onerror = () => { image.classList.add('hidden'); initials.classList.remove('hidden'); };
-                image.src = candidate.thumbnail.source;
-                image.alt = `${name} logo or institutional image`;
-            } catch (_) {
-                // Logo retrieval is optional; the initials placeholder remains visible.
-            }
+
+            if (!image || !initials || !name) return;
+
+            // Start with the initials' placeholder.
+            image.classList.add('hidden');
+            initials.classList.remove('hidden');
+            image.removeAttribute('src');
+
+            // Use the local logo URL provided by the PHP page.
+            const logoUrl = image.dataset.logoUrl;
+
+            if (!logoUrl) return;
+
+            image.onload = () => {
+                image.classList.remove('hidden');
+                initials.classList.add('hidden');
+            };
+
+            image.onerror = () => {
+                image.classList.add('hidden');
+                initials.classList.remove('hidden');
+            };
+
+            image.alt = `${name} logo`;
+            image.src = logoUrl;
         }
 
         async function downloadReport() {
@@ -423,6 +425,12 @@ if ($slug === '') {
 
             const name = institution.name || 'Unnamed institution';
             $('institution-name').textContent = name;
+
+            const logo = $('institution-logo');
+            if (logo) {
+                logo.dataset.logoUrl = institution.logo_url || '';
+            }
+
             loadInstitutionLogo(name);
             $('institution-breadcrumb').textContent = name;
             document.title = `${name} | Indian Science Reports`;
@@ -466,10 +474,22 @@ if ($slug === '') {
 
             const details = $('institution-details');
             Object.entries(external).forEach(([key, value]) => {
-                if (!['grid', 'info', 'wiki_link'].includes(key)) addDetail(details, key, value);
+                if (!['grid', 'info', 'wiki_link', 'is_major'].includes(key)) {
+                    addDetail(details, key, value);
+                }
             });
             Object.entries(institution).forEach(([key, value]) => {
-                if (!['id', 'name', 'slug', 'grid_id', 'created_at', 'updated_at', 'description', 'source_note'].includes(key)) {
+                if (![
+                    'id',
+                    'name',
+                    'slug',
+                    'grid_id',
+                    'created_at',
+                    'updated_at',
+                    'description',
+                    'source_note',
+                    'is_major'
+                ].includes(key.toLowerCase())) {
                     addDetail(details, key, value);
                 }
             });
