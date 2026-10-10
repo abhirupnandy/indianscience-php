@@ -10,21 +10,24 @@ if ($logoUrl === null && !empty($institution['logo_path'])) {
 }
 ?>
 
-<div class="institution-card">
+<!-- Logo -->
+<div class="flex h-[145px] w-full shrink-0 items-center justify-center">
     <?php if ($logoUrl !== null && $logoUrl !== ''): ?>
         <img
-                src="<?= e($logoUrl) ?>"
-                alt="<?= e($institution['name']) ?> logo"
-                loading="lazy"
-                decoding="async"
+            src="<?= e($logoUrl) ?>"
+            alt="<?= e($institution['name']) ?> logo"
+            width="120"
+            height="120"
+            loading="lazy"
+            decoding="async"
+            class="!block !h-[120px] !w-[120px] !max-h-none !max-w-none shrink-0 object-contain object-center"
         >
     <?php endif; ?>
+</div>
 
-    <h3><?= e($institution['name']) ?></h3>
-
-    <?php if (!empty($institution['city'])): ?>
-        <p class="location">
-            <?= e($institution['city']) ?><?= !empty($institution['state']) ? ', ' . e($institution['state']) : '' ?>
-        </p>
-    <?php endif; ?>
+<!-- Institution name -->
+<div class="flex h-[76px] w-full shrink-0 items-start justify-center overflow-hidden pt-2">
+    <h3 class="line-clamp-3 w-full text-center text-sm font-medium leading-6 text-slate-900 dark:text-slate-100">
+        <?= e($institution['name']) ?>
+    </h3>
 </div>

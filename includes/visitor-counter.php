@@ -179,18 +179,19 @@ if (
 // Current total (initial render)
 // ------------------------------------------------------------
 
-$visitorTotal = 0;
+$visitorTotal = 3478;
 
 if (isset($pdo) && $pdo instanceof PDO) {
     try {
-        $visitorTotal = (int) $pdo
+        $databaseVisitorTotal = (int) $pdo
             ->query('SELECT COUNT(*) FROM visitors')
             ->fetchColumn();
+
+        $visitorTotal = 3478 + $databaseVisitorTotal;
     } catch (PDOException $e) {
-        error_log('Visitor counter error: '.$e->getMessage());
+        error_log('Visitor counter error: ' . $e->getMessage());
     }
 }
-
 ?>
 
 <div

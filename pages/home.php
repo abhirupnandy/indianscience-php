@@ -57,7 +57,7 @@ $reports = [
     [
         'title' => 'Collaboration',
         'metric' => 'Domestic vs. international',
-        'description' => 'Who Indian researchers publish with — domestic and international collaboration patterns by subject area, and the citation impact of each.',
+        'description' => 'Who Indian researchers publish with: domestic and international collaboration patterns by subject area, and the citation impact of each.',
         'url' => url('reports/collaboration'),
     ],
     [
@@ -404,38 +404,44 @@ $reports = [
             </div>
 
             <!-- Institution cards -->
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-
+            <div class="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            
                 <?php foreach ($majorInstitutions as $institution) { ?>
-
+            
                     <a
-                            href="<?= url('institutions/' . $institution['slug']) ?>"
-                            class='group relative flex min-w-0 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white no-underline transition duration-200 hover:-translate-y-1 hover:border-amber-300 hover:shadow-lg hover:shadow-slate-900/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-amber-500/50 dark:hover:shadow-black/20 dark:focus-visible:ring-offset-slate-900'
-                            aria-label="View <?= htmlspecialchars($institution['name'], ENT_QUOTES, 'UTF-8') ?> institution profile"
+                        href="<?= url('institutions/' . $institution['slug']) ?>"
+                        class="group relative flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white no-underline transition duration-200 hover:-translate-y-1 hover:border-amber-300 hover:shadow-lg hover:shadow-slate-900/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-amber-500/50 dark:hover:shadow-black/20 dark:focus-visible:ring-offset-slate-900"
+                        aria-label="View <?= e($institution['name']) ?> institution profile"
                     >
+            
                         <!-- Accent -->
-                        <div class='h-1 w-full bg-gradient-to-r from-amber-400 via-amber-500 to-orange-400 opacity-70 transition-opacity group-hover:opacity-100'></div>
-
-                        <div class='flex flex-1 flex-col p-5'>
+                        <div class="h-1 w-full shrink-0 bg-gradient-to-r from-amber-400 via-amber-500 to-orange-400 opacity-70 transition-opacity group-hover:opacity-100"></div>
+            
+                        <!-- Card content -->
+                        <div class="flex flex-1 flex-col p-5">
+            
                             <?php partial('institution-card', [
-                                    'institution' => $institution,
+                                'institution' => $institution,
                             ]); ?>
-
+            
+                            <!-- Publications -->
                             <?php if (isset($institution['pub_count'])) { ?>
-                                <div class="mt-5 border-t border-slate-100 pt-4 dark:border-slate-800">
+                                <div class="mt-auto border-t border-slate-100 pt-4 dark:border-slate-800">
                                     <p class="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                         Publications
                                     </p>
+            
                                     <p class="mt-1 text-xl font-semibold tabular-nums tracking-tight text-slate-950 dark:text-white">
-                                        <?= number_format((int)$institution['pub_count']) ?>
+                                        <?= number_format((int) $institution['pub_count']) ?>
                                     </p>
                                 </div>
                             <?php } ?>
+            
                         </div>
                     </a>
-
+            
                 <?php } ?>
-
+            
                 <?php if (empty($majorInstitutions)) { ?>
                     <div class="col-span-full rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center dark:border-slate-700">
                         <p class="text-sm text-slate-600 dark:text-slate-400">
@@ -443,7 +449,7 @@ $reports = [
                         </p>
                     </div>
                 <?php } ?>
-
+            
             </div>
 
         </div>

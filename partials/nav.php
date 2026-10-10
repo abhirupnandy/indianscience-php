@@ -18,27 +18,7 @@ $navigation = [
             ['label' => 'Institutional Reports', 'path' => 'institutions'],
         ],
     ],
-    ['label' => "India's Innovation Story", 'path' => 'reports/innovation'],
 ];
-
-$socialLinks = [
-    ['label' => 'Facebook', 'url' => 'https://facebook.com/indianscienceReports', 'icon' => 'facebook'],
-    ['label' => 'Twitter / X', 'url' => 'https://twitter.com/indianscienceReports', 'icon' => 'twitter'],
-    ['label' => 'LinkedIn', 'url' => 'https://linkedin.com/company/indianscienceReports', 'icon' => 'linkedin'],
-];
-
-function socialIcon(string $icon): string
-{
-    return match ($icon) {
-        'facebook' => '<svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.51 17.52 2 12 2S2 6.51 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.91h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94Z"/></svg>',
-
-        'twitter' => '<svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231ZM17.083 19.77h1.833L7.084 4.126H5.117Z"/></svg>',
-
-        'linkedin' => '<svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.58c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.68H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>',
-
-        default => '',
-    };
-}
 
 ?>
 
@@ -103,29 +83,6 @@ function socialIcon(string $icon): string
 
             <!-- Social + Theme -->
             <div class="flex items-center gap-1">
-
-                <?php foreach ($socialLinks as $social) { ?>
-
-                    <a href="<?= e($social['url']) ?>"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="<?= e($social['label']) ?>"
-                        class="flex h-9 w-9 items-center justify-center
-                              rounded-full text-slate-500
-                              hover:bg-amber-50 hover:text-slate-950
-                              dark:text-slate-400 dark:hover:bg-slate-800
-                              dark:hover:text-white">
-
-                        <?= socialIcon($social['icon']) ?>
-
-                    </a>
-
-                <?php } ?>
-
-
-                <!-- Divider -->
-                <span class="mx-2 h-5 w-px bg-slate-200 dark:bg-slate-700"></span>
-
 
                 <!-- Theme -->
                 <button

@@ -49,7 +49,7 @@ $routes = [
     'reports/major-institutions' => 'major_inst.php',
 
     // Others
-    'reports/innovation' => 'india_innovation_story.php',
+    // 'reports/innovation' => 'india_innovation_story.php',
 
     // Static pages
     'about' => 'about.php',

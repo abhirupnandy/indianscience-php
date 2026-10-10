@@ -473,25 +473,50 @@ if ($slug === '') {
             empty('institution-no-stats', $('institution-stat-cards').children.length === 0);
 
             const details = $('institution-details');
+
+            const hiddenFields = new Set([
+                'grid',
+                'info',
+                'wiki_link',
+                'is_major',
+                'logo_url'
+            ]);
+            
             Object.entries(external).forEach(([key, value]) => {
-                if (!['grid', 'info', 'wiki_link', 'is_major'].includes(key)) {
-                    addDetail(details, key, value);
+                const normalizedKey = key.toLowerCase().replace(/[^a-z0-9]/g, '');
+            
+                if ([
+                    'grid',
+                    'info',
+                    'wikilink',
+                    'ismajor',
+                    'logourl'
+                ].includes(normalizedKey)) {
+                    return;
                 }
+            
+                addDetail(details, key, value);
             });
+            
             Object.entries(institution).forEach(([key, value]) => {
-                if (![
+                const normalizedKey = key.toLowerCase().replace(/[^a-z0-9]/g, '');
+            
+                if ([
                     'id',
                     'name',
                     'slug',
-                    'grid_id',
-                    'created_at',
-                    'updated_at',
+                    'gridid',
+                    'createdat',
+                    'updatedat',
                     'description',
-                    'source_note',
-                    'is_major'
-                ].includes(key.toLowerCase())) {
-                    addDetail(details, key, value);
+                    'sourcenote',
+                    'ismajor',
+                    'logourl'
+                ].includes(normalizedKey)) {
+                    return;
                 }
+            
+                addDetail(details, key, value);
             });
 
             const portfolio = $('research-portfolio-indicators');

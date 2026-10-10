@@ -1,0 +1,71 @@
+# robots.txt for https://indianscience.net
+# Allow major search engines, block aggressive SEO/scraper crawlers.
+
+# ---------- Major search engines: allowed ----------
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Google-Extended
+User-agent: Applebot
+User-agent: DuckDuckBot
+User-agent: Baiduspider
+Disallow: /api/
+Disallow: /includes/
+Disallow: /partials/
+Disallow: /vendor/
+
+User-agent: Bingbot
+Crawl-delay: 5
+Disallow: /api/
+Disallow: /includes/
+Disallow: /partials/
+Disallow: /vendor/
+
+User-agent: YandexBot
+Crawl-delay: 5
+Disallow: /api/
+Disallow: /includes/
+Disallow: /partials/
+Disallow: /vendor/
+
+# ---------- Aggressive SEO / scraping crawlers: blocked ----------
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: MJ12bot
+User-agent: DotBot
+User-agent: BLEXBot
+User-agent: DataForSeoBot
+User-agent: PetalBot
+User-agent: Bytespider
+User-agent: SeznamBot
+User-agent: serpstatbot
+User-agent: MegaIndex
+User-agent: ZoominfoBot
+User-agent: AspiegelBot
+User-agent: Barkrowler
+User-agent: BomboraBot
+User-agent: Screaming Frog SEO Spider
+User-agent: HTTrack
+User-agent: Scrapy
+User-agent: python-requests
+User-agent: Go-http-client
+Disallow: /
+
+# ---------- Optional: AI training crawlers (remove "#" to block) ----------
+# User-agent: GPTBot
+# User-agent: ClaudeBot
+# User-agent: CCBot
+# User-agent: anthropic-ai
+# User-agent: PerplexityBot
+# User-agent: Amazonbot
+# Disallow: /
+
+# ---------- Everyone else: allowed, but slowed down and kept out of non-public paths ----------
+User-agent: *
+Crawl-delay: 10
+Disallow: /api/
+Disallow: /includes/
+Disallow: /partials/
+Disallow: /vendor/
+
+# Uncomment once you have a sitemap:
+# Sitemap: https://indianscience.net/sitemap.xml

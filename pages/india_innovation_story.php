@@ -243,253 +243,237 @@ $tags = [
             </article>
 
 
-            <!-- =================================================
-                 RIGHT SIDEBAR
-                 ================================================= -->
-
-            <aside
-                class="lg:sticky lg:top-24 lg:self-start">
-
-                <div
-                    class="overflow-hidden rounded-2xl border
-                           border-gray-200 bg-white
-                           dark:border-gray-800 dark:bg-gray-900">
-
-                    <!-- On this page -->
-                    <div class="p-5">
-
-                        <h3
-                            class="text-sm font-semibold uppercase
-                                   tracking-wider text-gray-900
-                                   dark:text-white">
-                            On this page
-                        </h3>
-
-                        <nav class="mt-4">
-
-                            <ul class="space-y-1">
-                                <?php foreach (
-                                    $sections as $index => $section
-                                ) { ?>
-                                    <li>
-                                        <a
-                                            href="#<?= e(
-                                                strtolower(
-                                                    preg_replace(
-                                                        '/[^a-z0-9]+/i',
-                                                        '-',
-                                                        $section,
-                                                    ),
-                                                ),
-                                            ) ?>"
-                                            class="block rounded-lg px-3 py-2
-                                                   text-sm leading-5
-                                                   text-gray-600 transition
-                                                   hover:bg-gray-100
-                                                   hover:text-gray-900
-                                                   dark:text-gray-400
-                                                   dark:hover:bg-gray-800
-                                                   dark:hover:text-white">
-                                            <?= e($section) ?>
-                                        </a>
-
-                                    </li>
-
-                                <?php } ?>
-
-                            </ul>
-
-                        </nav>
-
-                    </div>
-
-
-                    <!-- Divider -->
-                    <div
-                        class="border-t border-gray-200
-                               dark:border-gray-800"></div>
-
-
-                    <!-- Tags -->
-                    <div class="p-5">
-
-                        <h3
-                            class="text-sm font-semibold uppercase
-                                   tracking-wider text-gray-900
-                                   dark:text-white">
-                            Tags
-                        </h3>
-
-                        <div class="mt-4 flex flex-wrap gap-2">
-
-                            <?php foreach ($tags as $tag) { ?>
-
-                                <span
-                                    class="rounded-full border
-                                           border-gray-200 bg-gray-50
-                                           px-3 py-1.5 text-xs font-medium
-                                           text-gray-600
-                                           dark:border-gray-700
-                                           dark:bg-gray-800
-                                           dark:text-gray-300">
-                                    <?= e($tag) ?>
-                                </span>
-
-                            <?php } ?>
-
-                        </div>
-
-                    </div>
-
-
-
-                </div>
-                <!-- Citation Report -->
-                <div
-                        class="border-t border-gray-200 pt-5
-           dark:border-gray-800">
-
+        <!-- =================================================
+             RIGHT SIDEBAR
+             ================================================= -->
+        
+        <aside class="lg:sticky lg:top-24 lg:self-start">
+        
+            <div
+                class="overflow-hidden rounded-2xl border
+                       border-gray-200 bg-white
+                       dark:border-gray-800 dark:bg-gray-900">
+        
+                <!-- On this page -->
+                <div class="p-5">
+        
                     <h3
-                            class="text-sm font-semibold uppercase
-               tracking-wider text-gray-900
-               dark:text-white">
-                        Please cite this report as:
+                        class="text-sm font-semibold uppercase
+                               tracking-wider text-gray-900
+                               dark:text-white">
+                        On this page
                     </h3>
-
-                    <p class="mt-3 text-xs leading-5 text-gray-600 dark:text-gray-400">
-                        Data presented on this page are based on the following report.
-                        Select your preferred citation style.
-                    </p>
-
-                    <?php
-                    $reportUrl = 'https://indianscience.net/data/INDIA%E2%80%99S%20INNOVATION%20STORY.pdf';
-
-$citations = [
-    'apa' => 'Saraswat, V. K., Singh, V. K., Bhattacharya, S., Kanaujia, A., Sonkusare, A., Thyagaraju, B. M., Dhamija, A., Chanana, P., Agarwal, T., Kaur, S., Narang, D., & Suroor, N. (2025). *Pathways to progress: Analysis and insights into India’s innovation story*. NITI Aayog.',
-
-    'mla' => 'Saraswat, V. K., et al. *Pathways to Progress: Analysis and Insights into India’s Innovation Story*. NITI Aayog, 2025.',
-
-    'harvard' => 'Saraswat, V.K. et al. (2025) *Pathways to Progress: Analysis and Insights into India’s Innovation Story*. New Delhi: NITI Aayog.',
-
-    'vancouver' => 'Saraswat VK, Singh VK, Bhattacharya S, Kanaujia A, Sonkusare A, Thyagaraju BM, et al. Pathways to Progress: Analysis and Insights into India’s Innovation Story. New Delhi: NITI Aayog; 2025.',
-
-    'bibtex' => '@techreport{saraswat2025pathways,
-  title       = {Pathways to Progress: Analysis and Insights into India’s Innovation Story},
-  author      = {Saraswat, V. K. and Singh, Vivek Kumar and Bhattacharya, Sujit and Kanaujia, Anurag and Sonkusare, Ashok and Thyagaraju, B. M. and Dhamija, Akanksha and Chanana, Pratibha and Agarwal, Tusha and Kaur, Simarjot and Narang, Deepak and Suroor, Naba},
-  institution = {NITI Aayog},
-  address     = {New Delhi, India},
-  year        = {2025}
-}',
-];
-?>
-
-                    <div class="mt-4">
-
-                        <label
-                                for="report-citation-style"
-                                class="mb-2 block text-xs font-medium
-                   text-gray-700 dark:text-gray-300">
-                            Citation style
-                        </label>
-
-                        <select
-                                id="report-citation-style"
-                                class="w-full rounded-lg border border-gray-300
-                   bg-white px-3 py-2.5 text-sm text-gray-900
-                   focus:border-amber-500 focus:outline-none
-                   focus:ring-1 focus:ring-amber-500
-                   dark:border-gray-700 dark:bg-gray-900
-                   dark:text-white">
-
-                            <option value="apa">APA 7th edition</option>
-                            <option value="mla">MLA 9th edition</option>
-                            <option value="harvard">Harvard</option>
-                            <option value="vancouver">Vancouver</option>
-                            <option value="bibtex">BibTeX</option>
-
-                        </select>
-
-                    </div>
-
-                    <div
-                            class="mt-3 rounded-lg border border-gray-200
-               bg-gray-50 p-3 dark:border-gray-700
-               dark:bg-gray-800/60">
-
-                        <p
-                                id="report-citation-text"
-                                class="whitespace-pre-wrap break-words
-                   text-xs leading-5 text-gray-700
-                   dark:text-gray-300"><?= htmlspecialchars($citations['apa'], ENT_QUOTES, 'UTF-8') ?></p>
-
-                    </div>
-
-                    <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-
-                        <button
-                                type="button"
-                                id="copy-report-citation"
-                                class="inline-flex items-center justify-center gap-2
-                   rounded-lg border border-gray-300
-                   bg-white px-4 py-2.5 text-sm font-medium
-                   text-gray-800 transition hover:bg-gray-100
-                   dark:border-gray-700 dark:bg-gray-900
-                   dark:text-gray-200 dark:hover:bg-gray-800">
-
-                            <svg
-                                    class="h-4 w-4 shrink-0"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    aria-hidden="true">
-                                <rect x="8" y="8" width="13" height="13" rx="2"/>
-                                <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>
-                            </svg>
-
-                            <span id="copy-report-citation-label">Copy citation</span>
-
-                        </button>
-
-                        <a
-                                href="<?= htmlspecialchars($reportUrl, ENT_QUOTES, 'UTF-8') ?>"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="inline-flex items-center justify-center gap-2
-                   rounded-lg bg-gray-900 px-4 py-2.5
-                   text-sm font-medium text-white transition
-                   hover:bg-gray-700 dark:bg-white
-                   dark:text-gray-900 dark:hover:bg-gray-200">
-
-                            <svg
-                                    class="h-4 w-4 shrink-0"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    aria-hidden="true">
-                                <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/>
-                            </svg>
-
-                            Download Report
-
-                        </a>
-
-                    </div>
-
+        
+                    <nav class="mt-4">
+                        <ul class="space-y-1">
+                            <?php foreach ($sections as $section) { ?>
+                                <li>
+                                    <a
+                                        href="#<?= e(
+                                            strtolower(
+                                                preg_replace(
+                                                    '/[^a-z0-9]+/i',
+                                                    '-',
+                                                    $section,
+                                                ),
+                                            ),
+                                        ) ?>"
+                                        class="block rounded-lg px-3 py-2
+                                               text-sm leading-5
+                                               text-gray-600 transition
+                                               hover:bg-gray-100
+                                               hover:text-gray-900
+                                               dark:text-gray-400
+                                               dark:hover:bg-gray-800
+                                               dark:hover:text-white">
+                                        <?= e($section) ?>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </nav>
+        
                 </div>
+        
+                <div
+                    class="border-t border-gray-200
+                           dark:border-gray-800">
+                </div>
+        
+                <!-- Tags -->
+                <div class="p-5">
+        
+                    <h3
+                        class="text-sm font-semibold uppercase
+                               tracking-wider text-gray-900
+                               dark:text-white">
+                        Tags
+                    </h3>
+        
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <?php foreach ($tags as $tag) { ?>
+                            <span
+                                class="rounded-full border
+                                       border-gray-200 bg-gray-50
+                                       px-3 py-1.5 text-xs font-medium
+                                       text-gray-600
+                                       dark:border-gray-700
+                                       dark:bg-gray-800
+                                       dark:text-gray-300">
+                                <?= e($tag) ?>
+                            </span>
+                        <?php } ?>
+                    </div>
+        
+                </div>
+        
+            </div>
+        
+            <!-- Citation Report -->
+            <div class="mt-6">
+        
+                <h3
+                    class="text-sm font-semibold uppercase
+                           tracking-wider text-gray-900
+                           dark:text-white">
+                    Please cite this report as:
+                </h3>
+        
+                <p
+                    class="mt-3 text-xs leading-5
+                           text-gray-600 dark:text-gray-400">
+                    Data presented on this page are based on the following
+                    report. Select your preferred citation style.
+                </p>
+        
+                <?php
+                $reportUrl = 'https://indianscience.net/INDIA%E2%80%99S%20INNOVATION%20STORY.pdf';
+        
+                $citations = [
+                    'apa' => 'Saraswat, V. K., Singh, V. K., Bhattacharya, S., Kanaujia, A., Sonkusare, A., Thyagaraju, B. M., Dhamija, A., Chanana, P., Agarwal, T., Kaur, S., Narang, D., & Suroor, N. (2025). Pathways to progress: Analysis and insights into India’s innovation story. NITI Aayog.',
+        
+                    'mla' => 'Saraswat, V. K., et al. Pathways to Progress: Analysis and Insights into India’s Innovation Story. NITI Aayog, 2025.',
+        
+                    'harvard' => 'Saraswat, V.K. et al. (2025) Pathways to Progress: Analysis and Insights into India’s Innovation Story. New Delhi: NITI Aayog.',
+        
+                    'vancouver' => 'Saraswat VK, Singh VK, Bhattacharya S, Kanaujia A, Sonkusare A, Thyagaraju BM, et al. Pathways to Progress: Analysis and Insights into India’s Innovation Story. New Delhi: NITI Aayog; 2025.',
+        
+                    'bibtex' => '@report{saraswat2025pathways,
+            title       = {Pathways to Progress: Analysis and Insights into India’s Innovation Story},
+            author      = {Saraswat, V. K. and Singh, Vivek Kumar and Bhattacharya, Sujit and Kanaujia, Anurag and Sonkusare, Ashok and Thyagaraju, B. M. and Dhamija, Akanksha and Chanana, Pratibha and Agarwal, Tusha and Kaur, Simarjot and Narang, Deepak and Suroor, Naba},
+            institution = {NITI Aayog},
+            address     = {New Delhi, India},
+            year        = {2025}
+        }',
+                ];
+                ?>
+        
+                <div class="mt-4">
+        
+                    <label
+                        for="report-citation-style"
+                        class="mb-2 block text-xs font-medium
+                               text-gray-700 dark:text-gray-300">
+                        Citation style
+                    </label>
+        
+                    <select
+                        id="report-citation-style"
+                        class="w-full rounded-lg border border-gray-300
+                               bg-white px-3 py-2.5 text-sm text-gray-900
+                               focus:border-amber-500 focus:outline-none
+                               focus:ring-1 focus:ring-amber-500
+                               dark:border-gray-700 dark:bg-gray-900
+                               dark:text-white">
+        
+                        <option value="apa">APA 7th edition</option>
+                        <option value="mla">MLA 9th edition</option>
+                        <option value="harvard">Harvard</option>
+                        <option value="vancouver">Vancouver</option>
+                        <option value="bibtex">BibTeX</option>
+        
+                    </select>
+        
+                </div>
+        
+                <div
+                    class="mt-3 rounded-lg border border-gray-200
+                           bg-gray-50 p-3 dark:border-gray-700
+                           dark:bg-gray-800/60">
+        
+                    <p
+                        id="report-citation-text"
+                        class="whitespace-pre-wrap break-words
+                               text-xs leading-5 text-gray-700
+                               dark:text-gray-300"><?= htmlspecialchars($citations['apa'], ENT_QUOTES, 'UTF-8') ?></p>
+        
+                </div>
+        
+                <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        
+                    <button
+                        type="button"
+                        id="copy-report-citation"
+                        class="inline-flex items-center justify-center gap-2
+                               rounded-lg border border-gray-300
+                               bg-white px-4 py-2.5 text-sm font-medium
+                               text-gray-800 transition hover:bg-gray-100
+                               dark:border-gray-700 dark:bg-gray-900
+                               dark:text-gray-200 dark:hover:bg-gray-800">
+        
+                        <svg
+                            class="h-4 w-4 shrink-0"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            aria-hidden="true">
+                            <rect x="8" y="8" width="13" height="13" rx="2"/>
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>
+                        </svg>
+        
+                        <span id="copy-report-citation-label">
+                            Copy citation
+                        </span>
+        
+                    </button>
+        
+                    <a
+                        href="<?= htmlspecialchars($reportUrl, ENT_QUOTES, 'UTF-8') ?>"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center justify-center gap-2
+                               rounded-lg bg-gray-900 px-4 py-2.5
+                               text-sm font-medium text-white transition
+                               hover:bg-gray-700 dark:bg-white
+                               dark:text-gray-900 dark:hover:bg-gray-200">
+        
+                        <svg
+                            class="h-4 w-4 shrink-0"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            aria-hidden="true">
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/>
+                        </svg>
+        
+                        Download Report
+        
+                    </a>
+        
+                </div>
+        
+            </div>
+        
+        </aside>
 
-
-
-
-
-            </aside>
 
         </div>
 

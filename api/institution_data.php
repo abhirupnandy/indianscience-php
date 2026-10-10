@@ -85,7 +85,7 @@ try {
         sprintf(
             'mysql:host=%s;dbname=%s;charset=utf8mb4',
             getenv('DB_HOST') ?: '127.0.0.1',
-            'db'
+            getenv('LEGACY_DB_NAME') ?: 'db'
         ),
         getenv('DB_USER') ?: 'root',
         getenv('DB_PASS') ?: '',

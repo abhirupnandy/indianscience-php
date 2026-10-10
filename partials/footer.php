@@ -1,123 +1,3 @@
-<?php
-$feedbackStatus = '';
-$feedbackMessage = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
-    $name = trim((string) ($_POST['name'] ?? ''));
-    $email = trim((string) ($_POST['email'] ?? ''));
-    $message = trim((string) ($_POST['message'] ?? ''));
-
-
-
-    // Strip line breaks from single-line fields (prevents email header injection).
-    $name = trim(preg_replace('/[\r\n]+/', ' ', $name));
-    $email = trim(preg_replace('/[\r\n]+/', '', $email));
-
-    if ($name === '' || $email === '' || $message === '') {
-        $feedbackStatus = 'error';
-        $feedbackMessage = 'Please complete your name, email, and feedback message.';
-    } elseif (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $feedbackStatus = 'error';
-        $feedbackMessage = 'Please enter a valid email address.';
-    } elseif (mb_strlen($name) > 100 || mb_strlen($message) > 5000) {
-        $feedbackStatus = 'error';
-        $feedbackMessage = 'Your name or message is too long.';
-    } else {
-        $to = trim((string) getenv('FEEDBACK_EMAIL'));
-        $from = trim((string) getenv('SMTP_FROM'));
-        $smtpHost = trim((string) getenv('SMTP_HOST'));
-        $smtpUsername = (string) getenv('SMTP_USERNAME');
-        $smtpPassword = (string) getenv('SMTP_PASSWORD');
-        $smtpPort = (int) (getenv('SMTP_PORT') ?: 587);
-        $smtpEncryption = strtolower(trim((string) (getenv('SMTP_ENCRYPTION') ?: 'tls')));
-
-        // Render both email bodies before passing them to PHPMailer.
-        $template = (static function (array $data): array {
-            extract($data, EXTR_SKIP);
-
-            return require ROOT_PATH . '/partials/email-contact-template.php';
-        })([
-                'name' => $name,
-                'email' => $email,
-                'message' => $message,
-                'siteName' => SITE_NAME,
-                'sentAt' => date('d M Y, H:i'),
-        ]);
-
-        $htmlBody = (string) ($template['html'] ?? '');
-        $textBody = (string) ($template['text'] ?? '');
-
-        $sent = false;
-
-        if ($htmlBody === '' || $textBody === '') {
-            error_log('Contact form: email template returned an empty body.');
-        } elseif (
-                $to === ''
-                || $from === ''
-                || $smtpHost === ''
-                || $smtpUsername === ''
-                || $smtpPassword === ''
-        ) {
-            error_log('Contact form: SMTP configuration is incomplete.');
-        } elseif (
-                !filter_var($to, FILTER_VALIDATE_EMAIL)
-                || !filter_var($from, FILTER_VALIDATE_EMAIL)
-                || !in_array($smtpEncryption, ['tls', 'ssl'], true)
-                || $smtpPort < 1
-                || $smtpPort > 65535
-        ) {
-            error_log('Contact form: SMTP configuration contains invalid values.');
-        } elseif (!is_file(ROOT_PATH . '/vendor/autoload.php')) {
-            error_log('Contact form: Composer autoload file not found.');
-        } else {
-            require_once ROOT_PATH . '/vendor/autoload.php';
-
-            try {
-                $mail = new PHPMailer\PHPMailer\PHPMailer(true);
-
-                $mail->isSMTP();
-                $mail->Host = $smtpHost;
-                $mail->SMTPAuth = true;
-                $mail->Username = $smtpUsername;
-                $mail->Password = $smtpPassword;
-                $mail->Port = $smtpPort;
-                $mail->SMTPSecure = $smtpEncryption === 'ssl'
-                        ? PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS
-                        : PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
-
-                $mail->CharSet = PHPMailer\PHPMailer\PHPMailer::CHARSET_UTF8;
-
-                $mail->setFrom($from, SITE_NAME);
-                $mail->addAddress($to);
-                $mail->addReplyTo($email, $name);
-
-                $mail->Timeout = 10;
-                $mail->SMTPKeepAlive = false;
-
-                $mail->isHTML(true);
-                $mail->Subject = 'Website Feedback from ' . $name;
-                $mail->Body = $htmlBody;
-                $mail->AltBody = $textBody;
-
-                $mail->send();
-                $sent = true;
-            } catch (Throwable $e) {
-                // Keep SMTP credentials and internal errors out of the public response.
-                error_log('Contact form email failed: ' . $e->getMessage());
-            }
-        }
-
-        if ($sent) {
-            $feedbackStatus = 'success';
-            $feedbackMessage = 'Thank you. Your feedback has been sent successfully.';
-        } else {
-            $feedbackStatus = 'error';
-            $feedbackMessage = 'We could not send your message right now. Please try again later.';
-        }
-    }
-}
-?>
-
 </main>
 
 <footer class="w-full border-t border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
@@ -130,52 +10,132 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
                         We value your suggestions, questions, and comments about the portal.
                     </p>
 
-                    <?php if ($feedbackMessage !== '') { ?>
-                        <div class="mt-4 rounded-xl border px-3 py-2 text-sm <?= $feedbackStatus === 'success' ? 'border-green-200 bg-green-50 text-green-700 dark:border-green-900 dark:bg-green-950/50 dark:text-green-300' : 'border-red-200 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950/50 dark:text-red-300' ?>">
-                            <?= e($feedbackMessage) ?>
-                        </div>
-                    <?php } ?>
+                    <div id="feedback-status" class="mt-4 hidden rounded-xl border px-3 py-2 text-sm" role="status" aria-live="polite"></div>
 
-                    <form method="post" action="<?= e($_SERVER['REQUEST_URI'] ?? '/') ?>" class="mt-4 space-y-3">
+                    <form id="feedback-form"
+                          method="post"
+                          action="<?= e(url('api/feedback.php')) ?>?action=submit"
+                          data-api="<?= e(url('api/feedback.php')) ?>"
+                          class="relative mt-4 space-y-3">
                         <div class="grid gap-3 sm:grid-cols-2">
-                            <input
-                                    type="text"
-                                    name="name"
-                                    value="<?= $feedbackStatus === 'error' ? e($_POST['name'] ?? '') : '' ?>"
-                                    placeholder="Your name"
-                                    maxlength="100"
-                                    class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none ring-0 transition focus:border-[#1A4D8F] dark:border-gray-700 dark:bg-gray-950 dark:text-white"
-                                    required>
-                            <input
-                                    type="email"
-                                    name="email"
-                                    value="<?= $feedbackStatus === 'error' ? e($_POST['email'] ?? '') : '' ?>"
-                                    placeholder="Email address"
-                                    class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none ring-0 transition focus:border-[#1A4D8F] dark:border-gray-700 dark:bg-gray-950 dark:text-white"
-                                    required>
+                            <input type="text" name="name" placeholder="Your name" maxlength="100" autocomplete="name" class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none transition focus:border-[#1A4D8F] dark:border-gray-700 dark:bg-gray-950 dark:text-white" required>
+                            <input type="email" name="email" placeholder="Email address" autocomplete="email" class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none transition focus:border-[#1A4D8F] dark:border-gray-700 dark:bg-gray-950 dark:text-white" required>
+                        </div>
+                        <textarea name="message" rows="4" maxlength="5000" placeholder="Share your feedback..." class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none transition focus:border-[#1A4D8F] dark:border-gray-700 dark:bg-gray-950 dark:text-white" required></textarea>
+
+                        <div aria-hidden="true" class="absolute -left-[10000px] top-auto h-px w-px overflow-hidden">
+                            <label for="feedback-website">Leave this field empty</label>
+                            <input type="text" id="feedback-website" name="website" tabindex="-1" autocomplete="off">
                         </div>
 
-                        <textarea
-                                name="message"
-                                rows="4"
-                                maxlength="5000"
-                                placeholder="Share your feedback..."
-                                class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none ring-0 transition focus:border-[#1A4D8F] dark:border-gray-700 dark:bg-gray-950 dark:text-white"
-                                required><?= $feedbackStatus === 'error' ? e($_POST['message'] ?? '') : '' ?></textarea>
+                        <div class="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-950">
+                            <label for="captcha_answer" class="block text-sm font-semibold text-gray-900 dark:text-white">Spam protection</label>
+                            <p id="feedback-captcha-question" class="mt-1 text-sm text-gray-600 dark:text-gray-400">Loading verification question…</p>
+                            <input type="number" id="captcha_answer" name="captcha_answer" inputmode="numeric" step="1" required autocomplete="off" placeholder="Enter your answer" class="mt-3 w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none focus:border-[#1A4D8F] dark:border-gray-700 dark:bg-gray-950 dark:text-white">
+                            <input type="hidden" name="csrf_token" id="feedback-csrf-token">
+                            <input type="hidden" name="challenge_id" id="feedback-challenge-id">
+                            <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">Solve the arithmetic question to submit your feedback.</p>
+                        </div>
 
-                        <button
-                                type="submit"
-                                name="feedback_submit"
-                                value="1"
-                                class="inline-flex items-center justify-center rounded-lg bg-[#1A4D8F] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#153a73] dark:bg-[#1A4D8F] dark:hover:bg-[#153a73]">
-                            Send Feedback
-                        </button>
+                        <button type="submit" id="feedback-submit" class="inline-flex items-center justify-center rounded-lg bg-[#1A4D8F] px-4 py-2.5 text-sm font-medium text-white transition hover:bg-[#153a73] disabled:cursor-not-allowed disabled:opacity-60">Send Feedback</button>
                     </form>
+
+                    <script>
+                    (() => {
+                        const form = document.getElementById('feedback-form');
+                        if (!form || form.dataset.initialised) return;
+                        form.dataset.initialised = 'true';
+
+                        const api = form.dataset.api;
+                        const question = document.getElementById('feedback-captcha-question');
+                        const csrf = document.getElementById('feedback-csrf-token');
+                        const challenge = document.getElementById('feedback-challenge-id');
+                        const answer = document.getElementById('captcha_answer');
+                        const status = document.getElementById('feedback-status');
+                        const submit = document.getElementById('feedback-submit');
+
+                        const okClasses = ['border-green-200', 'bg-green-50', 'text-green-700', 'dark:border-green-900', 'dark:bg-green-950/50', 'dark:text-green-300'];
+                        const badClasses = ['border-red-200', 'bg-red-50', 'text-red-700', 'dark:border-red-900', 'dark:bg-red-950/50', 'dark:text-red-300'];
+
+                        const readJsonResponse = async (response) => {
+                            const body = await response.text();
+                            try {
+                                return JSON.parse(body);
+                            } catch (error) {
+                                const preview = body.replace(/\s+/g, ' ').slice(0, 140);
+                                throw new Error(
+                                    `The feedback API returned HTML or invalid JSON (HTTP ${response.status}). ` +
+                                    `Check that api/feedback.php exists at the public URL. Response: ${preview}`
+                                );
+                            }
+                        };
+
+                        const setStatus = (message, success = false) => {
+                            status.textContent = message;
+                            status.classList.remove('hidden', ...okClasses, ...badClasses);
+                            status.classList.add(...(success ? okClasses : badClasses));
+                        };
+
+                        const loadChallenge = async () => {
+                            question.textContent = 'Loading verification question…';
+                            try {
+                                const response = await fetch(api + '?action=challenge', {
+                                    credentials: 'same-origin',
+                                    headers: { 'Accept': 'application/json' },
+                                    cache: 'no-store',
+                                    redirect: 'follow'
+                                });
+                                const data = await readJsonResponse(response);
+                                if (!response.ok || !data.success) throw new Error(data.message || 'Could not load verification.');
+                                question.textContent = data.question;
+                                csrf.value = data.csrf_token;
+                                challenge.value = data.challenge_id;
+                                answer.value = '';
+                                submit.disabled = false;
+                            } catch (error) {
+                                question.textContent = 'Verification could not be loaded. Reload the page and try again.';
+                                setStatus(error.message || 'Could not load verification.');
+                                submit.disabled = true;
+                            }
+                        };
+
+                        form.addEventListener('submit', async (event) => {
+                            event.preventDefault();
+                            if (!form.reportValidity()) return;
+                            submit.disabled = true;
+                            submit.textContent = 'Sending…';
+                            try {
+                                const response = await fetch(api + '?action=submit', {
+                                    method: 'POST',
+                                    body: new FormData(form),
+                                    credentials: 'same-origin',
+                                    headers: { 'Accept': 'application/json' },
+                                    redirect: 'follow'
+                                });
+                                const data = await readJsonResponse(response);
+                                if (!response.ok || !data.success) throw new Error(data.message || 'Feedback could not be sent.');
+                                setStatus(data.message, true);
+                                form.elements.name.value = '';
+                                form.elements.email.value = '';
+                                form.elements.message.value = '';
+                                await loadChallenge();
+                            } catch (error) {
+                                setStatus(error.message || 'Feedback could not be sent. Please try again.');
+                                await loadChallenge();
+                            } finally {
+                                submit.disabled = false;
+                                submit.textContent = 'Send Feedback';
+                            }
+                        });
+
+                        loadChallenge();
+                    })();
+                    </script>
                 </div>
 
                 <div class="rounded-2xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-800 dark:bg-gray-900/60">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Visitors</h3>
-                    <?php require_once ROOT_PATH.'/includes/visitor-counter.php'; ?>
+                    <?php require_once ROOT_PATH . '/includes/visitor-counter.php'; ?>
                 </div>
             </div>
 
@@ -188,17 +148,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
                     <a href="<?= url('publications') ?>" class="text-gray-600 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Related Publications</a>
                     <a href="<?= url('terms') ?>" class="text-gray-600 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Terms of Use</a>
                 </nav>
-                <p class='shrink-0 text-center text text-gray-500 lg:text-right dark:text-gray-500'>
+                <p class="shrink-0 text-center text-sm text-gray-500 lg:text-right dark:text-gray-500">
                     &copy; <?= date('Y') ?>
-                    <a href='https://www.viveksingh.in' target='_blank' class="font-bold">
+                    <a href="https://www.viveksingh.in" target="_blank" rel="noopener" class="font-bold">
                         Prof. Vivek Kumar Singh
                     </a>
                 </p>
-
             </div>
         </div>
     </div>
 </footer>
+
 <!-- Back to top -->
 <button
         id="back-to-top"
@@ -239,17 +199,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
             stroke="currentColor"
             stroke-width="2"
             aria-hidden="true">
-
         <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 d="M5 11l7-7 7 7M12 4v16"/>
-
     </svg>
-
 </button>
 
 <style>
+    /* Sticky-footer layout: footer stays at the bottom on short pages,
+       but remains in normal document flow on long pages. */
+    html {
+        min-height: 100%;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    body > main {
+        flex: 1 0 auto;
+        width: 100%;
+    }
+
+    body > footer {
+        flex-shrink: 0;
+        width: 100%;
+        margin-top: auto;
+    }
+
     @keyframes back-to-top-bounce {
         0%, 100% {
             transform: translateY(0);
@@ -292,23 +272,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['feedback_submit'])) {
             button.tabIndex = visible ? 0 : -1;
         };
 
-        window.addEventListener('scroll', updateVisibility, {
-            passive: true
-        });
+        window.addEventListener('scroll', updateVisibility, { passive: true });
 
         button.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
-                behavior: window.matchMedia(
-                    '(prefers-reduced-motion: reduce)'
-                ).matches ? 'auto' : 'smooth'
+                behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
             });
         });
 
         updateVisibility();
     })();
 </script>
-
+<?php require ROOT_PATH . '/partials/cookies.php'; ?>
 </body>
 
 </html>
